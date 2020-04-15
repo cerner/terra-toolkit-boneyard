@@ -45,7 +45,7 @@
     "clean:install": "npm run clean && npm install",
     "clean:build": "rm -rf build",
     "compile": "babel src --out-dir lib --copy-files",
-    "jest": "jest --config jestConfig.js",
+    "jest": "jest --no-colors --config jestConfig.js",
     "lint": "eslint --ext .js .",
     "pack": "webpack --config tests/test.config.js -p",
     "postinstall": "node ./scripts/post-install/post-install.js",

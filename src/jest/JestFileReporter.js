@@ -13,7 +13,8 @@ class JestFileReporter extends VerboseReporter {
 
   // eslint-disable-next-line class-methods-use-this
   log(message) {
-    fs.appendFile('./result.txt', `${message}`);
+    console.log('****', message);
+    fs.appendFile('./result.txt', `${message}\n`);
   }
 }
 module.exports = JestFileReporter;
