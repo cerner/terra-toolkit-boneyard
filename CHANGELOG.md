@@ -5,11 +5,11 @@ Unreleased
 ----------
 ### Major Version Bump.
 
-### Fixed
-* Fixed wdio test termination caused by axe-core v3.2.0 error in IE when inspecting a page that contains an SVG element.
-
 ### Breaking Change
 * Upgrade axe-core version from 3.2.0 to 3.5.3
+
+### Fixed
+* Fixed wdio test termination caused by axe-core v3.2.0 error in IE when inspecting a page that contains an SVG element.
 
 5.25.0 - (April 7, 2020)
 ----------
