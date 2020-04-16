@@ -6,9 +6,9 @@ const fs = require('fs');
 
 // eslint-disable-next-line import/no-unresolved
 const moment = require('moment');
-// const path = require('path');
+const path = require('path');
 
-// const filePath = path.resolve(__dirname, './result.txt');
+const filePath = path.resolve(__dirname, './JestTestResults.txt');
 
 class JestFileReporter extends VerboseReporter {
   // eslint-disable-next-line no-useless-constructor
@@ -19,12 +19,12 @@ class JestFileReporter extends VerboseReporter {
   //  eslint-disable-next-line class-methods-use-this
   onRunStart(aggregatedResults, options) {
     const startDate = moment(aggregatedResults.startTime).format('MM/DD/YYYY HH:mm:ss');
-    fs.appendFile('./result.txt', `Started: ${startDate}\n\n`);
+    fs.appendFile(filePath, `Started: ${startDate}\n\n`);
   }
 
   //  eslint-disable-next-line class-methods-use-this
   log(message) {
-    fs.appendFile('./result.txt', `${message}\n`, (err) => {
+    fs.appendFile(filePath, `${message}\n`, (err) => {
       if (err) throw err;
     });
   }
@@ -32,7 +32,7 @@ class JestFileReporter extends VerboseReporter {
   //  eslint-disable-next-line class-methods-use-this
   onRunComplete(_contexts, _aggregatedResults) {
     const date = moment(Date.now()).format('MM/DD/YYYY HH:mm:ss');
-    fs.appendFile('./result.txt', `EndDate: ${date}\n\n`);
+    fs.appendFile(filePath, `\nEndDate: ${date}\n\n`);
   }
 }
 module.exports = JestFileReporter;

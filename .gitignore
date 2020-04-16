@@ -58,3 +58,4 @@ errorScreenshots
 **/aggregated-translations/*.*
 generated-themes
 package-lock.json
+**/jest/JestTestResults.txt
