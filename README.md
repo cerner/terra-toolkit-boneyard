@@ -9,10 +9,10 @@
 </h1>
 
 [![NPM version](https://badgen.net/npm/v/terra-toolkit)](https://www.npmjs.org/package/terra-toolkit)
-[![License](https://badgen.net/github/license/cerner/terra-toolkit)](https://github.com/cerner/terra-toolkit-boneyard/blob/master/LICENSE)
-[![Build Status](https://badgen.net/travis/cerner/terra-toolkit)](https://travis-ci.com/cerner/terra-toolkit)
-[![Dependencies status](https://badgen.net/david/dep/cerner/terra-toolkit)](https://david-dm.org/cerner/terra-toolkit)
-[![devDependencies status](https://badgen.net/david/dev/cerner/terra-toolkit)](https://david-dm.org/cerner/terra-toolkit?type=dev)
+[![License](https://badgen.net/github/license/cerner/terra-toolkit-boneyard)](https://github.com/cerner/terra-toolkit-boneyard/blob/master/LICENSE)
+[![Build Status](https://badgen.net/travis/cerner/terra-toolkit-boneyard)](https://travis-ci.com/cerner/terra-toolkit-boneyard)
+[![Dependencies status](https://badgen.net/david/dep/cerner/terra-toolkit-boneyard)](https://david-dm.org/cerner/terra-toolkit-boneyard)
+[![devDependencies status](https://badgen.net/david/dev/cerner/terra-toolkit-boneyard)](https://david-dm.org/cerner/terra-toolkit-boneyard?type=dev)
 
 Terra Toolkit is a utility module used to facilitate independent development of Terra projects. This toolkit provides build scripts, configurations, and Webdriver Services needed to serve assets, compile webpack, and run webdriver.io tests to streamline development of npm packages.
 
