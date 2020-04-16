@@ -1,4 +1,4 @@
-# Terra Toolkit Upgrade Guide v4.0.0
+# Terra Toolkit Upgrade Guide v6.0.0
 This document will provide information on upgrading from terra-toolkit 5.x to 6.0.0.
 
 ### AxeService
@@ -20,4 +20,3 @@ The following are rule `ids` of the new rules introduced between versions `3.2.0
 - [landmark-unique](https://dequeuniversity.com/rules/axe/3.5/landmark-unique)
 - [role-img-alt](https://dequeuniversity.com/rules/axe/3.5/role-img-alt)
 - [scrollable-region-focusable](https://dequeuniversity.com/rules/axe/3.5/scrollable-region-focusable) - This new rule is temporarily disabled by terra-toolkit because it causes failures in many Terra components and the solution to address this failure vary by component. This rule will be enabled in the future once a strategic solution is identified.
-
