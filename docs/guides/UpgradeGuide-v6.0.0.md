@@ -7,7 +7,7 @@ The `axe-core` dependency was updated from `3.2.0` to `3.5.3`. The version bump 
 Many bugs were fixed, new accessibility rules were added, and existing rules were fine-tuned in version `3.5.3`. All the changes between versions `3.2.0` and `3.5.3` can be found [here](https://github.com/dequelabs/axe-core/releases). Some of these changes are non-passive, hence the major version bump in terra-toolkit. If accessibility errors occur in webdriverio tests, follow the descriptive error messages to correct the failures. The error description shows useful information including the `description` and `id` of the error, a `helpUrl` with additional information about the error, a `failureSummary` with suggestion to fix the error, and most importantly the `html` element that causes the error. Below are the common accessibility errors encountered in Terra components.
 
 - `aria-input-field-name`: Ensure that the reported html element has the `aria-label` or `aria-labelledby` attribute.
-- `aria-required-children`: Ensure elements including explicit or implicit ARIA roles include required children elements. For example, if the `role` of the parent element is `listbox`, its children element must have a `role` of `option`.
+- `aria-required-children`: Ensure elements including explicit or implicit ARIA roles include required children elements. For example, if the `role` of the parent element is `listbox`, its children elements must have a `role` of `option`.
 - `color-contrast`: If the `opacity` css style is applied to an element to give it a `disabled` appearance and causes insufficient color-contrast with the background color, ensure that the `aria-disabled` attribute is added to this element.
 
 
