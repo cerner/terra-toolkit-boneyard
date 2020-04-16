@@ -20,7 +20,7 @@
   "author": "Cerner Corporation",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/cerner/terra-toolkit/issues"
+    "url": "https://github.com/cerner/terra-toolkit-boneyard/issues"
   },
   "bin": {
     "tt-clean-screenshots": "bin/clean-screenshots.js",

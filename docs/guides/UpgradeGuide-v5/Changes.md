@@ -315,7 +315,7 @@ const config = {
 }
 ```
 
-Documentation can now be found [here](https://github.com/cerner/terra-toolkit/blob/master/docs/Wdio_Utility.md).
+Documentation can now be found [here](https://github.com/cerner/terra-toolkit-boneyard/blob/master/docs/Wdio_Utility.md).
 
 ## Nightwatch
 

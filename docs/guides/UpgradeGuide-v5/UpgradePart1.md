@@ -52,7 +52,7 @@ Toolkit has defined a few webpack dependencies as peer dependencies to ensure yo
 
 This should resolve unmet webpack peer dependency errors we saw when updating the terra-toolkit version.
 
-If you provide any other webpack dev-dependencies in your package.json, either remove these or ensure they are using the correct versions. These include `sass-loader`, `babel-loader`, `node-sass`, `postcss`, etc. Here is the [list of webpack dependencies](https://github.com/cerner/terra-toolkit/blob/master/docs/Webpack.md#terras-configuration-requirements) that are installed with terra-toolkit.
+If you provide any other webpack dev-dependencies in your package.json, either remove these or ensure they are using the correct versions. These include `sass-loader`, `babel-loader`, `node-sass`, `postcss`, etc. Here is the [list of webpack dependencies](https://github.com/cerner/terra-toolkit-boneyard/blob/master/docs/Webpack.md#terras-configuration-requirements) that are installed with terra-toolkit.
 
 ## Step 3. Add Babel Peer Dependencies
 
@@ -193,7 +193,7 @@ Remove the `nightwatch` dev-dependency in your project.
 ```
 npm uninstall nightwatch
 ```
-If you still have nightwatch tests, these will need to be migrated to Webdriver tests. See the [Nightwatch to Webdriver.io Migration Guide](https://github.com/cerner/terra-toolkit/wiki/Webdriver.io-Migration-Guide#nightwatch-to-webdriverio-migration-guide) for more info.
+If you still have nightwatch tests, these will need to be migrated to Webdriver tests. See the [Nightwatch to Webdriver.io Migration Guide](https://github.com/cerner/terra-toolkit-boneyard/wiki/Webdriver.io-Migration-Guide#nightwatch-to-webdriverio-migration-guide) for more info.
 
 ## Step 7. Validate Dependency and Script Changes
 ### 1. Run `clean:install`
@@ -233,7 +233,7 @@ Verify your site is packed and served as static content.
 ```
 
 ## NEXT: Webdriver Test Updates
-See [Part 2 for more information on Webdriver changes](https://github.com/cerner/terra-toolkit/blob/master/docs/guides/UpgradeGuide-v5/UpgradePart2.md).
+See [Part 2 for more information on Webdriver changes](https://github.com/cerner/terra-toolkit-boneyard/blob/master/docs/guides/UpgradeGuide-v5/UpgradePart2.md).
 
 
 
