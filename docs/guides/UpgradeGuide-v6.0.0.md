@@ -11,7 +11,7 @@ Many bugs were fixed, new accessibility rules were added, and existing rules wer
 - `color-contrast`: If the `opacity` css style is applied to an element to give it a `disabled` appearance and causes insufficient color-contrast with the background color, ensure that the `aria-disabled` attribute is added to this element.
 
 
-The following are rule `ids` of the new rules introduced between versions `3.2.0` to `3.5.3`.
+The following are rule `ids` of the new rules introduced between versions `3.2.0` and `3.5.3`.
 - [aria-input-field-name](https://dequeuniversity.com/rules/axe/3.5/aria-input-field-name)
 - [aria-roledescription](https://dequeuniversity.com/rules/axe/3.5/aria-roledescription)
 - [aria-toggle-field-name](https://dequeuniversity.com/rules/axe/3.5/aria-toggle-field-name)
