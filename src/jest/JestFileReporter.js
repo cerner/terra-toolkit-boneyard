@@ -18,8 +18,9 @@ class JestFileReporter extends VerboseReporter {
 
   //  eslint-disable-next-line class-methods-use-this
   onRunStart(aggregatedResults, options) {
-    const startDate = moment(aggregatedResults.startTime).format('MM/DD/YYYY HH:mm:ss');
-    fs.appendFile(filePath, `Started: ${startDate}\n\n`);
+    const date = moment(aggregatedResults.startTime).format('MM/DD/YYYY HH:mm:ss');
+    const startDate = `Started: ${date}`;
+    fs.appendFile(filePath, `${startDate}\n\n`);
   }
 
   //  eslint-disable-next-line class-methods-use-this
@@ -32,7 +33,8 @@ class JestFileReporter extends VerboseReporter {
   //  eslint-disable-next-line class-methods-use-this
   onRunComplete(_contexts, _aggregatedResults) {
     const date = moment(Date.now()).format('MM/DD/YYYY HH:mm:ss');
-    fs.appendFile(filePath, `\nEndDate: ${date}\n\n`);
+    const endDate = `EndDate: ${date}`;
+    fs.appendFile(filePath, `\n${endDate}\n\n`);
   }
 }
 module.exports = JestFileReporter;
