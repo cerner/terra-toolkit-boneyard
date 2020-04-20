@@ -2,6 +2,8 @@
 /* eslint-disable class-methods-use-this */
 const VerboseReporter = require('@jest/reporters/build/verbose_reporter').default;
 
+const stripAnsi = require('strip-ansi');
+
 const fs = require('fs');
 
 // eslint-disable-next-line import/no-unresolved
@@ -25,7 +27,7 @@ class JestFileReporter extends VerboseReporter {
 
   //  eslint-disable-next-line class-methods-use-this
   log(message) {
-    fs.appendFile(filePath, `${message}\n`, (err) => {
+    fs.appendFile(filePath, `${stripAnsi(message)}\n`, (err) => {
       if (err) throw err;
     });
   }
