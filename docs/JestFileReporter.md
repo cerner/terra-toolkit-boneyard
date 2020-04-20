@@ -1,6 +1,6 @@
 # Jest File Reporter
 
-Jest File Reporter is a reporter which helps in pulling output from jest tests to a file
+Jest File Reporter is a reporter that logs jest test output to a file
 
 - This Reporter will shows us date/time of when the tests are started and when they are finished
 
@@ -10,62 +10,52 @@ Jest File Reporter is a reporter which helps in pulling output from jest tests t
 
 ## Configuration for Verbose
 
-Jest configuration can be defined in the package.json file or through jest.config file
-
-1) Set up verbose in package.json file
-
-2) Add Costume reporter in the jest.config file so that jest knows what reporter to use when outputting the test results.
-
-**Modifications in the package.json file**
-
-- To get verbose mode in Jest, you can run Jest with --verbose tag
-```javascript
-	"test": "npm run jest --verbose
-```
+Add Costume reporter in the jest.config file so that jest knows what reporter to use when outputting the test results.
 
 **Modifications in the jestConfig.js file**
+
+To get verbose mode in Jest set verbose to true 
+
+```javascript
+  verbose: true
+```
 
 This will use custom reporter in addition to default reporters that Jest uses.
 
 ```javascript
 {
-	"reporters": ["default", "<rootDir>/my-custom-reporter.js"]
+  "reporters": ["default", "<rootDir>/my-custom-reporter.js"]
 }
 ```
 
-## Test Reporter
+**This is how the generated log file looks**
+Started: 4/20/2020, 2:21:18 PM
 
-A test reporter is a hook into the test runner that allows for code to be executed at the start and end of the test run.
+ PASS  tests/jest/config/configUtils.test.js
+  dynamicRequire
+    ✓ returns undefined when invalid (6ms)
+    ✓ returns file when valid (25ms)
 
-There are many test reporters available for Jest. But they output the test results in the terminal. In our scenario we need output in the text file so we will need to do the following
+ PASS  tests/jest/config/wdio/selenium.config.test.js
+      ✓ returns chrome by default (4ms)
+      ✓ returns chrome when seleniumGridUrl env but no browsers env (1ms)
+      ✓ returns chrome when seleniumGridUrl env and browsers env
+      ✓ does not return chrome when chrome is not defined (1ms)
+    chrome capabilities
+      ✓ returns firefox when defined via browsers env (1ms)
+      ✓ returns firefox when seleniumGridUrl env but no browsers env
+      ✓ returns firefox when seleniumGridUrl env and browsers env (1ms)
+    ie capabilities
+      ✓ does not return ie when defined via browsers env and not seleniumGridUrl (7ms)
+  Wdio Selenium Configuration
+      ✓ returns ie when seleniumGridUrl env and browsers env (1ms)
 
-- **Override the verbose reporter log method** such that the test results gets displayed on a text file.
+ PASS  tests/jest/chai-methods.test.js
+  getComparisonResults
+    ✓ guards against an empty array of screenshots (5ms)
 
-Used strip-ansi to clear out the bad characters before we write them to the file.(https://www.npmjs.com/package/strip-ansi)
+      ✓ returns chrome when defined via browsers env (1ms)
+      ✓ returns ie when seleniumGridUrl env but no browsers env
+    firefox capabilities
 
-```javascript
-	//	overriding log method 
-	log(message) {
-		fs.appendFile(filePath, `${stripAnsi(message)}\n`, (err) => {
-		if (err) throw err;
-		});
-	}
-```
-**To get start Date and End Date in the result file do the following**
-
-- **Work on onRunStart event.** This stage is before the test run starts. So grab the start date/time of when the tests start.
-```javascript
-	onRunStart(aggregatedResults, options) {
-		const  date = moment(aggregatedResults.startTime).format('MM/DD/YYYY HH:mm:ss');
-		const  startDate = `Started: ${date}`;
-		fs.appendFile(filePath, `${startDate}\n\n`);
-	}
-```
-- **Work on onRunComplete event.** This stage is fired off after the log method is executed and can be used to process the test results after all tests have run. So grab the end date/time of when the tests ended in this stage.
-```javascript
-	onRunComplete(_contexts, _aggregatedResults) {
-		const  date = moment(Date.now()).format('MM/DD/YYYY HH:mm:ss');
-		const  endDate = `EndDate: ${date}`;
-		fs.appendFile(filePath, `\n${endDate}\n\n`);
-	}
-```
+EndDate: 4/20/2020, 2:21:23 PM

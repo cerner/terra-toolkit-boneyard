@@ -1,16 +1,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
 const VerboseReporter = require('@jest/reporters/build/verbose_reporter').default;
-
 const stripAnsi = require('strip-ansi');
-
 const fs = require('fs');
-
-// eslint-disable-next-line import/no-unresolved
-const moment = require('moment');
 const path = require('path');
 
-const filePath = path.resolve(__dirname, './JestTestResults.txt');
+const filePath = path.resolve(__dirname, '../../tests/jest/reports/coverage/JestTestResults.txt');
 
 class JestFileReporter extends VerboseReporter {
   // eslint-disable-next-line no-useless-constructor
@@ -18,25 +13,25 @@ class JestFileReporter extends VerboseReporter {
     super(globalConfig);
   }
 
-  //  eslint-disable-next-line class-methods-use-this
+  //  This stage is before the test run starts. So grab the start date/time of when the tests start.
   onRunStart(aggregatedResults, options) {
-    const date = moment(aggregatedResults.startTime).format('MM/DD/YYYY HH:mm:ss');
-    const startDate = `Started: ${date}`;
-    fs.appendFile(filePath, `${startDate}\n\n`);
+    const date = new Date(aggregatedResults.startTime).toLocaleString();
+    fs.appendFile(filePath, `Started: ${date}\n\n`);
   }
 
-  //  eslint-disable-next-line class-methods-use-this
+  // Override the verbose reporter log method such that the test results gets displayed on a text file.
   log(message) {
     fs.appendFile(filePath, `${stripAnsi(message)}\n`, (err) => {
-      if (err) throw err;
+      if (err) {
+        throw err;
+      }
     });
   }
 
-  //  eslint-disable-next-line class-methods-use-this
+  // This stage is fired off after the log method is executed.So grab the end date/time of when the tests ended in this stage.
   onRunComplete(_contexts, _aggregatedResults) {
-    const date = moment(Date.now()).format('MM/DD/YYYY HH:mm:ss');
-    const endDate = `EndDate: ${date}`;
-    fs.appendFile(filePath, `\n${endDate}\n\n`);
+    const date = new Date().toLocaleString();
+    fs.appendFile(filePath, `\nEndDate: ${date}\n\n`);
   }
 }
 module.exports = JestFileReporter;
