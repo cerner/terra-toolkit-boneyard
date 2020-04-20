@@ -29,7 +29,7 @@ This will use custom reporter in addition to default reporters that Jest uses.
 ```
 
 **This is how the generated log file looks**
-Started: 4/20/2020, 2:21:18 PM
+```Started: 4/20/2020, 2:21:18 PM
 
  PASS  tests/jest/config/configUtils.test.js
   dynamicRequire
@@ -58,4 +58,4 @@ Started: 4/20/2020, 2:21:18 PM
       ✓ returns ie when seleniumGridUrl env but no browsers env
     firefox capabilities
 
-EndDate: 4/20/2020, 2:21:23 PM
+EndDate: 4/20/2020, 2:21:23 PM```
