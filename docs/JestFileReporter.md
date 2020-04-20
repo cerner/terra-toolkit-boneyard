@@ -23,11 +23,6 @@ Jest configuration can be defined in the package.json file or through jest.confi
 	"test": "npm run jest --verbose
 ```
 
-- Disable colors of Jest test output by adding --no-colors tag to jest
-```javascript
-	"jest": jest --no-colors
-```
-
 **Modifications in the jestConfig.js file**
 
 This will use custom reporter in addition to default reporters that Jest uses.
@@ -45,11 +40,14 @@ A test reporter is a hook into the test runner that allows for code to be execut
 There are many test reporters available for Jest. But they output the test results in the terminal. In our scenario we need output in the text file so we will need to do the following
 
 - **Override the verbose reporter log method** such that the test results gets displayed on a text file.
+
+Used strip-ansi to clear out the bad characters before we write them to the file.(https://www.npmjs.com/package/strip-ansi)
+
 ```javascript
 	//	overriding log method 
 	log(message) {
-		fs.appendFile(filePath, `${message}\n`, (err) => {
-			if (err) throw  err;
+		fs.appendFile(filePath, `${stripAnsi(message)}\n`, (err) => {
+		if (err) throw err;
 		});
 	}
 ```
