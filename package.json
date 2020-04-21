@@ -1,6 +1,6 @@
 {
   "name": "terra-toolkit",
-  "version": "5.25.0",
+  "version": "6.0.0",
   "description": "Utilities to help when developing terra modules.",
   "main": "lib/index.js",
   "engines": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cerner/terra-toolkit"
+    "url": "git+https://github.com/cerner/terra-toolkit-boneyard"
   },
   "keywords": [
     "Cerner",
@@ -20,7 +20,7 @@
   "author": "Cerner Corporation",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/cerner/terra-toolkit/issues"
+    "url": "https://github.com/cerner/terra-toolkit-boneyard/issues"
   },
   "bin": {
     "tt-clean-screenshots": "bin/clean-screenshots.js",
@@ -49,6 +49,7 @@
     "lint": "eslint --ext .js .",
     "pack": "webpack --config tests/test.config.js -p",
     "postinstall": "node ./scripts/post-install/post-install.js",
+    "postpublish": "git push --follow-tags",
     "precompile": "rm -rf lib",
     "prepare": "npm run compile",
     "prepublishOnly": "npm whoami && check-installed-dependencies && npm test",
@@ -73,7 +74,7 @@
     "@jest/reporters": "^25.3.0",
     "async": "^3.0.1",
     "autoprefixer": "^9.5.1",
-    "axe-core": "3.2.0",
+    "axe-core": "3.5.3",
     "babel-loader": "^8.0.5",
     "chai": "^4.2.0",
     "chalk": "^2.4.2",

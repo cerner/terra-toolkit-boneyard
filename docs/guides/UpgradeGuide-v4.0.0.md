@@ -24,7 +24,7 @@ Terra Toolkit now offers a screenshot cleanup tool to remove `errorScreenshots`,
 
 This is available via the `tt-clean-screenshots` cli or the `clean-screenshots` javascript function.
 
-###### For more information about terra-wdio and clean-screenshots and for setup examples please go [here](https://github.com/cerner/terra-toolkit/tree/master/scripts/wdio).
+###### For more information about terra-wdio and clean-screenshots and for setup examples please go [here](https://github.com/cerner/terra-toolkit-boneyard/tree/master/scripts/wdio).
 
 
 ## Webpack Configuration

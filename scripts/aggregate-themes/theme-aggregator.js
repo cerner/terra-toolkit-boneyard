@@ -96,7 +96,6 @@ class ThemeAggregator {
       }
     });
 
-
     if (!themeAssets.length) {
       return null;
     }

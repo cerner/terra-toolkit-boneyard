@@ -103,7 +103,7 @@ Update the start script in your package json to use the serve script:
 ### serve-static options
 Serve static is a non-hot reloading server that uses express behind the scenes. The serve static method can either take a pre-compiled site folder or a webpack config to compile a site for you. It also offers a virtual file system to avoid saving files to disk. This server is also used by the new `ServeStaticService` to serve sites for wdio visual regression testing.
 
-###### Go here more information about serve and serve-static and to see examples please go [here](https://github.com/cerner/terra-toolkit/tree/master/scripts/serve).
+###### Go here more information about serve and serve-static and to see examples please go [here](https://github.com/cerner/terra-toolkit-boneyard/tree/master/scripts/serve).
 
 ## WebdriverIO
 More defaults have been added to the default wdio config. The only config that is now required to be provided is your webpack config and a global selector for taking screenshots. (If you are using terra-dev-site, use it's [provided wdio config](https://github.com/cerner/terra-dev-site/blob/master/config/wdio/wdio.conf.js) as these are both provided).
