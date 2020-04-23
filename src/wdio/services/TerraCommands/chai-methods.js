@@ -8,15 +8,13 @@ function accessible() {
   // eslint-disable-next-line no-underscore-dangle
   new chai.Assertion(this._obj).to.be.instanceof(Array);
 
-  // These are the new rules introduced in axe-core v3.3 and v3.4 to disable for now to remain passive.
+  /**
+    * This rule was introduced in axe-core v3.3 and causes failures in many Terra components.
+    * The solution to address this failure vary by component. It is being disabled until a solution is identified in the future.
+    *
+    * Reference: https://github.com/cerner/terra-framework/issues/991
+    */
   const axeRuleIdsToDisable = [
-    'aria-input-field-name',
-    'aria-roledescription',
-    'aria-toggle-field-name',
-    'avoid-inline-spacing',
-    'input-button-name',
-    'landmark-unique',
-    'role-img-alt',
     'scrollable-region-focusable',
   ];
 

@@ -63,9 +63,9 @@ describe('Theme Aggregator', () => {
       const config = { theme: 'terra-mock-dark-theme', scoped: [] };
       const file = ThemeAggregator.aggregate(null, { config });
 
-      const expected = '/opt/module/generated-themes/aggregated-themes.js';
+      const expected = '/generated-themes/aggregated-themes.js';
 
-      expect(file).toEqual(expected);
+      expect(file).toMatch(expected);
     });
 
     it('overrides the supplied config', () => {
@@ -77,9 +77,9 @@ describe('Theme Aggregator', () => {
       const config = { theme: 'terra-mock-dark-theme', scoped: [] };
       const file = ThemeAggregator.aggregate('terra-mock-rainbow-theme', { config });
 
-      const expected = '/opt/module/generated-themes/aggregated-themes.js';
+      const expected = '/generated-themes/aggregated-themes.js';
 
-      expect(file).toEqual(expected);
+      expect(file).toMatch(expected);
     });
   });
 
