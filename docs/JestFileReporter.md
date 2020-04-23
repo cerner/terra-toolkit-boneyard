@@ -6,9 +6,7 @@ Jest File Reporter is a reporter that logs jest test output to a file
 
 - Name of the tests and whether they've succeeded or failed
 
-**We are gonna use verbose which helps in displaying individual test results with the test suite hierarchy https://jestjs.io/docs/en/cli.html#--verbose**
-
-## Configuration for Verbose
+## Configuration for Verbose https://jestjs.io/docs/en/configuration
 
 Add Costume reporter in the jest.config file so that jest knows what reporter to use when outputting the test results.
 
