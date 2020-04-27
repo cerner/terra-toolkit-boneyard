@@ -8,6 +8,7 @@ const SUPPORTED_THEMES = [
   'orion-fusion-theme',
   'clinical-lowlight-theme',
   'cerner-clinical-theme',
+  'terra-default-theme',
 ];
 
 /**
