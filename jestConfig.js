@@ -1,6 +1,5 @@
 module.exports = {
   collectCoverage: true,
-  verbose: true,
   collectCoverageFrom: [
     'config/**/*.js',
     'scripts/aggregate-themes/**/*.js',
