@@ -1,18 +1,16 @@
-# Jest File Reporter
+# Terra Verbose Reporter
 
-Jest File Reporter is a reporter that logs jest test output to a file
+Terra Verbose Reporter is a Jest reporter that logs jest test output to a file with the following attributes.
 
-- This Reporter will shows us date/time of when the tests are started and when they are finished
+- The start and end of tests in date-time format
 
 - Name of the tests and whether they've succeeded or failed
 
-Add Costume reporter in the jest.config file so that jest knows what reporter to use when outputting the test results.
-
-This will use custom reporter in addition to default reporters that Jest uses.
+Add TerraVerboseReporter as an additional reporter within the jest.config file. Include "default" to avoid overriding default reporters
 
 ```javascript
 {
-  "reporters": ["default", "<rootDir>/my-custom-reporter.js"]
+  "reporters": ["default", "terra-toolkit-boneyard/src/jest/TerraVerboseReporter.js"]
 }
 ```
 
