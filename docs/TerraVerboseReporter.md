@@ -10,7 +10,7 @@ Add TerraVerboseReporter as an additional reporter within the jest.config file. 
 
 ```javascript
 {
-  "reporters": ["default", "terra-toolkit-boneyard/src/jest/TerraVerboseReporter.js"]
+  "reporters": ["default", "terra-toolkit/src/jest/TerraVerboseReporter.js"]
 }
 ```
 
