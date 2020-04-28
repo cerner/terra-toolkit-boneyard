@@ -17,7 +17,7 @@ module.exports = {
   ],
   reporters: [
     'default',
-    '<rootDir>/src/jest/JestFileReporter.js',
+    '<rootDir>/src/jest/TerraVerboseReporter.js',
   ],
   roots: [process.cwd()],
   testURL: 'http://localhost',
