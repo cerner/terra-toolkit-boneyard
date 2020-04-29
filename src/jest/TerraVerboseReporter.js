@@ -2,7 +2,7 @@ const VerboseReporter = require('@jest/reporters/build/verbose_reporter').defaul
 const stripAnsi = require('strip-ansi');
 const fs = require('fs');
 const path = require('path');
-const jsonMultilineStrings = require('json-multiline-strings');
+const endOfLine = require('os').EOL;
 
 class TerraVerboseReporter extends VerboseReporter {
   constructor(globalConfig) {
@@ -10,7 +10,7 @@ class TerraVerboseReporter extends VerboseReporter {
     this.filePathLocation = path.resolve(globalConfig.coverageDirectory, '../results', 'result-output.json');
     this.results = {
       StartDate: '',
-      Output: '',
+      Output: [],
       EndDate: '',
     };
   }
@@ -20,13 +20,15 @@ class TerraVerboseReporter extends VerboseReporter {
   }
 
   log(message) {
-    this.results.Output += `${stripAnsi(message)}\n`;
+    const readableMessage = `${stripAnsi(message)}${endOfLine}`;
+    if (readableMessage.search('\n') !== -1) {
+      this.results.Output.push(readableMessage.split(/\n/g).join(''));
+    }
   }
 
-  // This stage is fired off after the log method is executed.
   onRunComplete() {
     this.results.EndDate = new Date().toLocaleString();
-    fs.appendFile(this.filePathLocation, `${JSON.stringify(jsonMultilineStrings.split(this.results), null, 2)}`, { flag: 'a+' }, (err) => {
+    fs.appendFile(this.filePathLocation, `${JSON.stringify(this.results, null, 2)}`, { flag: 'a+' }, (err) => {
       if (err) {
         console.log(`File Error -> ${err.message}`);
       }
