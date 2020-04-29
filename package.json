@@ -87,7 +87,6 @@
     "fs-extra": "^8.0.1",
     "glob": "^7.1.1",
     "ip": "^1.1.5",
-    "json-multiline-strings": "^0.1.0",
     "lodash.startcase": "^4.4.0",
     "memory-fs": "^0.4.1",
     "mini-css-extract-plugin": "^0.8.0",
