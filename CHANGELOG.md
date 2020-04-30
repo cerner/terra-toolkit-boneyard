@@ -4,6 +4,10 @@ Changelog
 Unreleased
 ----------
 
+### Terra Verbose Reporter.
+
+* Terra Verbose Reporter that logs jest test results to a json file.
+
 6.0.0 - (April 21, 2020)
 ----------
 ### Major Version Bump.
