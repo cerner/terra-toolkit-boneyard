@@ -12,6 +12,4 @@ module.exports = () => {
     themeConfig = require(defaultConfig);
   }
   return themeConfig;
-}
-
-
+};
