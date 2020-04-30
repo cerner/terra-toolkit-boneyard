@@ -3,12 +3,11 @@ Changelog
 
 Unreleased
 ----------
+### Added
+* Terra Verbose Reporter that logs jest test results to a json file.
+
 ### Changed
 * Disabled color-contrast axe-core rule for clinical-lowlight-theme wdio testing
-
-### Terra Verbose Reporter.
-
-* Terra Verbose Reporter that logs jest test results to a json file.
 
 6.0.0 - (April 21, 2020)
 ----------
