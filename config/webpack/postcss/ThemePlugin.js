@@ -1,9 +1,7 @@
-const fs = require('fs-extra');
-const path = require('path');
 const postcss = require('postcss');
 const removeCssModulesPseudoClasses = require('./_removeCssModulesPseudoClasses');
+const getThemeConfig = require('./_getThemeConfig');
 
-const CONFIG = 'terra-theme.config.js';
 const SUPPORTED_THEMES = [
   'orion-fusion-theme',
   'clinical-lowlight-theme',
@@ -17,16 +15,7 @@ const SUPPORTED_THEMES = [
  */
 module.exports = postcss.plugin('terra-theme-plugin', (config) => {
   // Retrieve theme config.
-  let themeConfig = {};
-  if (config) {
-    themeConfig = config;
-  } else {
-    const defaultConfig = path.resolve(process.cwd(), CONFIG);
-    if (fs.existsSync(defaultConfig)) {
-      // eslint-disable-next-line global-require, import/no-dynamic-require
-      themeConfig = require(defaultConfig);
-    }
-  }
+  const themeConfig = config || getThemeConfig();
 
   // Add the . to find the selector.
   const defaultThemeSelector = `.${themeConfig.theme}`;

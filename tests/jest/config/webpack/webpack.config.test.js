@@ -83,6 +83,7 @@ describe('webpack config', () => {
       const definePluginOptions = expect.objectContaining({
         CERNER_BUILD_TIMESTAMP: JSON.stringify(new Date(mockDate).toISOString()),
         TERRA_AGGREGATED_LOCALES: undefined,
+        TERRA_THEME_CONFIG: JSON.stringify({}),
       });
       expect(DefinePlugin).toBeCalledWith(definePluginOptions);
     });
@@ -177,6 +178,7 @@ describe('webpack config', () => {
       const definePluginOptions = expect.objectContaining({
         CERNER_BUILD_TIMESTAMP: JSON.stringify(new Date(mockDate).toISOString()),
         TERRA_AGGREGATED_LOCALES: undefined,
+        TERRA_THEME_CONFIG: JSON.stringify({}),
       });
       expect(DefinePlugin).toBeCalledWith(definePluginOptions);
 
@@ -227,6 +229,7 @@ describe('webpack config', () => {
       const expected = {
         CERNER_BUILD_TIMESTAMP: JSON.stringify(new Date(mockDate).toISOString()),
         TERRA_AGGREGATED_LOCALES: undefined,
+        TERRA_THEME_CONFIG: JSON.stringify({}),
       };
       expect(DefinePlugin).toBeCalledWith(expected);
     });
@@ -247,6 +250,7 @@ describe('webpack config', () => {
       const expected = {
         CERNER_BUILD_TIMESTAMP: JSON.stringify(new Date(mockDate).toISOString()),
         TERRA_AGGREGATED_LOCALES: JSON.stringify(aggregateOptions.locales),
+        TERRA_THEME_CONFIG: JSON.stringify({}),
       };
       expect(DefinePlugin).toBeCalledWith(expected);
     });
