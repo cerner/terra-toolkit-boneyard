@@ -3,6 +3,8 @@ Changelog
 
 Unreleased
 ----------
+### Changed
+* Disabled color-contrast axe-core rule for clinical-lowlight-theme wdio testing
 
 ### Terra Verbose Reporter.
 
