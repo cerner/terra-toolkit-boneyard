@@ -6,6 +6,8 @@ Terra Verbose Reporter is a Jest reporter that logs jest test output to a file w
 
 - Name of the tests and whether they've succeeded or failed
 
+## Usage
+
 Add TerraVerboseReporter as an additional reporter within the jest.config file. Include "default" to avoid overriding default reporters
 
 ```javascript
@@ -14,7 +16,7 @@ Add TerraVerboseReporter as an additional reporter within the jest.config file. 
 }
 ```
 
-**This is how the generated log file looks**
+This is how the generated log file looks:
 ```
 { 
   "StartDate": "4/28/2020, 10:08:49 AM",

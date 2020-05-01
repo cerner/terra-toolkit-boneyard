@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`screenshotOptions honors custom selector 1`] = `
+Object {
+  "name": "default",
+  "selector": "custom-id",
+}
+`;
+
+exports[`screenshotOptions honors custom viewports 1`] = `
+Object {
+  "name": "default",
+  "selector": "[data-terra-toolkit-content]",
+  "viewports": Array [
+    Object {
+      "height": 100,
+      "width": 100,
+    },
+  ],
+}
+`;
