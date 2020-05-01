@@ -34,8 +34,8 @@ describe('Jest File Reporter Testing', () => {
     expect(fsWriteSpy).toBeCalled();
   });
 
-  it('should set reportDir when no globalConfig.rootDir not available', () => {
+  it('should set resultDir when no globalConfig.rootDir not available', () => {
     const terraVerboseReporter = new TerraVerboseReporter({});
-    expect(terraVerboseReporter.reportDir).toEqual(expect.stringContaining('jest/reports'));
+    expect(terraVerboseReporter.resultDir).toEqual(expect.stringContaining('jest/reports'));
   });
 });

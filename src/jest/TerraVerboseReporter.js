@@ -3,19 +3,19 @@ const stripAnsi = require('strip-ansi');
 const fs = require('fs');
 const path = require('path');
 const endOfLine = require('os').EOL;
-// const Logger = require('../../scripts/utils/logger');
+const Logger = require('../../scripts/utils/logger');
 
-// const LOG_CONTEXT = '[Terra-Toolkit:theme-aggregator]';
+const LOG_CONTEXT = '[Terra-Toolkit:theme-aggregator]';
 
 class TerraVerboseReporter extends VerboseReporter {
   constructor(globalConfig) {
     super(globalConfig);
     if (!globalConfig.rootDir) {
-      this.reportDir = path.resolve(__dirname, '..', '..', 'tests/jest/reports/results');
+      this.resultDir = path.resolve(__dirname, '..', '..', 'tests/jest/reports/results');
     } else {
-      this.reportDir = path.resolve(globalConfig.rootDir, 'tests/jest/reports/results');
+      this.resultDir = path.resolve(globalConfig.rootDir, 'tests/jest/reports/results');
     }
-    this.filePathLocation = `${this.reportDir}/result-output.json`;
+    this.filePathLocation = `${this.resultDir}/result-output.json`;
     this.results = {
       StartDate: '',
       Output: [],
@@ -27,9 +27,17 @@ class TerraVerboseReporter extends VerboseReporter {
     this.checkResultDirExist();
   }
 
+  hasReportDir() {
+    const reportDir = path.resolve(this.resultDir, '..');
+    if (!fs.existsSync(reportDir)) {
+      fs.mkdirSync(reportDir);
+    }
+  }
+
   checkResultDirExist() {
-    if (this.reportDir && !fs.existsSync(this.reportDir)) {
-      fs.mkdirSync(this.reportDir);
+    if (this.resultDir && !fs.existsSync(this.resultDir)) {
+      this.hasReportDir();
+      fs.mkdirSync(this.resultDir);
     }
   }
 
@@ -51,8 +59,7 @@ class TerraVerboseReporter extends VerboseReporter {
     this.results.EndDate = new Date().toLocaleString();
     fs.writeFile(this.filePathLocation, `${JSON.stringify(this.results, null, 2)}`, { flag: 'w+' }, (err) => {
       if (err) {
-        console.log('file error => ', err.message);
-        // Logger.error(err.message, { context: LOG_CONTEXT });
+        Logger.error(err.message, { context: LOG_CONTEXT });
       }
     });
   }
