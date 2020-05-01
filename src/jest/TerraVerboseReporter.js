@@ -10,10 +10,10 @@ const endOfLine = require('os').EOL;
 class TerraVerboseReporter extends VerboseReporter {
   constructor(globalConfig) {
     super(globalConfig);
-    if (globalConfig.coverageDirectory === undefined) {
-      this.reportDir = path.resolve(__dirname, '..', 'tests/jest/reports');
+    if (!globalConfig.rootDir) {
+      this.reportDir = path.resolve(__dirname, '..', '..', 'tests/jest/reports/results');
     } else {
-      this.reportDir = path.resolve(globalConfig.coverageDirectory, '../results');
+      this.reportDir = path.resolve(globalConfig.rootDir, 'tests/jest/reports/results');
     }
     this.filePathLocation = `${this.reportDir}/result-output.json`;
     this.results = {
@@ -28,7 +28,7 @@ class TerraVerboseReporter extends VerboseReporter {
   }
 
   checkResultDirExist() {
-    if (!fs.existsSync(this.reportDir)) {
+    if (this.reportDir && !fs.existsSync(this.reportDir)) {
       fs.mkdirSync(this.reportDir);
     }
   }
