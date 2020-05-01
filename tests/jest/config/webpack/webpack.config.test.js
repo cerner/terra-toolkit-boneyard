@@ -20,8 +20,6 @@ const getThemeConfig = require('../../../../config/webpack/postcss/_getThemeConf
 
 const outputPath = expect.stringContaining('build');
 
-getThemeConfig.mockImplementation(() => ({ }));
-
 const mockDate = 1571689941977;
 
 describe('webpack config', () => {
