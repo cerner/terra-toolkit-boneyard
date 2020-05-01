@@ -15,6 +15,7 @@ Add TerraVerboseReporter as an additional reporter within the jest.config file. 
   "reporters": ["default", "terra-toolkit/src/jest/TerraVerboseReporter.js"]
 }
 ```
+## Report Format
 
 This is how the generated log file looks:
 ```
