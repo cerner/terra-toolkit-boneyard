@@ -42,21 +42,21 @@ class TerraVerboseReporter extends VerboseReporter {
   }
 
   onRunStart(aggregatedResults) {
-    this.results.StartDate = new Date(aggregatedResults.startTime).toLocaleString();
+    this.results.startDate = new Date(aggregatedResults.startTime).toLocaleString();
   }
 
   log(message) {
     const readableMessage = `${stripAnsi(message)}${endOfLine}`;
     if (readableMessage.search('\n') !== -1) {
-      this.results.Output.push(readableMessage.split(/\n/g).forEach((piece) => {
+      this.results.output.push(readableMessage.split(/\n/g).forEach((piece) => {
         this.unformattedResult.push(piece);
       }));
     }
-    this.results.Output = this.unformattedResult.filter((obj) => obj);
+    this.results.output = this.unformattedResult.filter((obj) => obj);
   }
 
   onRunComplete() {
-    this.results.EndDate = new Date().toLocaleString();
+    this.results.endDate = new Date().toLocaleString();
     fs.writeFile(this.filePathLocation, `${JSON.stringify(this.results, null, 2)}`, { flag: 'w+' }, (err) => {
       if (err) {
         Logger.error(err.message, { context: LOG_CONTEXT });
