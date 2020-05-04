@@ -5,7 +5,7 @@ const path = require('path');
 const endOfLine = require('os').EOL;
 const Logger = require('../../scripts/utils/logger');
 
-const LOG_CONTEXT = '[Terra-Toolkit:theme-aggregator]';
+const LOG_CONTEXT = '[Terra-Toolkit:terra-verbose-reporter]';
 
 class TerraVerboseReporter extends VerboseReporter {
   constructor(globalConfig) {
