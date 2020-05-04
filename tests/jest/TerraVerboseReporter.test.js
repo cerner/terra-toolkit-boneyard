@@ -23,7 +23,7 @@ describe('Jest File Reporter Testing', () => {
     terraVerboseReporter.onRunComplete();
     expect(terraVerboseReporter.results).toHaveProperty('output');
     expect(terraVerboseReporter.results).toHaveProperty('endDate');
-    expect(typeof terraVerboseReporter.results.Output).toEqual('object');
+    expect(typeof terraVerboseReporter.results.output).toEqual('object');
   });
 
   it('should have output property in the result and have some length while calling log ', () => {

@@ -15,7 +15,7 @@ class TerraVerboseReporter extends VerboseReporter {
     } else {
       this.resultDir = path.resolve(globalConfig.rootDir, 'tests/jest/reports/results');
     }
-    this.filePathLocation = `${this.resultDir}/result-output.json`;
+    this.filePathLocation = `${this.resultDir}/terra-verbose-results.json`;
     this.results = {
       startDate: '',
       output: [],
