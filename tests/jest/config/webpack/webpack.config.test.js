@@ -5,6 +5,7 @@ jest.mock('mini-css-extract-plugin');
 jest.mock('clean-webpack-plugin');
 jest.mock('terser-webpack-plugin');
 jest.mock('webpack/lib/DefinePlugin');
+jest.mock('../../../../config/webpack/postcss/_getThemeConfig');
 
 // Import mocked components
 const PostCSSAssetsPlugin = require('postcss-assets-webpack-plugin');
@@ -15,8 +16,11 @@ const TerserPlugin = require('terser-webpack-plugin');
 const aggregateTranslations = require('terra-aggregate-translations');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const webpackConfig = require('../../../../config/webpack/webpack.config');
+const getThemeConfig = require('../../../../config/webpack/postcss/_getThemeConfig');
 
 const outputPath = expect.stringContaining('build');
+
+getThemeConfig.mockImplementation(() => ({ }));
 
 const mockDate = 1571689941977;
 
@@ -83,6 +87,7 @@ describe('webpack config', () => {
       const definePluginOptions = expect.objectContaining({
         CERNER_BUILD_TIMESTAMP: JSON.stringify(new Date(mockDate).toISOString()),
         TERRA_AGGREGATED_LOCALES: undefined,
+        TERRA_THEME_CONFIG: JSON.stringify({}),
       });
       expect(DefinePlugin).toBeCalledWith(definePluginOptions);
     });
@@ -177,6 +182,7 @@ describe('webpack config', () => {
       const definePluginOptions = expect.objectContaining({
         CERNER_BUILD_TIMESTAMP: JSON.stringify(new Date(mockDate).toISOString()),
         TERRA_AGGREGATED_LOCALES: undefined,
+        TERRA_THEME_CONFIG: JSON.stringify({}),
       });
       expect(DefinePlugin).toBeCalledWith(definePluginOptions);
 
@@ -227,6 +233,7 @@ describe('webpack config', () => {
       const expected = {
         CERNER_BUILD_TIMESTAMP: JSON.stringify(new Date(mockDate).toISOString()),
         TERRA_AGGREGATED_LOCALES: undefined,
+        TERRA_THEME_CONFIG: JSON.stringify({}),
       };
       expect(DefinePlugin).toBeCalledWith(expected);
     });
@@ -247,6 +254,7 @@ describe('webpack config', () => {
       const expected = {
         CERNER_BUILD_TIMESTAMP: JSON.stringify(new Date(mockDate).toISOString()),
         TERRA_AGGREGATED_LOCALES: JSON.stringify(aggregateOptions.locales),
+        TERRA_THEME_CONFIG: JSON.stringify({}),
       };
       expect(DefinePlugin).toBeCalledWith(expected);
     });
@@ -270,5 +278,22 @@ describe('webpack config', () => {
       };
       expect(config.devServer).toEqual(expect.objectContaining(expectedOuput));
     });
+  });
+
+  it('sets TERRA_THEME_CONFIG to the defined theme', () => {
+    getThemeConfig.mockImplementation(() => ({
+      theme: 'test-theme',
+    }));
+
+    config = webpackConfig({}, {});
+
+    const expected = {
+      CERNER_BUILD_TIMESTAMP: JSON.stringify(new Date(mockDate).toISOString()),
+      TERRA_AGGREGATED_LOCALES: undefined,
+      TERRA_THEME_CONFIG: JSON.stringify({
+        theme: 'test-theme',
+      }),
+    };
+    expect(DefinePlugin).toBeCalledWith(expected);
   });
 });
