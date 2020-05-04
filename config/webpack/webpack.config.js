@@ -13,6 +13,7 @@ const aggregateTranslations = require('terra-aggregate-translations');
 const ThemeAggregator = require('../../scripts/aggregate-themes/theme-aggregator');
 const getThemeWebpackPromise = require('./getThemeWebpackPromise');
 const ThemePlugin = require('./postcss/ThemePlugin');
+const getThemeConfig = require('./postcss/_getThemeConfig');
 
 const webpackConfig = (options, env, argv) => {
   const {
@@ -140,6 +141,7 @@ const webpackConfig = (options, env, argv) => {
       new webpack.DefinePlugin({
         CERNER_BUILD_TIMESTAMP: JSON.stringify(new Date(Date.now()).toISOString()),
         TERRA_AGGREGATED_LOCALES: JSON.stringify(aggregatedLocales),
+        TERRA_THEME_CONFIG: JSON.stringify(themeConfig),
       }),
     ],
     resolve: {
@@ -221,7 +223,7 @@ const defaultWebpackConfig = (env = {}, argv = {}) => {
   }
 
   const defaultTheme = process.env.THEME; // Flexes root theme for theme visual regression testing.
-  const themeConfig = defaultTheme ? { theme: defaultTheme } : null;
+  const themeConfig = defaultTheme ? { theme: defaultTheme } : getThemeConfig();
   let themeFile;
   if (!disableAggregateThemes) {
     // Set the default theme and disable scoped theme aggregation.
