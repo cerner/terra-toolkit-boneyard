@@ -17,9 +17,9 @@ class TerraVerboseReporter extends VerboseReporter {
     }
     this.filePathLocation = `${this.resultDir}/result-output.json`;
     this.results = {
-      StartDate: '',
-      Output: [],
-      EndDate: '',
+      startDate: '',
+      output: [],
+      endDate: '',
     };
     this.unformattedResult = [];
     this.log = this.log.bind(this);
