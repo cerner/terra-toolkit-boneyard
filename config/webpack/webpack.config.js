@@ -201,7 +201,12 @@ const webpackConfig = (options, env, argv) => {
 };
 
 const defaultWebpackConfig = (env = {}, argv = {}) => {
-  const { disableAggregateTranslations, disableHotReloading, disableAggregateThemes } = env;
+  const {
+    disableAggregateTranslations,
+    disableHotReloading,
+    disableAggregateThemes,
+    theme,
+  } = env;
 
   const staticOptions = {
     ...disableHotReloading && {
@@ -222,7 +227,7 @@ const defaultWebpackConfig = (env = {}, argv = {}) => {
     resolveModules.unshift(path.resolve(rootPath, 'aggregated-translations'));
   }
 
-  const defaultTheme = process.env.THEME; // Flexes root theme for theme visual regression testing.
+  const defaultTheme = process.env.THEME || theme; // Flexes root theme for theme visual regression testing.
   const themeConfig = defaultTheme ? { theme: defaultTheme } : getThemeConfig();
   let themeFile;
   if (!disableAggregateThemes) {
