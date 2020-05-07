@@ -11,9 +11,9 @@ class TerraVerboseReporter extends VerboseReporter {
   constructor(globalConfig) {
     super(globalConfig);
     if (!globalConfig.rootDir) {
-      this.resultDir = path.resolve(__dirname, '..', '..', 'tests/jest/reports/results');
+      this.resultDir = path.join(process.cwd(), '/tests/jest/reports/results');
     } else {
-      this.resultDir = path.resolve(globalConfig.rootDir, 'tests/jest/reports/results');
+      this.resultDir = path.join(globalConfig.rootDir, 'tests/jest/reports/results');
     }
     this.filePathLocation = `${this.resultDir}/terra-verbose-results.json`;
     this.results = {
@@ -23,21 +23,17 @@ class TerraVerboseReporter extends VerboseReporter {
     };
     this.unformattedResult = [];
     this.log = this.log.bind(this);
-    this.checkResultDirExist = this.checkResultDirExist.bind(this);
-    this.checkResultDirExist();
+    this.hasResultsDir = this.hasResultsDir.bind(this);
+    this.hasResultsDir();
   }
 
-  hasReportDir() {
-    const reportDir = path.resolve(this.resultDir, '..');
-    if (!fs.existsSync(reportDir)) {
-      fs.mkdirSync(reportDir);
-    }
-  }
-
-  checkResultDirExist() {
-    if (this.resultDir && !fs.existsSync(this.resultDir)) {
-      this.hasReportDir();
-      fs.mkdirSync(this.resultDir);
+  hasResultsDir() {
+    if (!fs.existsSync(this.resultDir)) {
+      fs.mkdirSync(this.resultDir, { recursive: true }, (err) => {
+        if (err) {
+          Logger.error(err.message, { context: LOG_CONTEXT });
+        }
+      });
     }
   }
 
