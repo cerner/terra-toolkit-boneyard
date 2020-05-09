@@ -37,6 +37,12 @@ describe('Remove Css Modules Pseudo Classes', () => {
     expect(RemoveCssModulesPseudoClasses(selector)).toEqual(expectedSelector);
   });
 
+  it('removes before and after pseudo selectors', () => {
+    const selector = ':global .selector :root :local';
+    const expectedSelector = '.selector';
+    expect(RemoveCssModulesPseudoClasses(selector)).toEqual(expectedSelector);
+  });
+
   it('removes global', () => {
     const selector = ':global .selector';
     const expectedSelector = '.selector';
