@@ -296,4 +296,21 @@ describe('webpack config', () => {
     };
     expect(DefinePlugin).toBeCalledWith(expected);
   });
+
+  it('overrides theme config', () => {
+    getThemeConfig.mockImplementation(() => ({
+      theme: 'test-theme',
+    }));
+
+    config = webpackConfig({ theme: 'override-theme' }, {});
+
+    const expected = {
+      CERNER_BUILD_TIMESTAMP: JSON.stringify(new Date(mockDate).toISOString()),
+      TERRA_AGGREGATED_LOCALES: undefined,
+      TERRA_THEME_CONFIG: JSON.stringify({
+        theme: 'override-theme',
+      }),
+    };
+    expect(DefinePlugin).toBeCalledWith(expected);
+  });
 });
