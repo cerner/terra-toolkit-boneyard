@@ -3,6 +3,11 @@ Changelog
 
 Unreleased
 ----------
+### Fixed
+* postcss theme plugin: remove :root pseduo selectors when checking for the theme selector.
+
+### Added
+* webpack config: add webpack env to allow overriding the theme.
 
 6.1.0 - (May 5, 2020)
 ----------

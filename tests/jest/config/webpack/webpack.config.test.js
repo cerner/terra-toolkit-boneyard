@@ -302,7 +302,7 @@ describe('webpack config', () => {
       theme: 'test-theme',
     }));
 
-    config = webpackConfig({ theme: 'override-theme' }, {});
+    config = webpackConfig({ themeConfig: { theme: 'override-theme' } }, {});
 
     const expected = {
       CERNER_BUILD_TIMESTAMP: JSON.stringify(new Date(mockDate).toISOString()),
