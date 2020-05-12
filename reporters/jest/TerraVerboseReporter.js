@@ -10,29 +10,50 @@ const LOG_CONTEXT = '[Terra-Toolkit:terra-verbose-reporter]';
 class TerraVerboseReporter extends VerboseReporter {
   constructor(globalConfig) {
     super(globalConfig);
-    if (!globalConfig.rootDir) {
-      this.resultDir = path.join(process.cwd(), '/tests/jest/reports/results');
-    } else {
-      this.resultDir = path.join(globalConfig.rootDir, 'tests/jest/reports/results');
-    }
-    this.filePathLocation = `${this.resultDir}/terra-verbose-results.json`;
+    this.filePath = '';
+    this.filePathLocation = '';
     this.results = {
       startDate: '',
       output: [],
       endDate: '',
     };
     this.unformattedResult = [];
+    this.isMonoRepo = false;
+    this.moduleName = '';
     this.log = this.log.bind(this);
     this.hasResultsDir = this.hasResultsDir.bind(this);
+    this.setTestModule = this.setTestModule.bind(this);
+    this.setTestDirPath = this.setTestDirPath.bind(this);
+    this.setResultDir = this.setResultDir.bind(this);
+    this.hasMonoRepo = this.hasMonoRepo.bind(this);
+    this.hasMonoRepo();
+    this.setTestDirPath();
+    this.setResultDir(globalConfig);
     this.hasResultsDir();
-    this.isMonoRepo = false;
+  }
+
+  setTestDirPath() {
+    if (fs.existsSync(path.join(process.cwd(), '/tests'))) {
+      this.filePath = '/tests/jest/reports/results';
+    } else if (fs.existsSync(path.join(process.cwd(), '/test'))) {
+      this.filePath = '/test/jest/reports/results';
+    } else {
+      this.filePath = '/tests/jest/reports/results';
+    }
+  }
+
+  setResultDir(globalConfig) {
+    if (!globalConfig.rootDir) {
+      this.resultDir = path.join(process.cwd(), this.filePath);
+    } else {
+      this.resultDir = path.join(globalConfig.rootDir, this.filePath);
+    }
+    this.filePathLocation = `${this.resultDir}/terra-verbose-results.json`;
+  }
+
+  hasMonoRepo() {
     if (fs.existsSync(path.join(process.cwd(), '/packages'))) {
       this.isMonoRepo = true;
-    }
-    console.log('** is mono repo or not **', this.isMonoRepo);
-    if (this.isMonoRepo) {
-      this.setTestModule = this.setTestModule.bind(this);
-      this.moduleName = '';
     }
   }
 
