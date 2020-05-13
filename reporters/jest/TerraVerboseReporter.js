@@ -26,6 +26,7 @@ class TerraVerboseReporter extends VerboseReporter {
     this.setTestDirPath = this.setTestDirPath.bind(this);
     this.setResultDir = this.setResultDir.bind(this);
     this.hasMonoRepo = this.hasMonoRepo.bind(this);
+    this.logMonoRepo = this.logMonoRepo.bind(this);
     this.hasMonoRepo();
     this.setTestDirPath();
     this.setResultDir(globalConfig);
@@ -82,6 +83,22 @@ class TerraVerboseReporter extends VerboseReporter {
     this.results.startDate = new Date(aggregatedResults.startTime).toLocaleString();
   }
 
+  logMonoRepo(message) {
+    this.setTestModule(message);
+    if (!this.results.output[this.moduleName]) {
+      this.results.output[this.moduleName] = [];
+    }
+    if (!this.unformattedResult[this.moduleName]) {
+      this.unformattedResult[this.moduleName] = [];
+    }
+    if (message.search('\n') !== -1) {
+      this.results.output[this.moduleName].push(message.split(/\n/g).forEach((piece) => {
+        this.unformattedResult[this.moduleName].push(piece);
+      }));
+    }
+    this.results.output[this.moduleName] = this.unformattedResult[this.moduleName].filter((obj) => obj);
+  }
+
   log(message) {
     const readableMessage = `${stripAnsi(message)}${endOfLine}`;
     if (!this.isMonoRepo) {
@@ -91,34 +108,20 @@ class TerraVerboseReporter extends VerboseReporter {
         }));
       }
       this.results.output = this.unformattedResult.filter((obj) => obj);
-    }
-    if (this.isMonoRepo) {
-      this.setTestModule(readableMessage);
-      if (!this.results.output[this.moduleName]) {
-        this.results.output[this.moduleName] = [];
-      }
-      if (!this.unformattedResult[this.moduleName]) {
-        this.unformattedResult[this.moduleName] = [];
-      }
-      if (readableMessage.search('\n') !== -1) {
-        this.results.output[this.moduleName].push(readableMessage.split(/\n/g).forEach((piece) => {
-          this.unformattedResult[this.moduleName].push(piece);
-        }));
-      }
-      this.results.output[this.moduleName] = this.unformattedResult[this.moduleName].filter((obj) => obj);
+    } else {
+      this.logMonoRepo(readableMessage);
     }
   }
 
   onRunComplete() {
     this.results.endDate = new Date().toLocaleString();
     if (!this.isMonoRepo) {
-      fs.writeFile(this.filePathLocation, `${JSON.stringify(this.results, null, 2)}`, { flag: 'w+' }, (err) => {
+      fs.writeFileSync(this.filePathLocation, `${JSON.stringify(this.results, null, 2)}`, { flag: 'w+' }, (err) => {
         if (err) {
           Logger.error(err.message, { context: LOG_CONTEXT });
         }
       });
-    }
-    if (this.isMonoRepo) {
+    } else {
       const { startDate, endDate, output } = this.results;
       const moduleKeys = Object.keys(output) || [];
       if (output && moduleKeys.length) {

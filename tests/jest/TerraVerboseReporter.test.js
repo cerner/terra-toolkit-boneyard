@@ -5,11 +5,13 @@ jest.mock('fs');
 
 describe('Jest File Reporter Testing', () => {
   let fsWriteSpy;
+  let fsExistSyncSpy;
   afterEach(() => {
     fsWriteSpy.mockClear();
   });
   beforeEach(() => {
-    fsWriteSpy = jest.spyOn(fs, 'writeFile');
+    fsWriteSpy = jest.spyOn(fs, 'writeFileSync');
+    fsExistSyncSpy = jest.spyOn(fs, 'existsSync');
   });
 
   it('should have startdate property in the test results', () => {
@@ -37,5 +39,33 @@ describe('Jest File Reporter Testing', () => {
   it('should set resultDir when no globalConfig.rootDir not available', () => {
     const terraVerboseReporter = new TerraVerboseReporter({});
     expect(terraVerboseReporter.filePathLocation).toEqual(expect.stringContaining('jest/reports'));
+  });
+
+  it('should call hasMonoRepo', () => {
+    const verboseReporter = new TerraVerboseReporter({});
+    expect(fsExistSyncSpy).toBeCalled();
+    expect(typeof verboseReporter.isMonoRepo).toEqual('boolean');
+  });
+
+  it('should call setResultDir and include the globalConfig rootDir in reporter filePathLocation', () => {
+    const verboseReporter = new TerraVerboseReporter({ rootDir: 'opt/test' });
+    expect(verboseReporter.filePathLocation).toEqual(expect.stringContaining('opt/test'));
+    expect(verboseReporter.filePathLocation).toEqual(expect.stringContaining('terra-verbose-results'));
+  });
+
+  it('should call setTestDirPath and include /tests/jest/reports/results in reporter filePath', () => {
+    const verboseReporter = new TerraVerboseReporter({});
+    expect(verboseReporter.filePath).toEqual(expect.stringContaining('/tests/jest/reports/results'));
+  });
+
+  it('should set this.moduleName when root folder has package directory', () => {
+    const verboseReporter = new TerraVerboseReporter({});
+    verboseReporter.setTestModule('packages/terra-clinical-header');
+    expect(verboseReporter.moduleName).toEqual(expect.stringContaining('terra-clinical-header'));
+  });
+  it('should skip this.moduleName when root folder doesn\'t has package directory', () => {
+    const verboseReporter = new TerraVerboseReporter({});
+    verboseReporter.setTestModule('');
+    expect(verboseReporter.moduleName).toEqual('');
   });
 });
