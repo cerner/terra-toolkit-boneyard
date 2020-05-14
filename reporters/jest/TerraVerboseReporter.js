@@ -133,7 +133,7 @@ class TerraVerboseReporter extends VerboseReporter {
           };
           fs.writeFileSync(`${this.resultDir}/${key}.json`, `${JSON.stringify(fileData, null, 2)}`, { flag: 'w+' }, (err) => {
             if (err) {
-              throw err;
+              Logger.error(err.message, { context: LOG_CONTEXT });
             }
           });
         });
