@@ -68,4 +68,34 @@ describe('Jest File Reporter Testing', () => {
     verboseReporter.setTestModule('');
     expect(verboseReporter.moduleName).toEqual('');
   });
+  it('Do we have moduleName in results.output', () => {
+    const verboseReporter = new TerraVerboseReporter({});
+    verboseReporter.setTestModule('');
+    expect(verboseReporter.moduleName).toEqual('');
+  });
+
+  it('logMonoRepo() for valid package mono repos', () => {
+    const verboseReporter = new TerraVerboseReporter({});
+    verboseReporter.logMonoRepo('/packages/terra-clinical-data-grid');
+    expect(verboseReporter.moduleName).toEqual('terra-clinical-data-grid');
+  });
+  it('logMonoRepo() for valid package mono repos without \n', () => {
+    const verboseReporter = new TerraVerboseReporter({});
+    verboseReporter.logMonoRepo('/packages/terra-clinical-data-grid');
+    expect(verboseReporter.moduleName).toEqual('terra-clinical-data-grid');
+    expect(verboseReporter.results.output).toHaveProperty('terra-clinical-data-grid');
+    expect(verboseReporter.unformattedResult).toHaveProperty('terra-clinical-data-grid');
+    expect(verboseReporter.results.output['terra-clinical-data-grid']).toEqual([]);
+    expect(verboseReporter.unformattedResult['terra-clinical-data-grid']).toEqual([]);
+  });
+  it('logMonoRepo() for valid package mono repos with \n', () => {
+    const verboseReporter = new TerraVerboseReporter({});
+    verboseReporter.logMonoRepo('/packages/terra-clinical-data-grid/tests/jest/utils/dataGridUtils.test.js');
+    verboseReporter.logMonoRepo('/packages/terra-clinical-data-grid/tests/jest/utils/dataGridUtils.test.js \n should find all accessible elements within in the given element (19ms)');
+    expect(verboseReporter.moduleName).toEqual('terra-clinical-data-grid');
+    expect(verboseReporter.results.output).toHaveProperty('terra-clinical-data-grid');
+    expect(verboseReporter.unformattedResult).toHaveProperty('terra-clinical-data-grid');
+    expect(verboseReporter.unformattedResult['terra-clinical-data-grid'].length).toBeGreaterThanOrEqual(1);
+    expect(verboseReporter.results.output['terra-clinical-data-grid'].length).toBeGreaterThanOrEqual(1);
+  });
 });

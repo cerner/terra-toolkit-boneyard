@@ -21,22 +21,20 @@ class TerraVerboseReporter extends VerboseReporter {
     this.isMonoRepo = false;
     this.moduleName = '';
     this.log = this.log.bind(this);
-    this.hasResultsDir = this.hasResultsDir.bind(this);
+    this.ensureResultsDir = this.ensureResultsDir.bind(this);
     this.setTestModule = this.setTestModule.bind(this);
     this.setTestDirPath = this.setTestDirPath.bind(this);
     this.setResultDir = this.setResultDir.bind(this);
-    this.hasMonoRepo = this.hasMonoRepo.bind(this);
+    this.setIsMonoRepo = this.setIsMonoRepo.bind(this);
     this.logMonoRepo = this.logMonoRepo.bind(this);
-    this.hasMonoRepo();
+    this.setIsMonoRepo();
     this.setTestDirPath();
     this.setResultDir(globalConfig);
-    this.hasResultsDir();
+    this.ensureResultsDir();
   }
 
   setTestDirPath() {
-    if (fs.existsSync(path.join(process.cwd(), '/tests'))) {
-      this.filePath = '/tests/jest/reports/results';
-    } else if (fs.existsSync(path.join(process.cwd(), '/test'))) {
+    if (fs.existsSync(path.join(process.cwd(), '/test'))) {
       this.filePath = '/test/jest/reports/results';
     } else {
       this.filePath = '/tests/jest/reports/results';
@@ -52,13 +50,13 @@ class TerraVerboseReporter extends VerboseReporter {
     this.filePathLocation = `${this.resultDir}/terra-verbose-results.json`;
   }
 
-  hasMonoRepo() {
+  setIsMonoRepo() {
     if (fs.existsSync(path.join(process.cwd(), '/packages'))) {
       this.isMonoRepo = true;
     }
   }
 
-  hasResultsDir() {
+  ensureResultsDir() {
     if (!fs.existsSync(this.resultDir)) {
       fs.mkdirSync(this.resultDir, { recursive: true }, (err) => {
         if (err) {
