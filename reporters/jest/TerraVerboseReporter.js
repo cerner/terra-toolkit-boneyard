@@ -51,7 +51,7 @@ class TerraVerboseReporter extends VerboseReporter {
   }
 
   setIsMonoRepo() {
-    if (fs.existsSync(path.join(process.cwd(), '/packages'))) {
+    if (fs.existsSync(path.join(process.cwd(), 'packages'))) {
       this.isMonoRepo = true;
     }
   }
