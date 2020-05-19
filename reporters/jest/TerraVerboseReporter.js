@@ -35,9 +35,9 @@ class TerraVerboseReporter extends VerboseReporter {
 
   setTestDirPath() {
     if (fs.existsSync(path.join(process.cwd(), '/test'))) {
-      this.filePath = '/test/jest/reports/results';
+      this.filePath = path.join('test', 'jest', 'reports', 'results');
     } else {
-      this.filePath = '/tests/jest/reports/results';
+      this.filePath = path.join('tests', 'jest', 'reports', 'results');
     }
   }
 

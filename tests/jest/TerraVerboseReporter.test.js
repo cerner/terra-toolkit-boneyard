@@ -53,9 +53,9 @@ describe('Jest File Reporter Testing', () => {
     expect(verboseReporter.filePathLocation).toEqual(expect.stringContaining('terra-verbose-results'));
   });
 
-  it('should call setTestDirPath and include /test in reporter filePath', () => {
+  it('should call setTestDirPath and include test in reporter filePath', () => {
     const verboseReporter = new TerraVerboseReporter({});
-    expect(verboseReporter.filePath).toEqual(expect.stringContaining('/test'));
+    expect(verboseReporter.filePath).toEqual(expect.stringContaining('test'));
   });
 
   it('should set this.moduleName when root folder has package directory', () => {
