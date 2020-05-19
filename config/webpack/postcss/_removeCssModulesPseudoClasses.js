@@ -4,7 +4,7 @@ const Tokenizer = require('css-selector-tokenizer');
  * Remove the css modules pseudo classes from a selector string.
  */
 module.exports = (selector) => {
-  const nodeNames = ['local', 'global'];
+  const nodeNames = ['local', 'global', 'root'];
   const sel = Tokenizer.parse(selector);
   sel.nodes.forEach(item => {
     // eslint-disable-next-line no-param-reassign

@@ -201,7 +201,12 @@ const webpackConfig = (options, env, argv) => {
 };
 
 const defaultWebpackConfig = (env = {}, argv = {}) => {
-  const { disableAggregateTranslations, disableHotReloading, disableAggregateThemes } = env;
+  const {
+    disableAggregateTranslations,
+    disableHotReloading,
+    disableAggregateThemes,
+    themeConfig: envThemeConfig,
+  } = env;
 
   const staticOptions = {
     ...disableHotReloading && {
@@ -223,7 +228,14 @@ const defaultWebpackConfig = (env = {}, argv = {}) => {
   }
 
   const defaultTheme = process.env.THEME; // Flexes root theme for theme visual regression testing.
-  const themeConfig = defaultTheme ? { theme: defaultTheme } : getThemeConfig();
+  let themeConfig = {};
+  if (defaultTheme) {
+    themeConfig = { theme: defaultTheme };
+  } else if (envThemeConfig) {
+    themeConfig = envThemeConfig;
+  } else {
+    themeConfig = getThemeConfig();
+  }
   let themeFile;
   if (!disableAggregateThemes) {
     // Set the default theme and disable scoped theme aggregation.
