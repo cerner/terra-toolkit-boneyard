@@ -10,50 +10,44 @@ const LOG_CONTEXT = '[Terra-Toolkit:terra-verbose-reporter]';
 class TerraVerboseReporter extends VerboseReporter {
   constructor(globalConfig) {
     super(globalConfig);
-    this.filePath = '';
-    this.filePathLocation = '';
     this.results = {
       startDate: '',
-      output: [],
+      output: {},
       endDate: '',
     };
-    this.unformattedResult = [];
-    this.isMonoRepo = false;
+    this.unformattedResult = {};
     this.moduleName = '';
     this.log = this.log.bind(this);
     this.ensureResultsDir = this.ensureResultsDir.bind(this);
     this.setTestModule = this.setTestModule.bind(this);
     this.setTestDirPath = this.setTestDirPath.bind(this);
     this.setResultDir = this.setResultDir.bind(this);
-    this.setIsMonoRepo = this.setIsMonoRepo.bind(this);
-    this.logMonoRepo = this.logMonoRepo.bind(this);
-    this.setIsMonoRepo();
-    this.setTestDirPath();
-    this.setResultDir(globalConfig);
+    this.getIsMonoRepo = this.getIsMonoRepo.bind(this);
+    this.isMonoRepo = this.getIsMonoRepo();
+    this.filePath = this.setTestDirPath();
+    this.resultDir = this.setResultDir(globalConfig);
     this.ensureResultsDir();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   setTestDirPath() {
+    let testDir = 'tests';
     if (fs.existsSync(path.join(process.cwd(), '/test'))) {
-      this.filePath = path.join('test', 'jest', 'reports', 'results');
-    } else {
-      this.filePath = path.join('tests', 'jest', 'reports', 'results');
+      testDir = 'test';
     }
+    return path.join(testDir, 'jest', 'reports', 'results');
   }
 
   setResultDir(globalConfig) {
     if (!globalConfig.rootDir) {
-      this.resultDir = path.join(process.cwd(), this.filePath);
-    } else {
-      this.resultDir = path.join(globalConfig.rootDir, this.filePath);
+      return path.join(process.cwd(), this.filePath);
     }
-    this.filePathLocation = `${this.resultDir}/terra-verbose-results.json`;
+    return path.join(globalConfig.rootDir, this.filePath);
   }
 
-  setIsMonoRepo() {
-    if (fs.existsSync(path.join(process.cwd(), 'packages'))) {
-      this.isMonoRepo = true;
-    }
+  // eslint-disable-next-line class-methods-use-this
+  getIsMonoRepo() {
+    return fs.existsSync(path.join(process.cwd(), 'packages'));
   }
 
   ensureResultsDir() {
@@ -81,61 +75,43 @@ class TerraVerboseReporter extends VerboseReporter {
     this.results.startDate = new Date(aggregatedResults.startTime).toLocaleString();
   }
 
-  logMonoRepo(message) {
-    this.setTestModule(message);
-    if (!this.results.output[this.moduleName]) {
-      this.results.output[this.moduleName] = [];
-    }
-    if (!this.unformattedResult[this.moduleName]) {
-      this.unformattedResult[this.moduleName] = [];
-    }
-    if (message.search('\n') !== -1) {
-      this.results.output[this.moduleName].push(message.split(/\n/g).forEach((piece) => {
-        this.unformattedResult[this.moduleName].push(piece);
-      }));
-    }
-    this.results.output[this.moduleName] = this.unformattedResult[this.moduleName].filter((obj) => obj);
-  }
-
   log(message) {
     const readableMessage = `${stripAnsi(message)}${endOfLine}`;
-    if (!this.isMonoRepo) {
-      if (readableMessage.search('\n') !== -1) {
-        this.results.output.push(readableMessage.split(/\n/g).forEach((piece) => {
-          this.unformattedResult.push(piece);
-        }));
-      }
-      this.results.output = this.unformattedResult.filter((obj) => obj);
-    } else {
-      this.logMonoRepo(readableMessage);
+    this.setTestModule(readableMessage);
+    const moduleName = this.moduleName ? this.moduleName : 'data';
+    if (!this.results.output[moduleName]) {
+      this.results.output[moduleName] = [];
     }
+    if (!this.unformattedResult[moduleName]) {
+      this.unformattedResult[moduleName] = [];
+    }
+    if (readableMessage.search('\n') !== -1) {
+      this.results.output[moduleName].push(readableMessage.split(/\n/g).forEach((piece) => {
+        this.unformattedResult[moduleName].push(piece);
+      }));
+    }
+    this.results.output[moduleName] = this.unformattedResult[moduleName].filter((obj) => obj);
   }
 
   onRunComplete() {
     this.results.endDate = new Date().toLocaleString();
-    if (!this.isMonoRepo) {
-      fs.writeFileSync(this.filePathLocation, `${JSON.stringify(this.results, null, 2)}`, { flag: 'w+' }, (err) => {
-        if (err) {
-          Logger.error(err.message, { context: LOG_CONTEXT });
-        }
-      });
-    } else {
-      const { startDate, endDate, output } = this.results;
-      const moduleKeys = Object.keys(output) || [];
-      if (output && moduleKeys.length) {
-        moduleKeys.forEach(key => {
-          const fileData = {
-            startDate,
-            output: output[key],
-            endDate,
-          };
-          fs.writeFileSync(`${this.resultDir}/${key}.json`, `${JSON.stringify(fileData, null, 2)}`, { flag: 'w+' }, (err) => {
-            if (err) {
-              Logger.error(err.message, { context: LOG_CONTEXT });
-            }
-          });
+    const { startDate, endDate, output } = this.results;
+    let filePathLocation;
+    const moduleKeys = Object.keys(output) || [];
+    if (output && moduleKeys.length) {
+      moduleKeys.forEach((key) => {
+        const fileData = {
+          startDate,
+          output: output[key],
+          endDate,
+        };
+        filePathLocation = key === 'data' ? `${this.resultDir}/terra-verbose-results.json` : `${this.resultDir}/${key}.json`;
+        fs.writeFileSync(filePathLocation, `${JSON.stringify(fileData, null, 2)}`, { flag: 'w+' }, (err) => {
+          if (err) {
+            Logger.error(err.message, { context: LOG_CONTEXT });
+          }
         });
-      }
+      });
     }
   }
 }
