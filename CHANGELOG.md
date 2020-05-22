@@ -6,6 +6,9 @@ Unreleased
 ### Added
 * Terra Verbose Reporter that logs jest test results to a json file.
 
+
+6.2.0 - (May 19, 2020)
+----------
 ### Fixed
 * postcss theme plugin: remove :root pseduo selectors when checking for the theme selector.
 
