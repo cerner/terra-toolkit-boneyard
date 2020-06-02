@@ -16,14 +16,12 @@ class TerraVerboseReporter extends VerboseReporter {
       endDate: '',
     };
     this.unformattedResult = {};
-    this.moduleName = '';
+    this.moduleName = 'data';
     this.log = this.log.bind(this);
     this.ensureResultsDir = this.ensureResultsDir.bind(this);
     this.setTestModule = this.setTestModule.bind(this);
     this.setTestDirPath = this.setTestDirPath.bind(this);
     this.setResultDir = this.setResultDir.bind(this);
-    this.getIsMonoRepo = this.getIsMonoRepo.bind(this);
-    this.isMonoRepo = this.getIsMonoRepo();
     this.filePath = this.setTestDirPath();
     this.resultDir = this.setResultDir(globalConfig);
     this.ensureResultsDir();
@@ -32,7 +30,7 @@ class TerraVerboseReporter extends VerboseReporter {
   // eslint-disable-next-line class-methods-use-this
   setTestDirPath() {
     let testDir = 'tests';
-    if (fs.existsSync(path.join(process.cwd(), '/test'))) {
+    if (fs.existsSync(path.join(process.cwd(), 'test'))) {
       testDir = 'test';
     }
     return path.join(testDir, 'jest', 'reports', 'results');
@@ -43,11 +41,6 @@ class TerraVerboseReporter extends VerboseReporter {
       return path.join(process.cwd(), this.filePath);
     }
     return path.join(globalConfig.rootDir, this.filePath);
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  getIsMonoRepo() {
-    return fs.existsSync(path.join(process.cwd(), 'packages'));
   }
 
   ensureResultsDir() {
@@ -78,7 +71,7 @@ class TerraVerboseReporter extends VerboseReporter {
   log(message) {
     const readableMessage = `${stripAnsi(message)}${endOfLine}`;
     this.setTestModule(readableMessage);
-    const moduleName = this.moduleName ? this.moduleName : 'data';
+    const { moduleName } = this;
     if (!this.results.output[moduleName]) {
       this.results.output[moduleName] = [];
     }
@@ -90,6 +83,7 @@ class TerraVerboseReporter extends VerboseReporter {
         this.unformattedResult[moduleName].push(piece);
       }));
     }
+    // filter out empty strings
     this.results.output[moduleName] = this.unformattedResult[moduleName].filter((obj) => obj);
   }
 

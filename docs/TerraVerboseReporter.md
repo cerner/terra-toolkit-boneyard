@@ -7,9 +7,11 @@ Terra Verbose Reporter is a Jest reporter that logs jest test output to a file w
 - Name of the tests and whether they've succeeded or failed
 
 **Jest test output Directory**
+
 Terra Verbose Reporter logs the jest test output in tests/jest/reports/results or test/jest/reports/results depending on whether tests or test is the directory with tests
 
 **Check for Mono Repo**
+
 Terra Verbose Reporter assumes mono-repo will have packages directory in the root folder 
 
 

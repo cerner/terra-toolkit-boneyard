@@ -48,12 +48,12 @@ describe('Jest File Reporter Testing', () => {
   it('should skip this.moduleName when root folder doesn\'t has package directory', () => {
     const verboseReporter = new TerraVerboseReporter({});
     verboseReporter.setTestModule('');
-    expect(verboseReporter.moduleName).toEqual('');
+    expect(verboseReporter.moduleName).toEqual('data');
   });
 
   it('Do we have moduleName in results.output', () => {
     const verboseReporter = new TerraVerboseReporter({});
     verboseReporter.setTestModule('');
-    expect(verboseReporter.moduleName).toEqual('');
+    expect(verboseReporter.moduleName).toEqual('data');
   });
 });
