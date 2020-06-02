@@ -15,6 +15,8 @@ class TerraVerboseReporter extends VerboseReporter {
       output: {},
       endDate: '',
     };
+    const currDirArray = process.cwd().split('/');
+    this.fileNameNonMono = currDirArray[currDirArray.length - 1];
     this.unformattedResult = {};
     this.moduleName = 'data';
     this.log = this.log.bind(this);
@@ -99,7 +101,7 @@ class TerraVerboseReporter extends VerboseReporter {
           output: output[key],
           endDate,
         };
-        filePathLocation = key === 'data' ? `${this.resultDir}/terra-verbose-results.json` : `${this.resultDir}/${key}.json`;
+        filePathLocation = key === 'data' ? `${this.resultDir}/${this.fileNameNonMono}.json` : `${this.resultDir}/${key}.json`;
         fs.writeFileSync(filePathLocation, `${JSON.stringify(fileData, null, 2)}`, { flag: 'w+' }, (err) => {
           if (err) {
             Logger.error(err.message, { context: LOG_CONTEXT });

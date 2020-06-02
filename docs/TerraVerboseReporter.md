@@ -27,7 +27,7 @@ Add TerraVerboseReporter as an additional reporter within the jest.config file. 
 ## Report Format
 
 This is how the generated log file looks:
-* The name of the log file will be terra-verbose-results.json
+* The name of the log file will be name of the repo running it <repoName>.json(eg:terra-toolkit-boneyard.json)
 ```
 { 
   "StartDate": "4/28/2020, 10:08:49 AM",
