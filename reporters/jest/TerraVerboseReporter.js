@@ -15,10 +15,8 @@ class TerraVerboseReporter extends VerboseReporter {
       output: {},
       endDate: '',
     };
-    const currDirArray = process.cwd().split('/');
-    this.fileNameNonMono = currDirArray[currDirArray.length - 1];
     this.unformattedResult = {};
-    this.moduleName = 'data';
+    this.moduleName = process.cwd().split('/').pop();
     this.log = this.log.bind(this);
     this.ensureResultsDir = this.ensureResultsDir.bind(this);
     this.setTestModule = this.setTestModule.bind(this);
@@ -59,7 +57,7 @@ class TerraVerboseReporter extends VerboseReporter {
     const index = testLog.lastIndexOf('packages/');
     if (index > -1) {
       const testFilePath = testLog.substring(index).split('/');
-      const moduleName = testFilePath && testFilePath[1] ? testFilePath[1] : '';
+      const moduleName = testFilePath && testFilePath[1] ? testFilePath[1] : process.cwd().split('/').pop();
       if (moduleName && moduleName !== this.moduleName) {
         this.moduleName = moduleName;
       }
@@ -101,7 +99,7 @@ class TerraVerboseReporter extends VerboseReporter {
           output: output[key],
           endDate,
         };
-        filePathLocation = key === 'data' ? `${this.resultDir}/${this.fileNameNonMono}.json` : `${this.resultDir}/${key}.json`;
+        filePathLocation = `${this.resultDir}/${this.moduleName}.json`;
         fs.writeFileSync(filePathLocation, `${JSON.stringify(fileData, null, 2)}`, { flag: 'w+' }, (err) => {
           if (err) {
             Logger.error(err.message, { context: LOG_CONTEXT });
