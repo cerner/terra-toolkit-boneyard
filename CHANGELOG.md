@@ -6,6 +6,8 @@ Unreleased
 ### Added
 * Terra Verbose Reporter that logs jest test results to a json file.
 
+### Removed (passively)
+* removed dockerfiles and the travis step to release dockerfiles. Moved to a new repo: https://github.com/cerner/terra-docker
 
 6.2.0 - (May 19, 2020)
 ----------
