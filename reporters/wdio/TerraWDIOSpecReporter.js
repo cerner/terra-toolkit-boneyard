@@ -30,7 +30,6 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
     this.printSummary = this.printSummary.bind(this);
     this.setTestDirPath = this.setTestDirPath.bind(this);
     this.isMonoRepo = this.getIsMonoRepo();
-    this.setTestDirPath();
     this.filePath = this.setResultsDir(options);
     this.hasReportDir();
     this.on('runner:end', (runner) => {
@@ -49,7 +48,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
     if (fs.existsSync(path.join(process.cwd(), 'test'))) {
       testDir = 'test';
     }
-    return path.join(testDir, 'wdio', 'reports', 'results');
+    return path.join(testDir, 'wdio', 'reports', 'terra-spec-results');
   }
 
   /**
@@ -89,17 +88,19 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
   * Formatting the filename based on LOCALE, THEME, FORM_FACTOR and locale
   * @return null
   */
-  fileNameCheck() {
-    const { LOCALE, THEME, FORM_FACTOR } = process.env;
+  fileNameCheck({ formFactor, locale, theme }, browserName) {
     const fileNameConf = [];
-    if (LOCALE) {
-      fileNameConf.push(LOCALE);
+    if (locale) {
+      fileNameConf.push(locale);
     }
-    if (THEME) {
-      fileNameConf.push(THEME);
+    if (theme) {
+      fileNameConf.push(theme);
     }
-    if (FORM_FACTOR) {
-      fileNameConf.push(FORM_FACTOR);
+    if (formFactor) {
+      fileNameConf.push(formFactor);
+    }
+    if (browserName) {
+      fileNameConf.push(browserName);
     }
     if (fileNameConf.length === 0) {
       this.fileName = '/result';
@@ -132,7 +133,15 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
   */
   printSummary(runners) {
     if (runners && runners.length) {
-      runners.forEach((runner) => {
+      runners.forEach((runner, index) => {
+        if (index === 1) {
+          const { cid } = runner;
+          const { stats } = this.baseReporter;
+          const results = stats.runners[cid];
+          const { config } = results;
+          const { browserName } = config.desiredCapabilities;
+          this.fileNameCheck(config, browserName);
+        }
         this.setTestModule(runner.specs[0]);
         if (!this.resultJsonObject.output[this.moduleName]) {
           this.resultJsonObject.output[this.moduleName] = [];
@@ -143,7 +152,6 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
         }
       });
     }
-    this.fileNameCheck();
     const {
       endDate,
       startDate,
