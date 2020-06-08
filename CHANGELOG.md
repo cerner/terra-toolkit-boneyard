@@ -9,6 +9,9 @@ Unreleased
 ### Removed (passively)
 * removed dockerfiles and the travis step to release dockerfiles. Moved to a new repo: https://github.com/cerner/terra-docker
 
+### Changed
+* Updated eslint-config-terra to @cerner/eslint-config-terra v^4.0.0
+
 6.2.0 - (May 19, 2020)
 ----------
 ### Fixed
