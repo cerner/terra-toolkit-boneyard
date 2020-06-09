@@ -8,10 +8,10 @@ Wdio File Reporter is a reporter that logs wdio test output to separate files ba
 
 - Name of the tests and whether they've succeeded or failed
 
-***WDIO test output Directory ***
-Terra WDIO spec Reporter logs the WDIO test output in tests/wdio/reports/results or test/wdio/reports/results depending on whether tests or test is the directory with tests
+**WDIO test output Directory**
+Terra WDIO spec Reporter logs the WDIO test output in tests/wdio/reports/ or test/wdio/reports/ depending on whether tests or test is the directory with tests
 
-***Check for Mono Repo**
+**Check for Mono Repo**
 Terra WDIO spec Reporter assumes mono-repo will have packages directory in the root folder
 
 ## Usage
@@ -27,7 +27,7 @@ const WdioFileReporter = require('terra-toolkit/src/wdio/WdioFileReporter');
 
 ```
 ## Report Format
-- The name of the log file will be **result-\<locale>-\<theme>-\<form-factor>.json**(eg: result-en-huge.json)
+- The name of the log file will be **result-\<locale>-\<theme>-\<form-factor>-\<browser>-\<repo-name>.json**(eg: result-en-huge-chrome-terra-toolkit-boneyard.json)
 ```
 {
   "startDate": "4/29/2020, 2:24:35 PM",
@@ -103,7 +103,7 @@ const WdioFileReporter = require('terra-toolkit/src/wdio/WdioFileReporter');
 ```
 
 This is how the generated log file looks for mono-repo:
-- The name of the log file will be **result-\<locale>-\<theme>-\<form-factor>-<Package-name>.json**(eg: result-clinical-lowlight-theme-terra-clinical-data-grid.json)
+- The name of the log file will be **result-\<locale>-\<theme>-\<form-factor>-\<browser>-<Package-name>.json**(eg: result-clinical-lowlight-theme-terra-clinical-data-grid.json)
 ```
 {
   "startDate": "5/22/2020, 12:08:02 PM",

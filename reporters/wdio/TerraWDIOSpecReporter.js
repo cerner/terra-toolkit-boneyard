@@ -22,7 +22,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
       endDate: '',
     };
     this.fileName = '';
-    this.moduleName = '';
+    this.moduleName = process.cwd().split('/').pop();
     this.setResultsDir = this.setResultsDir.bind(this);
     this.hasReportDir = this.hasReportDir.bind(this);
     this.setTestModule = this.setTestModule.bind(this);
@@ -48,7 +48,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
     if (fs.existsSync(path.join(process.cwd(), 'test'))) {
       testDir = 'test';
     }
-    return path.join(testDir, 'wdio', 'reports', 'terra-spec-results');
+    return path.join(testDir, 'wdio', 'reports');
   }
 
   /**
@@ -175,7 +175,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
         if (this.isMonoRepo) {
           filePathLocation = `${this.filePath}${this.fileName}-${key}.json`;
         } else {
-          filePathLocation = `${this.filePath}${this.fileName}.json`;
+          filePathLocation = `${this.filePath}${this.fileName}-${this.moduleName}.json`
         }
         fs.writeFileSync(filePathLocation, `${JSON.stringify(fileData, null, 2)}`, { flag: 'w+' }, (err) => {
           if (err) {
