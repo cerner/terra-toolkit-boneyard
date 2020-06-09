@@ -26,10 +26,8 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
     this.setResultsDir = this.setResultsDir.bind(this);
     this.hasReportDir = this.hasReportDir.bind(this);
     this.setTestModule = this.setTestModule.bind(this);
-    this.getIsMonoRepo = this.getIsMonoRepo.bind(this);
     this.printSummary = this.printSummary.bind(this);
     this.setTestDirPath = this.setTestDirPath.bind(this);
-    this.isMonoRepo = this.getIsMonoRepo();
     this.filePath = this.setResultsDir(options);
     this.hasReportDir();
     this.on('runner:end', (runner) => {
@@ -48,7 +46,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
     if (fs.existsSync(path.join(process.cwd(), 'test'))) {
       testDir = 'test';
     }
-    return path.join(testDir, 'wdio', 'reports');
+    return path.join(testDir, 'wdio', 'reports', 'terra-spec-results');
   }
 
   /**
@@ -79,11 +77,6 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  getIsMonoRepo() {
-    return fs.existsSync(path.join(process.cwd(), 'packages'));
-  }
-
   /**
   * Formatting the filename based on LOCALE, THEME, FORM_FACTOR and locale
   * @return null
@@ -92,12 +85,15 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
     const fileNameConf = [];
     if (locale) {
       fileNameConf.push(locale);
+      this.resultJsonObject.locale = locale;
     }
     if (theme) {
       fileNameConf.push(theme);
+      this.resultJsonObject.theme = theme;
     }
     if (formFactor) {
       fileNameConf.push(formFactor);
+      this.resultJsonObject.formFactor = formFactor;
     }
     if (browserName) {
       fileNameConf.push(browserName);
@@ -119,7 +115,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
     const index = specsValue.lastIndexOf('packages/');
     if (index > -1) {
       const testFilePath = specsValue.substring(index).split('/');
-      const moduleName = testFilePath && testFilePath[1] ? testFilePath[1] : '';
+      const moduleName = testFilePath && testFilePath[1] ? testFilePath[1] : process.cwd().split('/').pop();;
       if (moduleName && moduleName !== this.moduleName) {
         this.moduleName = moduleName;
       }
@@ -172,11 +168,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
           output: output[key],
           endDate,
         };
-        if (this.isMonoRepo) {
-          filePathLocation = `${this.filePath}${this.fileName}-${key}.json`;
-        } else {
-          filePathLocation = `${this.filePath}${this.fileName}-${this.moduleName}.json`;
-        }
+        filePathLocation = `${this.filePath}${this.fileName}-${key}.json`;
         fs.writeFileSync(filePathLocation, `${JSON.stringify(fileData, null, 2)}`, { flag: 'w+' }, (err) => {
           if (err) {
             Logger.error(err.message, { context: LOG_CONTEXT });
@@ -188,12 +180,8 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
 
   printSuitesSummary() {
     const { end, start } = this.baseReporter.stats;
-    const { LOCALE, THEME, FORM_FACTOR } = process.env;
     this.resultJsonObject.endDate = new Date(end).toLocaleString();
     this.resultJsonObject.startDate = new Date(start).toLocaleString();
-    this.resultJsonObject.locale = LOCALE;
-    this.resultJsonObject.formFactor = FORM_FACTOR;
-    this.resultJsonObject.theme = THEME || 'default-theme';
     const { runners } = this;
     this.printSummary(runners);
   }
