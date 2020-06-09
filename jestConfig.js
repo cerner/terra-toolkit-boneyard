@@ -15,6 +15,10 @@ module.exports = {
   testMatch: [
     '**/jest/**/(*.)(spec|test).js?(x)',
   ],
+  reporters: [
+    'default',
+    '<rootDir>/reporters/jest/TerraVerboseReporter.js',
+  ],
   roots: [process.cwd()],
   testURL: 'http://localhost',
 };
