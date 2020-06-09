@@ -175,7 +175,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
         if (this.isMonoRepo) {
           filePathLocation = `${this.filePath}${this.fileName}-${key}.json`;
         } else {
-          filePathLocation = `${this.filePath}${this.fileName}-${this.moduleName}.json`
+          filePathLocation = `${this.filePath}${this.fileName}-${this.moduleName}.json`;
         }
         fs.writeFileSync(filePathLocation, `${JSON.stringify(fileData, null, 2)}`, { flag: 'w+' }, (err) => {
           if (err) {

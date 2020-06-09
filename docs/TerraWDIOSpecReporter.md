@@ -103,7 +103,7 @@ const WdioFileReporter = require('terra-toolkit/src/wdio/WdioFileReporter');
 ```
 
 This is how the generated log file looks for mono-repo:
-- The name of the log file will be **result-\<locale>-\<theme>-\<form-factor>-\<browser>-<Package-name>.json**(eg: result-clinical-lowlight-theme-terra-clinical-data-grid.json)
+- The name of the log file will be **result-\<locale>-\<theme>-\<form-factor>-\<browser>-<Package-name>.json**(eg: result-clinical-lowlight-theme-chrome-terra-clinical-data-grid.json)
 ```
 {
   "startDate": "5/22/2020, 12:08:02 PM",
