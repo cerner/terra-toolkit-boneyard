@@ -115,7 +115,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
     const index = specsValue.lastIndexOf('packages/');
     if (index > -1) {
       const testFilePath = specsValue.substring(index).split('/');
-      const moduleName = testFilePath && testFilePath[1] ? testFilePath[1] : process.cwd().split('/').pop();;
+      const moduleName = testFilePath && testFilePath[1] ? testFilePath[1] : process.cwd().split('/').pop();
       if (moduleName && moduleName !== this.moduleName) {
         this.moduleName = moduleName;
       }
