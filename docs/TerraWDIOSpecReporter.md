@@ -49,8 +49,6 @@ const WdioFileReporter = require('terra-toolkit/src/wdio/WdioFileReporter');
       "[chrome #0-0]",
       "[chrome #0-0] 2 passing (3s)",
       "[chrome #0-0]",
-      "",
-      ""
     ],
     [
       "------------------------------------------------------------------",
@@ -73,8 +71,6 @@ const WdioFileReporter = require('terra-toolkit/src/wdio/WdioFileReporter');
       "[chrome #0-1]",
       "[chrome #0-1] 4 passing (5s)",
       "[chrome #0-1]",
-      "",
-      ""
     ],
     [
       "------------------------------------------------------------------",
@@ -93,8 +89,6 @@ const WdioFileReporter = require('terra-toolkit/src/wdio/WdioFileReporter');
       "[chrome #0-2]",
       "[chrome #0-2] 6 passing (1s)",
       "[chrome #0-2]",
-      "",
-      ""
     ]
   ],
   "endDate": "4/29/2020, 2:24:57 PM"
@@ -240,8 +234,6 @@ This is how the generated log file looks for mono-repo:
       "[chrome #0-0]",
       "[chrome #0-0] 58 passing (2m, 42s)",
       "[chrome #0-0]",
-      "",
-      ""
     ]
   ],
   "endDate": "5/22/2020, 12:21:16 PM"

@@ -144,7 +144,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
         }
         const readableMessage = `${stripAnsi(this.getSuiteResult(runner))}${endOfLine}`;
         if (readableMessage.search('\n') !== -1) {
-          this.resultJsonObject.output[this.moduleName].push(readableMessage.split(/\n/g));
+          this.resultJsonObject.output[this.moduleName].push(readableMessage.split(/\n/g).filter(Boolean));
         }
       });
     }
