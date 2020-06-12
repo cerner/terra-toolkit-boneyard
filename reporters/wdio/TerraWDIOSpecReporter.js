@@ -50,6 +50,12 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
   }
 
   /**
+  * Not print output to the terminal
+  */
+  printSuiteResult () {
+
+  }
+  /**
   * checks global config has outputDir config
   * return global config if available
   * return /tests path if global config not available
