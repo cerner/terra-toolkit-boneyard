@@ -51,7 +51,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
   }
 
   /**
-  * Not print output to the terminal
+  * Overriding this method, so the base reporter does not print output to the terminal
   */
   // eslint-disable-next-line class-methods-use-this
   printSuiteResult() {

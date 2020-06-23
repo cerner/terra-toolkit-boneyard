@@ -1,6 +1,6 @@
 # Wdio File Reporter
 
-Wdio File Reporter is a reporter that logs wdio test output to separate files based on locale, theme and form-factor with the following attributes
+Wdio File Reporter is a reporter that logs wdio test output to separate files based on locale, theme, and form-factor with the following attributes
 
 - date and time of when the tests are started and when they are finished
 
