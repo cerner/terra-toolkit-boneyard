@@ -10,8 +10,6 @@ const {
 const visualRegressionConfig = require('./visualRegressionConf');
 const TerraWDIOSpecReporter = require('../../reporters/wdio/TerraWDIOSpecReporter');
 
-TerraWDIOSpecReporter.reporterName = 'TT_WDIO_CR';
-
 /* Use to pass your host's IP when running wdio tests from a VM or behind a proxy. */
 const ip = process.env.WDIO_EXTERNAL_HOST || localIP.address();
 

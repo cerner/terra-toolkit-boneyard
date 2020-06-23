@@ -10,6 +10,7 @@ const LOG_CONTEXT = '[Terra-Toolkit:terra-wdio-spec-reporter]';
 class TerraWDIOSpecReporter extends WDIOSpecReporter {
   constructor(globalConfig, options) {
     super(globalConfig);
+    this.reporterName = 'TT_WDIO_CR';
     this.options = options;
     this.runners = [];
     this.resultJsonObject = {
@@ -195,4 +196,5 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
   }
 }
 
+TerraWDIOSpecReporter.reporterName = 'TT_WDIO_CR';
 module.exports = TerraWDIOSpecReporter;
