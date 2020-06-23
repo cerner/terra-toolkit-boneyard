@@ -196,5 +196,5 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
   }
 }
 
-TerraWDIOSpecReporter.reporterName = 'TT_WDIO_CR';
+TerraWDIOSpecReporter.reporterName = 'TerraWDIOSpectReporter';
 module.exports = TerraWDIOSpecReporter;
