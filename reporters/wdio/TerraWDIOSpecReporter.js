@@ -62,7 +62,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
   * checks global config has outputDir config
   * return global config if available
   * return /tests path if global config not available
-  * @param {object} options
+  * @param {object} [options.reporterOptions.outputDir] - output dir path for results dir
   * @return string
   */
   setResultsDir(options) {
@@ -87,11 +87,11 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
   }
 
   /**
-  * Formatting the filename based on LOCALE, THEME, FORM_FACTOR and locale
+  * Formatting the filename based on locale, theme, and formFactor
   * @return null
   */
   fileNameCheck({ formFactor, locale, theme }, browserName) {
-    const fileNameConf = [];
+    const fileNameConf = ['/result'];
     if (locale) {
       fileNameConf.push(locale);
       this.resultJsonObject.locale = locale;
@@ -111,13 +111,13 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
       this.fileName = '/result';
     }
     if (fileNameConf.length >= 1) {
-      this.fileName = `/result-${fileNameConf.join('-')}`;
+      this.fileName = fileNameConf.join('-');
     }
   }
 
   /**
   * Set the package name to moduleName property if specsValue contains /package string
-  * @param {string} specsValue
+  * @param {string} specsValue - File path of current spec file from runners
   * @return null
   */
   setTestModule(specsValue) {
@@ -133,7 +133,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
 
   /**
   * Writes result to a json file
-  * @param {array} runners
+  * @param {array} runners - collection of all test suites with event, specHash, spec path info
   * @return null
   */
   printSummary(runners) {
