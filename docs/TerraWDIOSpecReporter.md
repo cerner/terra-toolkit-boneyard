@@ -31,4 +31,4 @@ const WdioFileReporter = require('terra-toolkit/src/wdio/WdioFileReporter');
 
 - The name of the log file for mono-repo will be **result-\<locale>-\<theme>-\<form-factor>-\<browser>-<Package-name>.json**(eg: result-clinical-lowlight-theme-chrome-terra-clinical-data-grid.json)
 
-- This is output example [a relative link](TerraWDIOSpecReporter-sample-result.json)
+- Example output  [a relative link](spec-reporter-sample-result.json)
