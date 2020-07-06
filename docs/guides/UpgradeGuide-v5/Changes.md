@@ -139,9 +139,9 @@ This script was removed. Use this serve-static instead.
 
 ### Toolkit's Wdio Runner
 
-This script now supports `--gridUrl` and `--browsers` flags. And should be used directly for locale and form testing. 
+This script now supports `--gridUrl` and `--browsers` flags. And should be used directly for locale and form testing.
 
-Also, the wdio configuration is no longer auto-magically loaded. It must be provided to both `wdio` and `tt-wdio` if a `wdio.config.js` file does not exist at the root level. 
+Also, the wdio configuration is no longer auto-magically loaded. It must be provided to both `wdio` and `tt-wdio` if a `wdio.config.js` file does not exist at the root level.
 
 ## WebdriverIO
 
@@ -180,7 +180,7 @@ This will improve test tests, enable one to write more cohesive test specs and c
 The default form factor is now 'huge' to correct inconsistent viewport sizing that had occurred when a test used the default viewport for a test run vs defining a huge viewport. This may require screenshot updates, but no code changes are necessary.
 
 ### TerraService
-Now provides the accessibility testing capabilities. These have been scoped to only check WCAG 2.0 AA and Section 508 accessibility standards to align with Terra's accessibility standards. 
+Now provides the accessibility testing capabilities. These have been scoped to only check WCAG 2.0 AA and Section 508 accessibility standards to align with Terra's accessibility standards.
 
 The `Terra.should` test helpers have been removed. Use the `Terra.it` test helpers instead. These are Mocha-chai `it` blocks  to replace `Terra.should` test helpers:
   - `Terra.should.beAccessible()` -> `Terra.it.isAccessible()`
@@ -315,7 +315,7 @@ const config = {
 }
 ```
 
-Documentation can now be found [here](https://github.com/cerner/terra-toolkit-boneyard/blob/master/docs/Wdio_Utility.md).
+Documentation can now be found [here](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md).
 
 ## Nightwatch
 

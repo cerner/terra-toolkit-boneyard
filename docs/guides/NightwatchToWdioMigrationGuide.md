@@ -1,6 +1,6 @@
 ## Nightwatch to Webdriver.io Migration Guide
-  
-1. Check out the [Webdriver.io Utility Developer's Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/master/docs/Wdio_Utility.md) to learn how to add webdriver.io configuration and write tests.
+
+1. Check out the [Webdriver.io Utility Developer's Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md) to learn how to add webdriver.io configuration and write tests.
 2. Migrate nightwatch tests to webdriver tests like:
 ```diff
 // The default Webdriver.io Framework is Mocha with ui set to BDD.

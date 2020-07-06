@@ -551,7 +551,7 @@ Unreleased
 
 4.0.0 - (June 26, 2018)
 ----------
-### Major Version Bump. See https://github.com/cerner/terra-toolkit/blob/master/docs/guides/UpgradeGuide-v4.0.0.md.
+### Major Version Bump. See https://github.com/cerner/terra-toolkit/blob/main/docs/guides/UpgradeGuide-v4.0.0.md.
 
 ### Added
 * Added `locale`, `formFactor` and `baseScreenshotDir` wdio.config options for i18n support [#69](https://github.com/cerner/terra-toolkit/issues/69) and parallelization support [#70](https://github.com/cerner/terra-toolkit/issues/70)
@@ -657,7 +657,7 @@ Unreleased
 
 3.0.0 - (April 19, 2018)
 ----------
-### Major Version Bump. See https://github.com/cerner/terra-toolkit/blob/master/docs/guides/UpgradeGuide-v3.0.0.md.
+### Major Version Bump. See https://github.com/cerner/terra-toolkit/blob/main/docs/guides/UpgradeGuide-v3.0.0.md.
 
 ### Added
 * Added nl and nl-BE to supported locales

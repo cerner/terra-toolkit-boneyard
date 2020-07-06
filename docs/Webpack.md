@@ -40,11 +40,11 @@ _\* Required to support IE legacy browsers_
 ## Configuring Webpack
 Terra has two webpack configuration recommendations to ensure webpack configurations are defined consistently:
 
-1) Terra-toolkit's [default webpack configuration](https://github.com/cerner/terra-toolkit-boneyard/blob/master/config/webpack/webpack.config.js).
+1) Terra-toolkit's [default webpack configuration](https://github.com/cerner/terra-toolkit-boneyard/blob/main/config/webpack/webpack.config.js).
     - Use when building a standalone site.
     - Additional configuration required.
 
-2) Terra-dev-site's [webpack configuration](https://github.com/cerner/terra-toolkit-boneyard/blob/master/config/webpack/webpack.config.js)
+2) Terra-dev-site's [webpack configuration](https://github.com/cerner/terra-toolkit-boneyard/blob/main/config/webpack/webpack.config.js)
     - Use when building a documentation and test site with the terra-dev-site module.
     - This extends terra-toolkit's webpack configuration and requires no additional configuration
 

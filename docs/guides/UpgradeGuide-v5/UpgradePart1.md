@@ -39,12 +39,12 @@ npm WARN terser-webpack-plugin@1.3.0 requires a peer of webpack@^4.0.0 but none 
 </details>
 
 
-Peer dependencies are dependencies required by a module to run correctly but must be explicitly installed by the consuming project. 
+Peer dependencies are dependencies required by a module to run correctly but must be explicitly installed by the consuming project.
 
 We will resolve these iteratively as we upgrade.
 
 ## Step 2. Add Webpack Peer Dependencies
-Toolkit has defined a few webpack dependencies as peer dependencies to ensure you always have access to these webpack bins and that you are using the correct versions. 
+Toolkit has defined a few webpack dependencies as peer dependencies to ensure you always have access to these webpack bins and that you are using the correct versions.
 
 ```bash
 > npm install --save-dev webpack webpack-cli webpack-dev-server core-js raf regenerator-runtime
@@ -52,11 +52,11 @@ Toolkit has defined a few webpack dependencies as peer dependencies to ensure yo
 
 This should resolve unmet webpack peer dependency errors we saw when updating the terra-toolkit version.
 
-If you provide any other webpack dev-dependencies in your package.json, either remove these or ensure they are using the correct versions. These include `sass-loader`, `babel-loader`, `node-sass`, `postcss`, etc. Here is the [list of webpack dependencies](https://github.com/cerner/terra-toolkit-boneyard/blob/master/docs/Webpack.md#terras-configuration-requirements) that are installed with terra-toolkit.
+If you provide any other webpack dev-dependencies in your package.json, either remove these or ensure they are using the correct versions. These include `sass-loader`, `babel-loader`, `node-sass`, `postcss`, etc. Here is the [list of webpack dependencies](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Webpack.md#terras-configuration-requirements) that are installed with terra-toolkit.
 
 ## Step 3. Add Babel Peer Dependencies
 
-To use toolkit v5, you **must** upgrade to use `babel v7`. This change _will_ impact the major version of most of the build tools your project will use. We have included steps for what we feel are common changes most project will need, but please reference [Babel's v7 Upgrade Guide](https://babeljs.io/docs/en/v7-migration-api) more info. 
+To use toolkit v5, you **must** upgrade to use `babel v7`. This change _will_ impact the major version of most of the build tools your project will use. We have included steps for what we feel are common changes most project will need, but please reference [Babel's v7 Upgrade Guide](https://babeljs.io/docs/en/v7-migration-api) more info.
 
 ### 1. Uninstall the babel v6 dev dependencies
 Babel now uses [scoped npm packages](https://docs.npmjs.com/misc/scope), so we cannot directly upgrade with `npm upgrade`, instead we must uninstall the existing babel packages and then install the scoped package equivalent.
@@ -146,12 +146,12 @@ If your project runs aggregate-translations for jest unit testing, you will need
 + const aggregateTranslations = require('terra-aggregate-translations');
 ```
 
-## Step 5. Update the Project Scripts 
+## Step 5. Update the Project Scripts
 
 The start scripts in the `package.json` need to be updated. `tt-serve` is now a thin abstraction on [`webpack-dev-server`](https://webpack.js.org/configuration/dev-server/) and `tt-start-static` will only serve compiled site assets.
 
 ### 1. Update the `start` script
-The `webpack-dev-server` cannot automatically load our default configuration files that exists in the node_modules directory. Thus, a webpack.config must be provided at the root level or the configuration needs to be passed via the `--config` flag in the package.json script. 
+The `webpack-dev-server` cannot automatically load our default configuration files that exists in the node_modules directory. Thus, a webpack.config must be provided at the root level or the configuration needs to be passed via the `--config` flag in the package.json script.
 
 ```diff
 -  "start": "tt-serve",
@@ -189,7 +189,7 @@ Since `ot-wdio` has been removed, update to use `tt-wdio` and provide the wdio c
 
 ## Step 6. Remove Nightwatch
 
-Remove the `nightwatch` dev-dependency in your project. 
+Remove the `nightwatch` dev-dependency in your project.
 ```
 npm uninstall nightwatch
 ```
@@ -233,7 +233,7 @@ Verify your site is packed and served as static content.
 ```
 
 ## NEXT: Webdriver Test Updates
-See [Part 2 for more information on Webdriver changes](https://github.com/cerner/terra-toolkit-boneyard/blob/master/docs/guides/UpgradeGuide-v5/UpgradePart2.md).
+See [Part 2 for more information on Webdriver changes](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/guides/UpgradeGuide-v5/UpgradePart2.md).
 
 
 

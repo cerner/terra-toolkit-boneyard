@@ -1,6 +1,6 @@
 <!-- Logo -->
 <p align="center">
-  <img height="128" width="128" src="https://github.com/cerner/terra-toolkit-boneyard/raw/master/terra.png">
+  <img height="128" width="128" src="https://github.com/cerner/terra-toolkit-boneyard/raw/main/terra.png">
 </p>
 
 <!-- Name -->
@@ -9,7 +9,7 @@
 </h1>
 
 [![NPM version](https://badgen.net/npm/v/terra-toolkit)](https://www.npmjs.org/package/terra-toolkit)
-[![License](https://badgen.net/github/license/cerner/terra-toolkit-boneyard)](https://github.com/cerner/terra-toolkit-boneyard/blob/master/LICENSE)
+[![License](https://badgen.net/github/license/cerner/terra-toolkit-boneyard)](https://github.com/cerner/terra-toolkit-boneyard/blob/main/LICENSE)
 [![Build Status](https://badgen.net/travis/cerner/terra-toolkit-boneyard)](https://travis-ci.com/cerner/terra-toolkit-boneyard)
 [![Dependencies status](https://badgen.net/david/dep/cerner/terra-toolkit-boneyard)](https://david-dm.org/cerner/terra-toolkit-boneyard)
 [![devDependencies status](https://badgen.net/david/dev/cerner/terra-toolkit-boneyard)](https://david-dm.org/cerner/terra-toolkit-boneyard?type=dev)
@@ -30,9 +30,9 @@ Terra Toolkit is a utility module used to facilitate independent development of 
 
 ## Getting Started
 
-- Install toolkit and its peer dependencies as dev-dependencies with [npm](https://www.npmjs.com): 
+- Install toolkit and its peer dependencies as dev-dependencies with [npm](https://www.npmjs.com):
 ```bash
-> npm install --save-dev terra-toolkit webpack webpack-cli webpack-dev-server @babel/cli @babel/core 
+> npm install --save-dev terra-toolkit webpack webpack-cli webpack-dev-server @babel/cli @babel/core
 ```
 
 To use Terra Toolkit for local webdriver testing, you must install docker on your machine.
@@ -43,25 +43,25 @@ To use Terra Toolkit for local webdriver testing, you must install docker on you
 
 Terra Toolkit provides a built-in mechanism for aggregating themes.
 
-See the [Theme Aggregation](https://github.com/cerner/terra-toolkit-boneyard/blob/master/scripts/aggregate-themes/README.md) to get started.
+See the [Theme Aggregation](https://github.com/cerner/terra-toolkit-boneyard/blob/main/scripts/aggregate-themes/README.md) to get started.
 
 ## Serve Options
 
 Terra Toolkit offers two ways to serve your client side application, `serve` and `serve-static`. Serve provides a hot-reloading, development only option via [webpack-dev-server](https://github.com/webpack/webpack-dev-server), while serve-static is a non-hot-reloading [express](https://expressjs.com/) server. Serve-static supports IE10 and is used in webdriver testing.
 
-See the [Serve Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/master/scripts/serve/Serve.md) to get started.
+See the [Serve Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/main/scripts/serve/Serve.md) to get started.
 
 ## Webdriver.io Utility
 
 [Webdriver.io](http://v4.webdriver.io/) is a framework for writing webdriver powered tests to validate functionality in browsers. The Webdriver.io framework provides services for setting up a selenium server, starting webpack and static servers, running accessibility and visual regression testing, and more.
 
-See the [Webdriver.io Utility Developer's Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/master/docs/Wdio_Utility.md) to get started.
+See the [Webdriver.io Utility Developer's Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md) to get started.
 
 ## Webpack Configuration
 
-[Webpack](https://webpack.js.org/) is a module bundler used to compile modules with dependencies and generate static assets. Webpack is a very powerful tool that is highly configurable and Terra components rely on specific polyfills, webpack loaders and plugins to render correctly. Terra provides a [default webpack configuration](https://github.com/cerner/terra-toolkit-boneyard/blob/master/config/webpack/webpack.config.js) which we recommend you extend to meet your needs. By using this default configuration, we will manage webpack dependencies and set up translation aggregation.
+[Webpack](https://webpack.js.org/) is a module bundler used to compile modules with dependencies and generate static assets. Webpack is a very powerful tool that is highly configurable and Terra components rely on specific polyfills, webpack loaders and plugins to render correctly. Terra provides a [default webpack configuration](https://github.com/cerner/terra-toolkit-boneyard/blob/main/config/webpack/webpack.config.js) which we recommend you extend to meet your needs. By using this default configuration, we will manage webpack dependencies and set up translation aggregation.
 
-See the [Webpack Configuration Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/master/docs/Webpack.md) to get started.
+See the [Webpack Configuration Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Webpack.md) to get started.
 
 ## Versioning
 
