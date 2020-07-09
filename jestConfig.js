@@ -2,6 +2,7 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
     'config/**/*.js',
+    'reporters/**/*.js',
     'scripts/aggregate-themes/**/*.js',
   ],
   coverageDirectory: 'tests/jest/reports/coverage',

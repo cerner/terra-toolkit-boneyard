@@ -10,7 +10,6 @@ const LOG_CONTEXT = '[Terra-Toolkit:terra-wdio-spec-reporter]';
 class TerraWDIOSpecReporter extends WDIOSpecReporter {
   constructor(globalConfig, options) {
     super(globalConfig);
-    this.reporterName = 'TT_WDIO_CR';
     this.options = options;
     this.runners = [];
     this.resultJsonObject = {
@@ -19,35 +18,23 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
       locale: '',
       formFactor: '',
       theme: '',
-      output: [],
+      output: {},
       endDate: '',
     };
     this.fileName = '';
     this.moduleName = process.cwd().split('/').pop();
+
     this.setResultsDir = this.setResultsDir.bind(this);
-    this.hasReportDir = this.hasReportDir.bind(this);
+    this.hasResultsDir = this.hasResultsDir.bind(this);
     this.setTestModule = this.setTestModule.bind(this);
     this.printSummary = this.printSummary.bind(this);
-    this.setTestDirPath = this.setTestDirPath.bind(this);
-    this.filePath = this.setResultsDir(options);
-    this.hasReportDir();
+
+    this.setResultsDir();
+    this.hasResultsDir();
+
     this.on('runner:end', (runner) => {
       this.runners.push(runner);
     });
-  }
-
-  /**
-  * output test results in tests/wdio/reports/results or test/wdio/reports/results
-  * depending on whether tests or test is the directory with tests
-  * @return string
-  */
-  // eslint-disable-next-line class-methods-use-this
-  setTestDirPath() {
-    let testDir = 'tests';
-    if (fs.existsSync(path.join(process.cwd(), 'test'))) {
-      testDir = 'test';
-    }
-    return path.join(testDir, 'wdio', 'reports', 'terra-spec-results');
   }
 
   /**
@@ -65,20 +52,26 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
   * @param {object} [options.reporterOptions.outputDir] - output dir path for results dir
   * @return string
   */
-  setResultsDir(options) {
-    if (options.reporterOptions && options.reporterOptions.outputDir) {
-      return options.reporterOptions.outputDir;
+  setResultsDir() {
+    const { reporterOptions } = this.options
+    if (reporterOptions && reporterOptions.outputDir) {
+      this.resultsDir = reporterOptions.outputDir;
     }
-    return path.join(process.cwd(), this.setTestDirPath());
+
+    let testDir = 'tests';
+    if (fs.existsSync(path.join(process.cwd(), 'test'))) {
+      testDir = 'test';
+    }
+    this.resultsDir = path.join(process.cwd(), testDir, 'wdio', 'reports');
   }
 
   /**
   * Check and create reports dir if doesn't exist
   * @return null
   */
-  hasReportDir() {
-    if (!fs.existsSync(this.filePath)) {
-      fs.mkdirSync(this.filePath, { recursive: true }, (err) => {
+  hasResultsDir() {
+    if (!fs.existsSync(this.resultsDir)) {
+      fs.mkdirSync(this.resultsDir, { recursive: true }, (err) => {
         if (err) {
           Logger.error(err.message, { context: LOG_CONTEXT });
         }
@@ -91,28 +84,27 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
   * @return null
   */
   fileNameCheck({ formFactor, locale, theme }, browserName) {
-    const fileNameConf = ['/result'];
+    const fileNameConf = ['result'];
     if (locale) {
       fileNameConf.push(locale);
       this.resultJsonObject.locale = locale;
     }
+
     if (theme) {
       fileNameConf.push(theme);
       this.resultJsonObject.theme = theme;
     }
+
     if (formFactor) {
       fileNameConf.push(formFactor);
       this.resultJsonObject.formFactor = formFactor;
     }
+
     if (browserName) {
       fileNameConf.push(browserName);
     }
-    if (fileNameConf.length === 0) {
-      this.fileName = '/result';
-    }
-    if (fileNameConf.length >= 1) {
-      this.fileName = fileNameConf.join('-');
-    }
+
+    this.fileName = fileNameConf.join('-');
   }
 
   /**
@@ -136,10 +128,12 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
   * @param {array} runners - collection of all test suites with event, specHash, spec path info
   * @return null
   */
-  printSummary(runners) {
+  printSummary() {
+    const { runners } = this;
     if (runners && runners.length) {
       runners.forEach((runner, index) => {
-        if (index === 1) {
+        // determine correct file name given configuration for run
+        if (index === 0) {
           const { cid } = runner;
           const { stats } = this.baseReporter;
           const results = stats.runners[cid];
@@ -147,16 +141,20 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
           const { browserName } = config.desiredCapabilities;
           this.fileNameCheck(config, browserName);
         }
+
         this.setTestModule(runner.specs[0]);
+
         if (!this.resultJsonObject.output[this.moduleName]) {
           this.resultJsonObject.output[this.moduleName] = [];
         }
+        
         const readableMessage = `${stripAnsi(this.getSuiteResult(runner))}${endOfLine}`;
         if (readableMessage.search('\n') !== -1) {
           this.resultJsonObject.output[this.moduleName].push(readableMessage.split(/\n/g).filter(Boolean));
         }
       });
     }
+
     const {
       endDate,
       startDate,
@@ -165,7 +163,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
       theme,
       output,
     } = this.resultJsonObject;
-    let filePathLocation = '';
+
     const moduleKeys = Object.keys(output) || [];
     if (output && moduleKeys.length) {
       moduleKeys.forEach(key => {
@@ -177,7 +175,8 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
           output: output[key],
           endDate,
         };
-        filePathLocation = `${this.filePath}${this.fileName}-${key}.json`;
+
+        const filePathLocation = path.join(this.resultsDir, `${this.fileName}-${key}.json`);
         fs.writeFileSync(filePathLocation, `${JSON.stringify(fileData, null, 2)}`, { flag: 'w+' }, (err) => {
           if (err) {
             Logger.error(err.message, { context: LOG_CONTEXT });
@@ -191,10 +190,9 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
     const { end, start } = this.baseReporter.stats;
     this.resultJsonObject.endDate = new Date(end).toLocaleString();
     this.resultJsonObject.startDate = new Date(start).toLocaleString();
-    const { runners } = this;
-    this.printSummary(runners);
+    this.printSummary();
   }
 }
 
-TerraWDIOSpecReporter.reporterName = 'TerraWDIOSpectReporter';
+TerraWDIOSpecReporter.reporterName = 'TerraWDIOSpecReporter';
 module.exports = TerraWDIOSpecReporter;
