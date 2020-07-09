@@ -53,7 +53,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
   * @return string
   */
   setResultsDir() {
-    const { reporterOptions } = this.options
+    const { reporterOptions } = this.options;
     if (reporterOptions && reporterOptions.outputDir) {
       this.resultsDir = reporterOptions.outputDir;
     }
@@ -147,7 +147,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
         if (!this.resultJsonObject.output[this.moduleName]) {
           this.resultJsonObject.output[this.moduleName] = [];
         }
-        
+
         const readableMessage = `${stripAnsi(this.getSuiteResult(runner))}${endOfLine}`;
         if (readableMessage.search('\n') !== -1) {
           this.resultJsonObject.output[this.moduleName].push(readableMessage.split(/\n/g).filter(Boolean));
