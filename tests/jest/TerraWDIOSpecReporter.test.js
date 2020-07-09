@@ -40,8 +40,8 @@ describe('TerraWDIOSpecReporter', () => {
       });
 
       it('when outputDir is defined in configuration', () => {
-        const reporter = new TerraWDIOSpecReporter({}, { reporterOptions: { outputDir: 'wdio/reports' } });
-        expect(reporter.resultsDir).toEqual(expect.stringContaining('wdio/reports'));
+        const reporter = new TerraWDIOSpecReporter({}, { reporterOptions: { outputDir: 'my-test-reports/wdio' } });
+        expect(reporter.resultsDir).toEqual('my-test-reports/wdio');
       });
     });
 
