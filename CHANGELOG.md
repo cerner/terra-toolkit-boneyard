@@ -7,6 +7,9 @@ Unreleased
 * Fix Terra wdio Spec Reporter output location when only one spec file is ran.
 * Fix default out path for reports to match the default reports path included in default wdio configuration
 
+### Changed
+* Limited the full result types of axe testing to just `violations`. This should improve performance.
+
 6.4.0 - (June 30, 2020)
 ----------
 ### Added
