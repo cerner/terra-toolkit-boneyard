@@ -1,4 +1,3 @@
-
 /* global browser, axe */
 import fs from 'fs';
 
