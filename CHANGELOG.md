@@ -3,6 +3,8 @@ Changelog
 
 Unreleased
 ----------
+### Changed
+* Limited the full result types of axe testing to just `violations`. This should improve performance.
 
 6.4.0 - (June 30, 2020)
 ----------

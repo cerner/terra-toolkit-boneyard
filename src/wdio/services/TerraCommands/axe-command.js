@@ -1,4 +1,3 @@
-
 /* global browser, axe */
 import fs from 'fs';
 
@@ -43,13 +42,13 @@ const runAxeTest = (axeRules) => {
   const rules = (formattedGlobalRules || axeRules) && { ...formattedGlobalRules, ...axeRules };
 
   /* Avoid arrow callback syntax as this function is injected into the browser */
-  /* eslint-disable func-names, prefer-arrow-callback, object-shorthand */
-  const axeResult = browser.executeAsync(function (opts, done) {
-    axe.run(document, opts, function (error, result) {
+  const axeResult = browser.executeAsync((opts, done) => {
+    axe.run(document, opts, (error, result) => {
       done({ error, result });
     });
-  }, { rules, restoreScroll: true, runOnly: ['wcag2a', 'wcag2aa', 'wcag21aa', 'section508'] });
-  /* eslint-enable func-names, prefer-arrow-callback, object-shorthand */
+  }, {
+    rules, restoreScroll: true, runOnly: ['wcag2a', 'wcag2aa', 'wcag21aa', 'section508'], resultTypes: ['violations'],
+  });
 
   return axeResult.value;
 };
