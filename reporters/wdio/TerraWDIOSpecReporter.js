@@ -47,7 +47,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
 
   /**
    * Sets results directory for the test run. Uses the wdio reporterOptions.outputDir if set, otherwise
-   * it outputs to tests?/wdio/reports. 
+   * it outputs to tests?/wdio/reports.
    * @return null;
    */
   setResultsDir() {
