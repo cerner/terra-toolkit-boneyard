@@ -4,8 +4,17 @@ import TerraWDIOSpecReporter from '../../reporters/wdio/TerraWDIOSpecReporter';
 jest.mock('fs');
 
 describe('TerraWDIOSpecReporter', () => {
+  const originalProcessCwd = process.cwd;
+  beforeAll(() => {
+    process.cwd = jest.fn().mockImplementation(() => './terra-toolkit-boneyard');
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  afterAll(() => {
+    process.cwd = originalProcessCwd;
   });
 
   describe('initialization', () => {
@@ -113,7 +122,7 @@ describe('TerraWDIOSpecReporter', () => {
     it('updates moduleName if mono-repo test file', () => {
       const reporter = new TerraWDIOSpecReporter({}, {});
       expect(reporter.moduleName).toEqual('terra-toolkit-boneyard');
-      reporter.setTestModule('terra-toolkit/packages/my-package/tests/wdio/test-spec.js');
+      reporter.setTestModule('terra-toolkit-boneyard/packages/my-package/tests/wdio/test-spec.js');
       expect(reporter.moduleName).toEqual('my-package');
     });
 
