@@ -1,10 +1,10 @@
-# Wdio File Reporter
+# Terra WDIO Spec Reporter
 
 Wdio File Reporter is a reporter that logs wdio test output to separate files based on locale, theme, and form-factor with the following attributes
 
 - date and time of when the tests are started and when they are finished
 
-- Locale, Form Factor, and Theme of the tests 
+- Locale, Form Factor, and Theme of the tests
 
 - Name of the tests and whether they've succeeded or failed
 
@@ -20,13 +20,15 @@ Add WdioFileReporter as an additional reporter within the wdio.config file. Incl
 
 ```javascript
 
-const WdioFileReporter = require('terra-toolkit/src/wdio/WdioFileReporter');
+const WdioFileReporter = require('terra-toolkit/reporters/wdio/TerraWDIOSpecReporter');
 {
  reporters: ['dot', WdioFileReporter],
 }
 
 ```
+
 ## Report Format
+
 - The name of the log file for non-monorepo will be **result-\<locale>-\<theme>-\<form-factor>-\<browser>-\<repo-name>.json**(eg: result-en-huge-chrome-terra-toolkit-boneyard.json)
 
 - The name of the log file for mono-repo will be **result-\<locale>-\<theme>-\<form-factor>-\<browser>-<Package-name>.json**(eg: result-clinical-lowlight-theme-chrome-terra-clinical-data-grid.json)
