@@ -27,6 +27,7 @@ Cerner Corporation
 - Jack Vande Ven [@jv075002]
 - Dianna McGinn [@DMcginn]
 - Jason A Savage [@TheSavageDev]
+- Lokesh P [@lokesh-0813]
 
 [@emilyrohrbough]: https://github.com/emilyrohrbough
 [@brettjankord]: https://github.com/bjankord
@@ -55,3 +56,4 @@ Cerner Corporation
 [@jv075002]: https://github.com/jv075002
 [@DMcginn]: https://github.com/DMcginn
 [@TheSavageDev]: https://github.com/TheSavageDev
+[@lokesh-0813]: https://github.com/lokesh-0813
