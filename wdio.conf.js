@@ -58,4 +58,10 @@ const config = {
   webpackConfig,
 };
 
+const travis = process.env.TRAVIS;
+
+if (travis) {
+  config.host = 'localhost';
+}
+
 exports.config = config;
