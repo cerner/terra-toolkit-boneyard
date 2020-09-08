@@ -16,5 +16,14 @@ jobs:
         - npm run jest
         - docker-compose up -d standalone-chrome-travis
         - npm run wdio
+    - stage: deploy
+      script:
+        - rm -rf ./travis-build
+        # add auth token to .npmrc for lerna publish
+        - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
+        # Publish to npm and push tags to github based on output written to file
+        - node ./scripts/release/release.js
 stages:
   - lint jest compile and wdio
+  - name: deploy
+    if: type != pull_request
