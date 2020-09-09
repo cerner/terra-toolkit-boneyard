@@ -20,15 +20,18 @@ React 16 depends on the collection types ``Map`` and ``Set`` and it depends on `
   - `TERRA_AGGREGATED_LOCALES` - The list of successfully aggregated locales available to the browser.
 
 ### CSS Loaders and Plugins
+
 - [autoprefixer](https://github.com/postcss/autoprefixer) - Plugin to parse CSS and add vendor prefixes to CSS rules. This should be configured with [`browserslist-config-terra`](https://github.com/cerner/browserslist-config-terra). \*
 - [css-loader](https://webpack.js.org/loaders/css-loader/) - The css-loader interprets ``@import`` and ``url()`` like ``import/require()`` and will resolve them. The css-loader is also used to parse CSS Modules.
 - [mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin) - This plugin extracts CSS into separate files and supports on-demand-loading of CSS and SourceMaps.
-- [postcss-loader](https://webpack.js.org/loaders/postcss-loader/) - Transforms styles with JS plugins.
+- [postcss-loader](https://webpack.js.org/loaders/postcss-loader/) - Transforms styles with JS plugins. Plugins for this loader include:
+  - [terra-theme-plugin](https://github.com/cerner/terra-toolkit-boneyard/tree/master/config/webpack/postcss/ThemePlugin.js) - creates a default theme from a scoped theme and removes any supported themes that are not desired.
 - [postcss-assets-webpack-plugin](https://github.com/klimashkin/postcss-assets-webpack-plugin#apply-postcss-plugins-to-webpack-css-asset) - Gets the css, extracted by ExtractTextPlugin and apply postcss plugins to it.
 - [postcss-custom-properties](https://github.com/postcss/postcss-custom-properties) - Transforms W3C CSS Custom Properties to static values.\*
 - [postcss-rtl](https://github.com/vkalinichev/postcss-rtl) - PostCSS-plugin for RTL-adaptivity.
 - [sass-loader](https://webpack.js.org/loaders/sass-loader/) - Loads a SASS/SCSS file and compiles it to CSS.
 - [style-loader](https://webpack.js.org/loaders/style-loader/) - Adds CSS to the DOM by injecting a ``<style>`` tag.
+- [ThemeableVariableLinter](https://github.com/cerner/terra-toolkit-boneyard/tree/master/config/webpack/themeable-variable-linter/ThemeableVariableLinter.js) - tracks and warns about themeable variables for missing, unused, or duplicate variables. This is accomplished via a postcss loader plugin and a webpack plugin. See [this](https://github.com/cerner/terra-toolkit-boneyard/tree/master/config/webpack/themeable-variable-linter/README.md) for more information
 
 ### Production Only Plugins
 - [clean-webpack-plugin](https://github.com/johnagan/clean-webpack-plugin) -

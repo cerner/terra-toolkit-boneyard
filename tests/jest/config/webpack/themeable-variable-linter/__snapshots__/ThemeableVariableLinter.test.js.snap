@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Themeable Variable Linter creates the tracker with a filled out config 1`] = `undefined`;
+
+exports[`Themeable Variable Linter creates the tracker with an undefined scoped in the config 1`] = `undefined`;
+
+exports[`Themeable Variable Linter creates the tracker with no default in the config 1`] = `undefined`;
+
+exports[`Themeable Variable Linter creates the tracker with no scoped in the config 1`] = `undefined`;

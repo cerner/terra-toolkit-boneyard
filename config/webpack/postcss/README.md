@@ -85,7 +85,7 @@ The theme file declares the ```.orion-fusion-theme``` as a global class and defi
 This plugin is already included in the default webpack config. Below is an example of how you could include it in your own webpack config, but we strongly recommend you extend terra's config instead of creating your own. It's intended to be included before css modules are processed.
 
 ```js
-const ThemePlugin = require('terra-toolkit/scripts/postcss/ThemePlugin');
+const ThemePlugin = require('terra-toolkit/config/webpack/postcss/ThemePlugin');
 ...
   {
     loader: 'postcss-loader',

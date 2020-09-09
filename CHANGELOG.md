@@ -43,6 +43,7 @@ Unreleased
 
 ### Added
 * webpack config: add webpack env to allow overriding the theme.
+* Theme Linter to collect and flag missing, duplicate, and stale css variables
 
 6.1.0 - (May 5, 2020)
 ----------

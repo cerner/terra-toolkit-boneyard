@@ -71,7 +71,7 @@ describe('webpack config', () => {
 
     it('adds the plugins', () => {
       expect(config).toHaveProperty('plugins');
-      expect(config.plugins).toHaveLength(4);
+      expect(config.plugins).toHaveLength(5);
 
       expect(MiniCssExtractPlugin).toBeCalledWith({
         chunkFilename: '[name].css',
@@ -170,7 +170,7 @@ describe('webpack config', () => {
 
     it('adds the CleanWebpackPlugin', () => {
       expect(config).toHaveProperty('plugins');
-      expect(config.plugins).toHaveLength(5);
+      expect(config.plugins).toHaveLength(6);
 
       expect(MiniCssExtractPlugin).toBeCalledWith({
         chunkFilename: '[name].css',

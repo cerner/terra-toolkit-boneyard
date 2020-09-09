@@ -14,6 +14,7 @@ const ThemeAggregator = require('../../scripts/aggregate-themes/theme-aggregator
 const getThemeWebpackPromise = require('./getThemeWebpackPromise');
 const ThemePlugin = require('./postcss/ThemePlugin');
 const getThemeConfig = require('./postcss/_getThemeConfig');
+const ThemeableVariableLinter = require('./themeable-variable-linter/ThemeableVariableLinter');
 
 const webpackConfig = (options, env, argv) => {
   const {
@@ -31,6 +32,8 @@ const webpackConfig = (options, env, argv) => {
   const filename = argv['output-filename'] || fileNameStategy;
   const outputPath = argv['output-path'] || path.join(rootPath, 'build');
   const publicPath = argv['output-public-path'] || '';
+
+  const themeableVariableLinter = new ThemeableVariableLinter(themeConfig);
 
   const devConfig = {
     mode: 'development',
@@ -80,6 +83,7 @@ const webpackConfig = (options, env, argv) => {
                 ident: 'postcss',
                 sourceMap: true,
                 plugins: [
+                  themeableVariableLinter.themeableVariableCollectorPlugin(),
                   ThemePlugin(themeConfig),
                   rtl(),
                   Autoprefixer(),
@@ -104,6 +108,7 @@ const webpackConfig = (options, env, argv) => {
         }],
     },
     plugins: [
+      themeableVariableLinter.themeableVariableLinterPlugin(),
       new MiniCssExtractPlugin({
         filename: `${filename}.css`,
         chunkFilename: `${chunkFilename}.css`,

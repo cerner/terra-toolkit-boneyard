@@ -36,6 +36,7 @@
     "extends": "@cerner/terra",
     "settings": {
       "polyfills": [
+        "Array",
         "Promise"
       ]
     }
@@ -97,6 +98,7 @@
     "postcss-custom-properties": "^9.0.2",
     "postcss-loader": "^3.0.0",
     "postcss-rtl": "^1.3.3",
+    "postcss-value-parser": "^4.1.0",
     "raw-loader": "^3.0.0",
     "sass-loader": "^7.0.1",
     "strip-ansi": "^6.0.0",

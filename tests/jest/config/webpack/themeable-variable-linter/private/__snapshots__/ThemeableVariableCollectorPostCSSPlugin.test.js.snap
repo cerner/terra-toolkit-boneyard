@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Themeable Variable Collector Plugin populates the list of themeable variables 1`] = `
+ThemeableVariableInformation {
+  "perThemeVariableTracker": Object {
+    "a": Object {},
+    "b": Object {},
+    "default": Object {},
+  },
+  "themes": Array [
+    "default",
+    "a",
+    "b",
+  ],
+  "variables": Object {
+    "--var1": Object {
+      "name": "--var1",
+      "origin": Object {
+        "column": 1,
+        "file": "file1",
+        "line": 1,
+      },
+    },
+    "--var2": Object {
+      "name": "--var2",
+      "origin": Object {
+        "column": 1,
+        "file": "file1",
+        "line": 1,
+      },
+    },
+  },
+}
+`;
+
+exports[`Themeable Variable Collector Plugin populates the list of tracked variables 1`] = `
+ThemeableVariableInformation {
+  "perThemeVariableTracker": Object {
+    "a": Object {
+      "--var1": Array [
+        Object {
+          "name": "--var1",
+          "origin": Object {
+            "column": 1,
+            "file": "file1",
+            "line": 1,
+          },
+          "value": 1,
+        },
+      ],
+    },
+    "b": Object {
+      "--var1": Array [
+        Object {
+          "name": "--var1",
+          "origin": Object {
+            "column": 1,
+            "file": "file1",
+            "line": 1,
+          },
+          "value": 1,
+        },
+      ],
+      "--var2": Array [
+        Object {
+          "name": "--var2",
+          "origin": Object {
+            "column": 1,
+            "file": "file1",
+            "line": 1,
+          },
+          "value": 2,
+        },
+        Object {
+          "name": "--var2",
+          "origin": Object {
+            "column": 1,
+            "file": "file1",
+            "line": 1,
+          },
+          "value": 3,
+        },
+      ],
+      "--var3": Array [
+        Object {
+          "name": "--var3",
+          "origin": Object {
+            "column": 1,
+            "file": "file1",
+            "line": 1,
+          },
+          "value": 3,
+        },
+      ],
+    },
+    "default": Object {
+      "--var1": Array [
+        Object {
+          "name": "--var1",
+          "origin": Object {
+            "column": 1,
+            "file": "file1",
+            "line": 1,
+          },
+          "value": 1,
+        },
+      ],
+      "--var2": Array [
+        Object {
+          "name": "--var2",
+          "origin": Object {
+            "column": 1,
+            "file": "file1",
+            "line": 1,
+          },
+          "value": 2,
+        },
+      ],
+      "--var3": Array [
+        Object {
+          "name": "--var3",
+          "origin": Object {
+            "column": 1,
+            "file": "file1",
+            "line": 1,
+          },
+          "value": 3,
+        },
+      ],
+    },
+  },
+  "themes": Array [
+    "default",
+    "a",
+    "b",
+  ],
+  "variables": Object {},
+}
+`;

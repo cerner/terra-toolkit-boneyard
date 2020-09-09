@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Theme Variable Linter Webpack Plugin pushes warning based on tracked variables 1`] = `
+Array [
+  "a.
+The following variables are duplicated:
+--var2 - a/file2-1.scss (line: 2, column: 2)
+--var2 - a/file2-2.scss (line: 3, column: 3)
+--var3 - a/file3-1.scss (line: 3, column: 3)
+--var3 - a/file3-2.scss (line: 4, column: 4)",
+  "b.
+The following variables are missing:
+--var1 - file1.scss (line: 1, column: 1)
+--var2 - file2.scss (line: 2, column: 2)",
+  "c.
+The following variables are unused:
+--var4 - c/file4.scss (line: 4, column: 4)",
+  "d.
+The following variables are missing:
+--var1 - file1.scss (line: 1, column: 1)",
+  "d.
+The following variables are unused:
+--var4 - d/file4.scss (line: 4, column: 4)",
+  "d.
+The following variables are duplicated:
+--var2 - d/file2-1.scss (line: 2, column: 2)
+--var2 - d/file2-2.scss (line: 3, column: 3)
+--var3 - d/file3-1.scss (line: 3, column: 3)
+--var3 - d/file3-2.scss (line: 4, column: 4)",
+]
+`;
