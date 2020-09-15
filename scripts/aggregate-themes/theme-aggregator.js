@@ -75,7 +75,7 @@ class ThemeAggregator {
     } = options;
 
     const scopedThemesToAggregate = [
-      ...options.scoped,
+      ...(options?.scoped) ? options.scoped : [],
     ];
 
     // The default theme is created by the post css theme plugin.
