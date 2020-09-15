@@ -6,6 +6,9 @@
   * Updated to auto release from travis-ci.
   * Updated changelog formatting.
 
+* Fixed
+  * Removed Null value that aggregate translations was adding to the scoped field of the `TERRA_THEME_CONFIG` value defined via webpack.
+
 ## 6.7.0 - (August 4, 2020)
 
 * Changed
