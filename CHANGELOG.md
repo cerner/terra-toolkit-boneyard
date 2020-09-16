@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 6.8.0 - (September 16, 2020)
+
 * Changed
   * Updated to auto release from travis-ci.
   * Updated changelog formatting.
