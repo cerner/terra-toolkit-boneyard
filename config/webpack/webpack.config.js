@@ -114,7 +114,7 @@ const webpackConfig = (options, env, argv) => {
         log: false,
         plugins: [
           PostCSSCustomProperties({
-            preserve: true,
+            preserve: themeConfig.scoped && themeConfig.scoped.length,
             // If we have a theme file, use the webpack promise to webpack it.  This promise will resolve to
             // an object with themeable variables and values. This will then be used to update the end state CSS
             // so that they are populated with values if variables aren't supported (e.g. IE10). This dance is
