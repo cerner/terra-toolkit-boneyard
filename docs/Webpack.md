@@ -124,3 +124,13 @@ If duplicates of the above packages are detected, options for remediation includ
 
 - Updating the dependencies that are causing the duplication. Generally, the above packages should be listed as peerDependencies to prevent duplication.
 - Adding a webpack `resolve.alias` to the configuration that will force Webpack to use a single version of the duplicated package. However, this may cause logic to fail if the APIs between the expected versions differ.
+
+#### Disabling CSS Custom Properties
+
+Certain browsers do not support [CSS custom properties](https://caniuse.com/css-variables). If you have a scenario where you are going to need to be in one of those browsers and you only have one supported theme, you can run the following to disable CSS custom properties:
+
+```bash
+webpack --env.disableCSSCustomProperties
+```
+
+This will shrink the size of css greatly and ensure that the appropriate CSS properties are valued appropriately without using CSS custom properties.
