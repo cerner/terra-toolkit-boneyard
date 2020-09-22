@@ -16,6 +16,7 @@ const ThemePlugin = require('./postcss/ThemePlugin');
 const getThemeConfig = require('./postcss/_getThemeConfig');
 
 const webpackConfig = (options, env, argv) => {
+  const { disableCSSCustomProperties } = env;
   const {
     rootPath,
     resolveModules,
@@ -114,7 +115,7 @@ const webpackConfig = (options, env, argv) => {
         log: false,
         plugins: [
           PostCSSCustomProperties({
-            preserve: true,
+            preserve: !disableCSSCustomProperties,
             // If we have a theme file, use the webpack promise to webpack it.  This promise will resolve to
             // an object with themeable variables and values. This will then be used to update the end state CSS
             // so that they are populated with values if variables aren't supported (e.g. IE10). This dance is
