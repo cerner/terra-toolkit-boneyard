@@ -133,4 +133,4 @@ Certain browsers do not support [CSS custom properties](https://caniuse.com/css-
 webpack --env.disableCSSCustomProperties
 ```
 
-This will shrink the size of css greatly and ensure that the appropriate CSS properties are valued appropriately without using CSS custom properties.
+This will shrink the size of css and ensure that the appropriate CSS properties are defined appropriately without using CSS custom properties.
