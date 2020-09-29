@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 6.9.0 - (September 29, 2020)
+
 * Added
   * Added a webpack environment variable `disableCSSCustomProperties` to disable css custom properties.
 
