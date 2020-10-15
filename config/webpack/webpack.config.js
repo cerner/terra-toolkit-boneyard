@@ -32,6 +32,7 @@ const webpackConfig = (options, env, argv) => {
   const filename = argv['output-filename'] || fileNameStategy;
   const outputPath = argv['output-path'] || path.join(rootPath, 'build');
   const publicPath = argv['output-public-path'] || '';
+  const sourceMap = env.generateLoaderSourceMaps || !production;
 
   const devConfig = {
     mode: 'development',
@@ -60,7 +61,6 @@ const webpackConfig = (options, env, argv) => {
               loader: MiniCssExtractPlugin.loader,
               options: {
                 hmr: !production, // only enable hot module reloading in development
-                sourceMap: true,
               },
             },
             {
@@ -70,7 +70,7 @@ const webpackConfig = (options, env, argv) => {
                   mode: 'global',
                   localIdentName: '[name]__[local]___[hash:base64:5]',
                 },
-                sourceMap: true,
+                sourceMap,
                 importLoaders: 2,
               },
             },
@@ -79,7 +79,7 @@ const webpackConfig = (options, env, argv) => {
               options: {
                 // Add unique ident to prevent the loader from searching for a postcss.config file. See: https://github.com/postcss/postcss-loader#plugins
                 ident: 'postcss',
-                sourceMap: true,
+                sourceMap,
                 plugins: [
                   ThemePlugin(themeConfig),
                   rtl(),
@@ -90,7 +90,7 @@ const webpackConfig = (options, env, argv) => {
             {
               loader: 'sass-loader',
               options: {
-                sourceMap: true,
+                sourceMap,
               },
             },
           ],
@@ -189,7 +189,7 @@ const webpackConfig = (options, env, argv) => {
         new TerserPlugin({
           cache: true,
           parallel: true,
-          sourceMap: true,
+          sourceMap,
           terserOptions: {
             compress: {
               typeofs: false,

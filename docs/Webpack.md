@@ -100,6 +100,10 @@ Terra's webpack configuration enables hot reloading by default in development mo
 tt-serve --env.disableHotReloading
 ```
 
+#### Generate Loader Source Maps
+
+Terra's webpack configuration disables source map generation by default in prod. Disable this behavior by passing `--env.generateLoaderSourceMaps`. This should be used in conjunction with setting the `devtool` webpack option. Caution, This may have a large performance impact, especially with large bundles.|
+
 #### Development vs Production
 The default webpack configuration is a function that will flex between production and development modes when passing the `-p` flag while compiling with webpack. See webpack's documentation on [configuration types](https://webpack.js.org/configuration/configuration-types/) for more information.
 
