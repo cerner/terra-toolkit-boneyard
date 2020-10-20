@@ -34,8 +34,8 @@ const validatesElement = (...args) => {
 };
 
 /**
- * @deprecated 
- * 
+ * @deprecated
+ *
  * Mocha `it` block to assert the page is accessible and the screenshot comparison result is within the
  * mismatch tolerance.
  *

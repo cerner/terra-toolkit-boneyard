@@ -32,7 +32,7 @@ const validatesAccessibility = (...args) => {
 
 /**
  * @deprecated
- * 
+ *
  * A mocha-chai `it` block to assert accessibility.
  *
  * @param {Object} [options] - the Axe test options

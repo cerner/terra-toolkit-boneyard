@@ -32,7 +32,7 @@ const runMatchScreenshotTest = (selector, options) => {
 
 /**
  * @deprecated
- * 
+ *
  * Mocha-chai wrapper method to capture screenshots of a specified element and assert the
  * screenshot comparison results are within the mismatch tolerance.
  *
