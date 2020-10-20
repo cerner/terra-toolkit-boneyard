@@ -7,15 +7,12 @@ describe('matchScreenshot', () => {
   });
 
   describe('matchScreenshot', () => {
-    Terra.it.matchesScreenshot();
     it('matches screenshot', () => {
       Terra.validates.screenshot();
     });
   });
 
   describe('matchScreenshot-test name', () => {
-    Terra.it.matchesScreenshot('test-name-only');
-
     it('checks [default] screenshot', () => {
       Terra.validates.screenshot('test-name-only');
     });
@@ -24,16 +21,12 @@ describe('matchScreenshot', () => {
   describe('matchScreenshot-options--viewports', () => {
     after(() => browser.setViewportSize(viewports[0]));
 
-    Terra.it.matchesScreenshot({ viewports });
-
     it('matches screenshot', () => {
       Terra.validates.screenshot({ viewports });
     });
   });
 
   describe('matchScreenshot-options--selector', () => {
-    Terra.it.matchesScreenshot({ selector: '#content' });
-
     it('matches screenshot', () => {
       Terra.validates.screenshot({ selector: '#content' });
     });
@@ -44,9 +37,6 @@ describe('matchScreenshot', () => {
       browser.refresh();
     });
 
-    // Base screenshots
-    Terra.it.matchesScreenshot();
-
     it('matches screenshot', () => {
       Terra.validates.screenshot();
     });
@@ -54,8 +44,6 @@ describe('matchScreenshot', () => {
     it('adjusts image:', () => {
       browser.execute('document.getElementsByClassName("test")[0].style.color = "blue";');
     });
-
-    Terra.it.matchesScreenshot({ misMatchTolerance: 100 });
 
     it('matches screenshot', () => {
       Terra.validates.screenshot({ misMatchTolerance: 100 });
@@ -80,10 +68,14 @@ describe('matchScreenshot', () => {
   describe('matchScreenshot-test name & options', () => {
     after(() => browser.setViewportSize(viewports[0]));
 
-    Terra.it.matchesScreenshot('button', { selector: '#content', viewports });
+    it('matches screenshot', () => {
+      Terra.validates.screenshot('button', { selector: '#content', viewports });
+    });
   });
 
   describe('matchScreenshot-invalid options', () => {
-    Terra.it.matchesScreenshot('test-invalid-options', [viewports.tiny, viewports.huge]);
+    it('matches screenshot', () => {
+      Terra.validates.screenshot('test-invalid-options', [viewports.tiny, viewports.huge]);
+    });
   });
 });

@@ -7,6 +7,10 @@
 
 * Added
   * Added the generateLoaderSourceMaps env to re-enable source map generation for loaders on demand.
+  * Added deprecation warning to the following `Terra.it` helpers.
+    * `Terra.it.isAccessible`
+    * `Terra.it.matchesScreenshot`
+    * `Terra.it.validatesElement`
 
 ## 6.9.0 - (September 29, 2020)
 

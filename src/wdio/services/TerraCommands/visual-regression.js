@@ -1,4 +1,7 @@
 import determineOptions from './determine-test-options';
+import Logger from '../../../../scripts/utils/logger';
+
+const context = '[Terra-Toolkit:terra-service]';
 
 /**
  * Runs the visual regression comparisons and assert the screenshot comparison results are
@@ -28,17 +31,21 @@ const runMatchScreenshotTest = (selector, options) => {
 };
 
 /**
-* Mocha-chai wrapper method to capture screenshots of a specified element and assert the
-* screenshot comparison results are within the mismatch tolerance.
-*
-* @param {[name, options]} [args] - the list of test arguments to parse.
-* @param {string} [name=default] - the name of the visual regression test.
-* @param {Object} [options.misMatchTolerance] - the mismatch tolerance for the screenshot comparison.
-* @param {string} [options.selector=browser.options.terra.selector] - the element selector to use for
-*    the screenshot comparison.
-* @param {Object} [options.viewports] - the list of Terra viewports to test.
-*/
+ * @deprecated
+ * 
+ * Mocha-chai wrapper method to capture screenshots of a specified element and assert the
+ * screenshot comparison results are within the mismatch tolerance.
+ *
+ * @param {[name, options]} [args] - the list of test arguments to parse.
+ * @param {string} [name=default] - the name of the visual regression test.
+ * @param {Object} [options.misMatchTolerance] - the mismatch tolerance for the screenshot comparison.
+ * @param {string} [options.selector=browser.options.terra.selector] - the element selector to use for
+ *    the screenshot comparison.
+ * @param {Object} [options.viewports] - the list of Terra viewports to test.
+ */
 const itMatchesScreenshot = (...args) => {
+  Logger.warn('Terra.it.matchesScreenshot is deprecated. Please use Terra.validates.screenshot inside an `it` block.', { context });
+
   const {
     name, selector, misMatchTolerance, viewports,
   } = determineOptions.screenshotOptions(args);

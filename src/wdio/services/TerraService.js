@@ -52,7 +52,11 @@ export default class TerraService {
         element: validateElement.validatesElement,
       },
 
-      /* `it` provides access to Mocha it blocks of test assertions. */
+       /*
+        * Deprecated: These commands are being replaced by the above `validate` commands used inside a Mocha `it` block.
+        *
+        * `it` provides access to Mocha it blocks of test assertions.
+        */
       it: {
         isAccessible: accessibility.itIsAccessible,
         matchesScreenshot: visualRegression.itMatchesScreenshot,

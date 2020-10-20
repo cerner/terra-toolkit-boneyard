@@ -3,7 +3,9 @@ const viewports = Terra.viewports('tiny', 'huge');
 describe('beAccessible', () => {
   describe('accessible', () => {
     before(() => browser.url('/accessible.html'));
-    Terra.it.isAccessible({ viewports });
+    it('is accessible', () => {
+      Terra.validates.accessibility({ viewports });
+    });
   });
 
   describe('inaccessible contrast - test rules', () => {
@@ -12,7 +14,9 @@ describe('beAccessible', () => {
     };
 
     before(() => browser.url('/inaccessible-contrast.html'));
-    Terra.it.isAccessible({ viewports, rules: ignoredA11y });
+    it('inaccessible contrast', () => {
+      Terra.validates.accessibility({ viewports, rules: ignoredA11y });
+    });
   });
 });
 
