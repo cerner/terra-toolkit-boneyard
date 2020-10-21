@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 6.10.0 - (October 20, 2020)
+
 * Changed
   * Removed default source map generation in loaders for prod.
 
