@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+* Fixed
+ * Lock in postcss-custom-properties version to 9.1.1 to maintain the expected order that theme variables are applied.
+
 ## 6.10.0 - (October 20, 2020)
 
 * Changed
