@@ -2,8 +2,16 @@
 
 ## Unreleased
 
+## 6.11.0 - (October 23, 2020)
+
 * Fixed
  * Lock in postcss-custom-properties version to 9.1.1 to maintain the expected order that theme variables are applied.
+
+ * Added
+  * Added deprecation warning to the following `Terra.it` helpers.
+    * `Terra.it.isAccessible`
+    * `Terra.it.matchesScreenshot`
+    * `Terra.it.validatesElement`
 
 ## 6.10.0 - (October 20, 2020)
 
@@ -12,10 +20,6 @@
 
 * Added
   * Added the generateLoaderSourceMaps env to re-enable source map generation for loaders on demand.
-  * Added deprecation warning to the following `Terra.it` helpers.
-    * `Terra.it.isAccessible`
-    * `Terra.it.matchesScreenshot`
-    * `Terra.it.validatesElement`
 
 ## 6.9.0 - (September 29, 2020)
 
