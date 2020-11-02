@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import TerraWDIOSpecReporter from '../../reporters/wdio/TerraWDIOSpecReporter';
 
 jest.mock('fs');
@@ -124,6 +125,18 @@ describe('TerraWDIOSpecReporter', () => {
       expect(reporter.moduleName).toEqual('terra-toolkit-boneyard');
       reporter.setTestModule('terra-toolkit-boneyard/packages/my-package/tests/wdio/test-spec.js');
       expect(reporter.moduleName).toEqual('my-package');
+    });
+
+    it('updates moduleName if mono-repo test file if windows path', () => {
+      const reporter = new TerraWDIOSpecReporter({}, {});
+      const separator = path.sep;
+      path.sep = '\\';
+
+      expect(reporter.moduleName).toEqual('terra-toolkit-boneyard');
+      reporter.setTestModule('C:\\project\\packages\\my-package\\tests\\wdio\\test-spec.js');
+      expect(reporter.moduleName).toEqual('my-package');
+
+      path.sep = separator;
     });
 
     it('does not updates moduleName if non mono-repo test file', () => {
