@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 6.12.0 - (November 3, 2020)
+
 * Fixed
   * Update reporters to use `path.sep` to fix output errors seen when running on windows operating systems.
 
