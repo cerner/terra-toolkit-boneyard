@@ -2,12 +2,15 @@
 
 ## Unreleased
 
+* Fixed
+  * Update reporters to use `path.sep` to fix output errors seen when running on windows operating systems.
+
 ## 6.11.0 - (October 23, 2020)
 
 * Fixed
- * Lock in postcss-custom-properties version to 9.1.1 to maintain the expected order that theme variables are applied.
+  * Lock in postcss-custom-properties version to 9.1.1 to maintain the expected order that theme variables are applied.
 
- * Added
+* Added
   * Added deprecation warning to the following `Terra.it` helpers.
     * `Terra.it.isAccessible`
     * `Terra.it.matchesScreenshot`
