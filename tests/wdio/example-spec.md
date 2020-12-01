@@ -3,7 +3,7 @@ const testViewports = ['tiny', 'huge'];
 const viewports = Terra.viewports(testViewports);
 tag[default]
 
-descrbie('tag selection varaint')
+describe('tag selection varaint')
 
 describe('[19282] it runs varaint int he current test passing viewports with selection', () => {
   beforeEach(() => {

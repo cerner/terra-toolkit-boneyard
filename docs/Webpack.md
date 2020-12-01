@@ -100,6 +100,10 @@ Terra's webpack configuration enables hot reloading by default in development mo
 tt-serve --env.disableHotReloading
 ```
 
+#### Generate Loader Source Maps
+
+Terra's webpack configuration disables source map generation by default in prod. Disable this behavior by passing `--env.generateLoaderSourceMaps`. This should be used in conjunction with setting the `devtool` webpack option. Caution, This may have a large performance impact, especially with large bundles.|
+
 #### Development vs Production
 The default webpack configuration is a function that will flex between production and development modes when passing the `-p` flag while compiling with webpack. See webpack's documentation on [configuration types](https://webpack.js.org/configuration/configuration-types/) for more information.
 
@@ -124,3 +128,13 @@ If duplicates of the above packages are detected, options for remediation includ
 
 - Updating the dependencies that are causing the duplication. Generally, the above packages should be listed as peerDependencies to prevent duplication.
 - Adding a webpack `resolve.alias` to the configuration that will force Webpack to use a single version of the duplicated package. However, this may cause logic to fail if the APIs between the expected versions differ.
+
+#### Disabling CSS Custom Properties
+
+Certain browsers do not support [CSS custom properties](https://caniuse.com/css-variables). If you have a scenario where you are going to need to be in one of those browsers and you only have one supported theme, you can run the following to disable CSS custom properties:
+
+```bash
+webpack --env.disableCSSCustomProperties
+```
+
+This will shrink the size of css and ensure that the appropriate CSS properties are defined appropriately without using CSS custom properties.

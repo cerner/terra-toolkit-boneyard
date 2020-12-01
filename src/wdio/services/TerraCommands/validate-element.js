@@ -1,6 +1,9 @@
 import accessibilityMethods from './accessibility';
 import visualRegressionMethods from './visual-regression';
 import determineOptions from './determine-test-options';
+import Logger from '../../../../scripts/utils/logger';
+
+const context = '[Terra-Toolkit:terra-service]';
 
 /**
  * A chai assertion method to assert the page is accessible and the screenshot comparison result is within
@@ -31,6 +34,8 @@ const validatesElement = (...args) => {
 };
 
 /**
+ * @deprecated
+ *
  * Mocha `it` block to assert the page is accessible and the screenshot comparison result is within the
  * mismatch tolerance.
  *
@@ -41,6 +46,8 @@ const validatesElement = (...args) => {
  * @param {string} [options.selector=browser.options.terra.selector] - the element selector to use for the screenshot comparison.
  */
 const itValidatesElement = (...args) => {
+  Logger.warn('Terra.it.validatesElement is deprecated. Please use Terra.validates.element inside an `it` block.', { context });
+
   const {
     rules,
   } = determineOptions.axeOptions(args);

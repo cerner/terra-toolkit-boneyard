@@ -83,40 +83,57 @@ Then, to assist with testing, the TerraService provides the Terra global helper 
 
 ### Test Assertion Helpers
 
-- `Terra.it.validatesElement()` mocha-chai convenience method that takes a screenshot and verifies the images are within the specified mis-match tolerance and performs accessibility validation. Note: this method provides its own mocha it test case. Also, since viewports isn't accepted in this method, you need to [test in multiple viewports](https://github.com/cerner/terra-toolkit-boneyard/blob/main/tests/wdio/describeViewports-spec.js). This method accepts these arguments (in this order):
+- `Terra.validates.element()` mocha-chai convenience method that takes a screenshot and verifies the images are within the specified mis-match tolerance and performs accessibility validation. This method must be used inside a mocha `it` block. Also, since viewports isn't accepted in this method, you need to [test in multiple viewports](https://github.com/cerner/terra-toolkit-boneyard/blob/main/tests/wdio/describeViewports-spec.js). This method accepts these arguments (in this order):
     - String (optional): the test case name. Default name is 'default'
     - Object (optional): the test options. Options include selector, misMatchTolerance and axeRules:
          - selector: the element selector to take a screenshot of. Defaults to the global `terra.selector`. Accessibility testing ignores this option and always tests the whole document.
          - misMatchTolerance: number between 0 and 100 that defines the degree of mismatch to consider two images as identical, increasing this value will decrease test coverage. Defaults to the global `visualRegression.compare.misMatchTolerance`.
          - axeRules: the [axe rules](https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md) to use as overrides if necessary. The rules specified here take precedence over the rules specified in the global configuration.
     - See [validateElement-spec.js](https://github.com/cerner/terra-toolkit-boneyard/blob/main/tests/wdio/validateElement-spec.js) for example usage.
-    - This helper can be used inside mocha `it` blocks by being called through `Terra.validates.element()`. This takes the same arguments.
-- `Terra.it.isAccessible()` mocha-chai convenience method that runs an axe test for the page.
+- `Terra.validates.accessibility()` mocha-chai convenience method that runs an axe test for the page. This method must be used inside a mocha `it` block.
     - Object (optional): the test options. Options include rules and viewports:
          - rules: the [axe rules](https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md) to use as overrides if necessary. The rules specified here take precedence over the rules specified in the global configuration.
          - viewports: the array of viewports dimensions to test accessibility in. Defaults to the current viewport size. **Note - This will significantly slow down tests and it is prefered to instead use a top-level `Terra.describeViewports` block**
     - See [beAccessible-spec.js](https://github.com/cerner/terra-toolkit-boneyard/blob/main/tests/wdio/beAccessible-spec.js) for examples.
-    - This helper can be used inside mocha `it` blocks by being called through `Terra.validates.accessibliity()`. This takes the same arguments.
-- `Terra.it.matchesScreenshot()` **Note - It is preferred to use Terra.it.validatesElement().  Terra.should.matchScreenshot() may eventually be deprecated** mocha-chai convenience method that takes a screenshot for the specified viewports and verifies the images are within the specified mis-match tolerance. Note: this method provides its own mocha it test case. The methods accepts these arguments (in this order):
+- `Terra.validates.screenshot()` **Note - It is preferred to use Terra.validates.element().** mocha-chai convenience method that takes a screenshot for the specified viewports and verifies the images are within the specified mis-match tolerance. Unlike `Terra.validates.element()` this method does not perform accessibility validation. This method must be used inside a mocha `it` block. This method accepts these arguments (in this order):
     - String (optional): the test case name. Default name is 'default'
     - Object (optional): the test options. Options include selector, viewports, and misMatchTolerance:
          - selector: the element selector to take a screenshot of. Defaults to the global terra.selector.
          - viewports: the array of viewports dimensions to take a screenshot in. Defaults to the current viewport size. **Note - This will significantly slow down tests and can cause screenshot inconsistencies with some responsive UI. It is prefered to instead use a top-level `Terra.describeViewports` block**
          - misMatchTolerance: number between 0 and 100 that defines the degree of mismatch to consider two images as identical, increasing this value will decrease test coverage. Defaults to the global visualRegression.compare.misMatchTolerance.
     - See [matchScreenshot-spec.js](https://github.com/cerner/terra-toolkit-boneyard/blob/main/tests/wdio/matchScreenshot-spec.js) for example usage.
-    - This helper can be used inside mocha `it` blocks by being called through `Terra.validates.screenshot()`. This takes the same arguments.
 
-```js
+- **Deprecations:** The following test assertion helpers are deprecated and will be removed in the next major version.
+    - `Terra.it.validatesElement()` - Replaced by `Terra.validates.element()`.
+    - `Terra.it.isAccessible()` -  Replaced by `Terra.validates.accessibility()`.
+    - `Terra.it.matchesScreenshot()` - Replaced by `Terra.validates.screenshot()`.
+
+```diff
 // These globals are provide via the Terra Service
 /* global browser, describe, it, expect, viewport */
 Terra.describeViewports('Basic Test', ['huge'], () => {
   before(() => browser.url('/test.html'));
 
-  Terra.it.validatesElement();
+    //Replace `Terra.it.validatesElement()` with `Terra.validates.element()`
+-   Terra.it.validatesElement();
 
-  it('custom test', () => {
-    expect('something').to.equal('something');
-  });
++   it('checks element', () => {
++     Terra.validates.element();
++   });
+
+    //Replace `Terra.it.isAccessible()` with `Terra.validates.accessibility()`
+-   Terra.it.isAccessible();
+
++   it('is accessible', () => {
++     Terra.validates.accessibility();
++   });
+
+    //Replace `Terra.it.matchesScreenshot()` with `Terra.validates.screenshot()`
+-   Terra.it.matchesScreenshot();
+
++   it('matches screenshot', () => {
++     Terra.validates.screenshot();
++   });
 });
 ```
 

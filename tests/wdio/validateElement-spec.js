@@ -4,8 +4,6 @@ Terra.describeViewports('validateElement', ['tiny', 'small', 'huge'], () => {
       browser.url('/compare.html');
     });
 
-    Terra.it.validatesElement();
-
     it('checks element', () => {
       Terra.validates.element();
     });
@@ -17,8 +15,6 @@ Terra.describeViewports('validateElement', ['tiny', 'small', 'huge'], () => {
     const ignoredA11y = {
       'color-contrast': { enabled: false },
     };
-
-    Terra.it.validatesElement({ axeRules: ignoredA11y });
 
     it('checks element', () => {
       Terra.validates.element({ axeRules: ignoredA11y });

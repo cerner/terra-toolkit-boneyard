@@ -16,7 +16,7 @@ class TerraVerboseReporter extends VerboseReporter {
       endDate: '',
     };
     this.unformattedResult = {};
-    this.moduleName = process.cwd().split('/').pop();
+    this.moduleName = process.cwd().split(path.sep).pop();
     this.log = this.log.bind(this);
     this.ensureResultsDir = this.ensureResultsDir.bind(this);
     this.setTestModule = this.setTestModule.bind(this);
@@ -54,10 +54,10 @@ class TerraVerboseReporter extends VerboseReporter {
   }
 
   setTestModule(testLog) {
-    const index = testLog.lastIndexOf('packages/');
+    const index = testLog.lastIndexOf(`packages${path.sep}`);
     if (index > -1) {
-      const testFilePath = testLog.substring(index).split('/');
-      const moduleName = testFilePath && testFilePath[1] ? testFilePath[1] : process.cwd().split('/').pop();
+      const testFilePath = testLog.substring(index).split(path.sep);
+      const moduleName = testFilePath && testFilePath[1] ? testFilePath[1] : process.cwd().split(path.sep).pop();
       if (moduleName && moduleName !== this.moduleName) {
         this.moduleName = moduleName;
       }

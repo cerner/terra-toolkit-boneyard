@@ -22,7 +22,7 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
       endDate: '',
     };
     this.fileName = '';
-    this.moduleName = process.cwd().split('/').pop();
+    this.moduleName = process.cwd().split(path.sep).pop();
 
     this.setResultsDir = this.setResultsDir.bind(this);
     this.hasResultsDir = this.hasResultsDir.bind(this);
@@ -111,10 +111,10 @@ class TerraWDIOSpecReporter extends WDIOSpecReporter {
   * @return null
   */
   setTestModule(specsValue) {
-    const index = specsValue.lastIndexOf('packages/');
+    const index = specsValue.lastIndexOf(`packages${path.sep}`);
     if (index > -1) {
-      const testFilePath = specsValue.substring(index).split('/');
-      const moduleName = testFilePath && testFilePath[1] ? testFilePath[1] : process.cwd().split('/').pop();
+      const testFilePath = specsValue.substring(index).split(path.sep);
+      const moduleName = testFilePath && testFilePath[1] ? testFilePath[1] : process.cwd().split(path.sep).pop();
       if (moduleName && moduleName !== this.moduleName) {
         this.moduleName = moduleName;
       }

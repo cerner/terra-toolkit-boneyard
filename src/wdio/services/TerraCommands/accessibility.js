@@ -1,4 +1,7 @@
 import determineOptions from './determine-test-options';
+import Logger from '../../../../scripts/utils/logger';
+
+const context = '[Terra-Toolkit:terra-service]';
 
 /**
  * Runs the custom wdio accessibility command and asserts no violations were found.
@@ -15,26 +18,30 @@ const runAccessibilityTest = (options) => {
 };
 
 /**
-* A chai assertion method to assert accessibility.
-*
-* This should be used within a Mocha `it` block.
-*
-* @param {Object} [options] - the Axe test options
-* @param {Object} [options.rules] - the axe rules to use to assert accessibility.
-* @param {Object[]} [options.viewports] - the list of Terra viewports to test.
-*/
+ * A chai assertion method to assert accessibility.
+ *
+ * This should be used within a Mocha `it` block.
+ *
+ * @param {Object} [options] - the Axe test options
+ * @param {Object} [options.rules] - the axe rules to use to assert accessibility.
+ * @param {Object[]} [options.viewports] - the list of Terra viewports to test.
+ */
 const validatesAccessibility = (...args) => {
   runAccessibilityTest(determineOptions.axeOptions(args));
 };
 
 /**
-* A mocha-chai `it` block to assert accessibility.
-*
-* @param {Object} [options] - the Axe test options
-* @param {Object} [options.rules] - the axe rules to use to assert accessibility.
-* @param {Object[]} [options.viewports] - the list of Terra viewports to test.
-*/
+ * @deprecated
+ *
+ * A mocha-chai `it` block to assert accessibility.
+ *
+ * @param {Object} [options] - the Axe test options
+ * @param {Object} [options.rules] - the axe rules to use to assert accessibility.
+ * @param {Object[]} [options.viewports] - the list of Terra viewports to test.
+ */
 const itIsAccessible = (...args) => {
+  Logger.warn('Terra.it.isAccessible is deprecated. Please use Terra.validates.accessibility inside an `it` block.', { context });
+
   global.it('is accessible', () => {
     runAccessibilityTest(determineOptions.axeOptions(args));
   });

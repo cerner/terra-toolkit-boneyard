@@ -1,15 +1,18 @@
 import fs from 'fs';
+import path from 'path';
 import TerraVerboseReporter from '../../reporters/jest/TerraVerboseReporter';
 
 jest.mock('fs');
 
 describe('Jest File Reporter Testing', () => {
   let fsWriteSpy;
-  afterEach(() => {
-    fsWriteSpy.mockClear();
-  });
+
   beforeEach(() => {
     fsWriteSpy = jest.spyOn(fs, 'writeFileSync');
+  });
+
+  afterEach(() => {
+    fsWriteSpy.mockClear();
   });
 
   it('should have startdate property in the test results', () => {
@@ -37,6 +40,34 @@ describe('Jest File Reporter Testing', () => {
   it('should call setTestDirPath and include test in reporter filePath', () => {
     const verboseReporter = new TerraVerboseReporter({});
     expect(verboseReporter.filePath).toEqual(expect.stringContaining('test'));
+  });
+
+  describe('setTestModule', () => {
+    it('should set this.moduleName when root folder has package directory', () => {
+      const verboseReporter = new TerraVerboseReporter({});
+      verboseReporter.setTestModule('terra-toolkit-boneyard/packages/terra-clinical-header/tests/wdio/test-spec.js');
+      expect(verboseReporter.moduleName).toBe('terra-clinical-header');
+    });
+
+    it('should set this.moduleName when root folder has package directory and is windows path', () => {
+      const verboseReporter = new TerraVerboseReporter({});
+
+      const separator = path.sep;
+      path.sep = '\\';
+
+      expect(verboseReporter.moduleName).toEqual('terra-toolkit-boneyard');
+      verboseReporter.setTestModule('C:\\project\\packages\\my-package\\tests\\wdio\\test-spec.js');
+      expect(verboseReporter.moduleName).toEqual('my-package');
+
+      path.sep = separator;
+    });
+
+    it('does not updates moduleName if non mono-repo test file', () => {
+      const reporter = new TerraVerboseReporter({}, {});
+      expect(reporter.moduleName).toEqual('terra-toolkit-boneyard');
+      reporter.setTestModule('terra-toolkit-boneyard/tests/wdio/test-spec.js');
+      expect(reporter.moduleName).toEqual('terra-toolkit-boneyard');
+    });
   });
 
   it('should set this.moduleName when root folder has package directory', () => {
