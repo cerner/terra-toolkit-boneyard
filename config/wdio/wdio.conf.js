@@ -15,13 +15,11 @@ const TerraWDIOSpecReporter = require('../../reporters/wdio/TerraWDIOSpecReporte
 let ip = process.env.WDIO_EXTERNAL_HOST || localIP.address();
 const networkInterfaces = os.networkInterfaces();
 if (!process.env.WDIO_EXTERNAL_HOST) {
-  const utuns = [];
-  Object.keys(networkInterfaces).map(e => (e.includes('utun') ? utuns.push(e) : null));
-  utuns.forEach((utun) => {
-    if (networkInterfaces[utun] && networkInterfaces[utun][0] && networkInterfaces[utun][0].family === 'IPv4') {
-      ip = networkInterfaces[utun][0].address;
-    }
-  });
+  const utun = Object.entries(networkInterfaces).find(([key, interface]) => key.includes('utun') && interface[0] && interface[0].family === 'IPv4')[1];
+
+  if (utun) {
+    ip = utun[0].address;
+  }
 }
 
 /* Use to post the wdio run to a different docker port. */
