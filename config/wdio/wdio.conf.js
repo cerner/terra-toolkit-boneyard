@@ -15,10 +15,10 @@ const TerraWDIOSpecReporter = require('../../reporters/wdio/TerraWDIOSpecReporte
 let ip = process.env.WDIO_EXTERNAL_HOST || localIP.address();
 const networkInterfaces = os.networkInterfaces();
 if (!process.env.WDIO_EXTERNAL_HOST) {
-  const utun = Object.entries(networkInterfaces).find(([key, interface]) => key.includes('utun') && interface[0] && interface[0].family === 'IPv4')[1];
+  const utun = Object.entries(networkInterfaces).find(([key, networkInterface]) => key.includes('utun') && networkInterface[0] && networkInterface[0].family === 'IPv4');
 
-  if (utun) {
-    ip = utun[0].address;
+  if (utun && utun[1]) {
+    ip = utun[1][0].address;
   }
 }
 
