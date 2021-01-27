@@ -11,7 +11,7 @@ const {
 const visualRegressionConfig = require('./visualRegressionConf');
 const TerraWDIOSpecReporter = require('../../reporters/wdio/TerraWDIOSpecReporter');
 
-/* Dynamically gets host's IP when running wdio tests from a VM or behind a proxy without using any env variable. */
+/* Dynamically gets the host's IP, on macOS, when running wdio tests from a VM or behind a proxy. */
 /* Note: To keep the changes passive WDIO_EXTERNAL_HOST is given precedence */
 let ip = process.env.WDIO_EXTERNAL_HOST || localIP.address();
 
