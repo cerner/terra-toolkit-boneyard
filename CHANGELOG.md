@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 6.13.0 - (February 2, 2021)
+
 * Updated
   * Updated wdio.conf to dynamically update `IP`, when VPN is connected.
 
