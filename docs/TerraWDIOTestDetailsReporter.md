@@ -25,23 +25,11 @@ const TerraWDIOTestDetailsReporter = require('terra-toolkit/reporters/wdio/Terra
 
 ```
 
-Add event emitter in the visualRegressionConfig.js so that when ever a screenshot is taken a the screenshot link is send to the Details Reporter
-
-```javascript
-
-screenshotName: (context) => {
-    const screenshotPath = getScreenshotPath('screenshot')(context);
-    process.send({ event: 'terra-wdio:latest-screenshot', screenshotPath });
-    return screenshotPath;
-}
-
-```
-
 ## Report Format
 
 - The name of the log file for non-monorepo will be **result-details-\<locale>-\<theme>-\<form-factor>-\<browser>-\<repo-name>.json**(eg: result-details-en-huge-chrome-terra-toolkit-boneyard.json)
 
 - The name of the log file for mono-repo will be **result-details-\<Package-name>\<locale>-\<theme>-\<form-factor>-\<browser>.json**(eg: result-details-terra-clinical-data-grid-clinical-lowlight-theme-chrome)
 
-- Example output  [a relative link](details-reporter-sample-results.json)
-- Example output when error occurs  [a relative link](details-reporter-sample-results-withError.json)
+- Example output [a relative link](details-reporter-sample-results.json)
+- Example output when error occurs [a relative link](details-reporter-sample-results-withError.json)
