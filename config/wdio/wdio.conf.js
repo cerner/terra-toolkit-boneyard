@@ -10,7 +10,6 @@ const {
 } = require('../../lib/wdio/services/index');
 const visualRegressionConfig = require('./visualRegressionConf');
 const TerraWDIOSpecReporter = require('../../reporters/wdio/TerraWDIOSpecReporter');
-const TerraWDIOTestDetailsReporter = require('../../reporters/wdio/TerraWDIOTestDetailsReporter');
 
 /* Dynamically gets the host's IP, on macOS, when running wdio tests from a VM or behind a proxy. */
 /* Note: To keep the changes passive WDIO_EXTERNAL_HOST is given precedence */
@@ -128,7 +127,7 @@ const config = {
   reporterOptions: {
     outputDir: path.resolve(process.cwd(), 'tests', 'wdio', 'reports'),
   },
-  reporters: ['dot', TerraWDIOSpecReporter, TerraWDIOTestDetailsReporter],
+  reporters: ['dot', TerraWDIOSpecReporter],
   ...theme && { theme },
 };
 
