@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 6.14.1 - (March 3, 2021)
+
 * Fixed
   * Temporarily disable details reporter
 
