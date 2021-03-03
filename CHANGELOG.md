@@ -5,6 +5,10 @@
 * Added
   * Terra Wdio Test Details Reporter that logs wdio visualRegression test output to a json file.
 
+* Fixed
+  * fixed issue in terra-core regarding TerraWDIOTestDetailsReporter
+  * changed the result file names of TerraWDIOTestDetailsReporter form result-details to functional-test-details
+
 ## 6.13.0 - (February 2, 2021)
 
 * Updated
