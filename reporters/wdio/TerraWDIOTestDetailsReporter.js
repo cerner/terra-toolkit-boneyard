@@ -171,45 +171,47 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    */
   runnerEnd(runner) {
     const specData = this.moduleName ? this.specHashData[this.moduleName] : this.specHashData;
-    Object.values(specData).forEach((spec) => {
-      const revSpecs = Object.values(spec);
-      revSpecs.forEach((test, i) => {
-        if (test.parent === test.title) {
-          const { title, parent, ...rest } = revSpecs[i];
-          revSpecs[i] = {
-            title,
-            spec: runner.specs[0],
-            ...rest,
-          };
-        }
-        if (test.parent !== test.title) {
-          const parentIndex = revSpecs.findIndex(
-            (item) => item.title === test.parent,
-          );
-
-          if (parentIndex > -1) {
-            if (!revSpecs[parentIndex].suites) {
-              revSpecs[parentIndex].suites = [];
-            }
-            revSpecs[parentIndex].suites.push(test);
-            // eslint-disable-next-line no-param-reassign
-            delete test.parent;
+    if (specData) {
+      Object.values(specData).forEach((spec) => {
+        const revSpecs = Object.values(spec);
+        revSpecs.forEach((test, i) => {
+          if (test.parent === test.title) {
+            const { title, parent, ...rest } = revSpecs[i];
+            revSpecs[i] = {
+              title,
+              spec: runner.specs[0],
+              ...rest,
+            };
           }
+          if (test.parent !== test.title) {
+            const parentIndex = revSpecs.findIndex(
+              (item) => item.title === test.parent,
+            );
+
+            if (parentIndex > -1) {
+              if (!revSpecs[parentIndex].suites) {
+                revSpecs[parentIndex].suites = [];
+              }
+              revSpecs[parentIndex].suites.push(test);
+              // eslint-disable-next-line no-param-reassign
+              delete test.parent;
+            }
+          }
+          // eslint-disable-next-line no-param-reassign
+          delete test.parent;
+        });
+        if (this.moduleName) {
+          const filePathLocation = path.join(
+            this.resultsDir,
+            `${this.fileName}.json`,
+          );
+          this.resultJsonObject.specs[this.moduleName] = revSpecs.shift();
+          this.writToFile(this.resultJsonObject.specs[this.moduleName], filePathLocation);
+        } else {
+          this.nonMonoRepoResult.push(revSpecs.shift());
         }
-        // eslint-disable-next-line no-param-reassign
-        delete test.parent;
       });
-      if (this.moduleName) {
-        const filePathLocation = path.join(
-          this.resultsDir,
-          `${this.fileName}.json`,
-        );
-        this.resultJsonObject.specs[this.moduleName] = revSpecs.shift();
-        this.writToFile(this.resultJsonObject.specs[this.moduleName], filePathLocation);
-      } else {
-        this.nonMonoRepoResult.push(revSpecs.shift());
-      }
-    });
+    }
     if (!this.moduleName) {
       this.resultJsonObject.specs = this.nonMonoRepoResult;
       const filePathLocation = path.join(
@@ -275,7 +277,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    * @return null
    */
   fileNameCheck({ formFactor, locale, theme }, { browserName }, moduleName) {
-    const fileNameConf = ['result-details'];
+    const fileNameConf = ['functional-test-details'];
     if (moduleName) {
       fileNameConf.push(moduleName);
     }
