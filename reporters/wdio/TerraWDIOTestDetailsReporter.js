@@ -31,7 +31,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
     this.moduleName = '';
     this.setResultsDir.bind(this);
     this.hasResultsDir.bind(this);
-    this.writToFile.bind(this);
+    this.writeToFile.bind(this);
     this.setTestModule = this.setTestModule.bind(this);
     this.title = '';
     this.state = '';
@@ -214,7 +214,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
           `${this.fileName}.json`,
         );
         this.resultJsonObject.specs[this.moduleName] = revSpecs.shift();
-        this.writToFile(
+        this.writeToFile(
           this.resultJsonObject.specs[this.moduleName],
           filePathLocation,
         );
@@ -228,7 +228,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
         this.resultsDir,
         `${this.fileName}.json`,
       );
-      this.writToFile(this.resultJsonObject, filePathLocation);
+      this.writeToFile(this.resultJsonObject, filePathLocation);
     }
     this.screenshots = [];
     this.specHashData = {};
@@ -323,7 +323,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    * @return null
    */
   // eslint-disable-next-line class-methods-use-this
-  writToFile(data, filePath) {
+  writeToFile(data, filePath) {
     try {
       fs.writeFileSync(filePath, `${JSON.stringify(data, null, 2)}`, {
         flag: 'w+',
