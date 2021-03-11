@@ -173,13 +173,12 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    * Format resultJsonObject based on parent and nest the tests
    * @return null
    */
-  /* eslint consistent-return: off */
   runnerEnd(runner) {
     const specData = this.moduleName
       ? this.specHashData[this.moduleName]
       : this.specHashData;
     if (!specData) {
-      return null;
+      return;
     }
     Object.values(specData).forEach((spec) => {
       const revSpecs = Object.values(spec);
