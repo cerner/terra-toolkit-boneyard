@@ -174,9 +174,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    * @return null
    */
   runnerEnd(runner) {
-    const specData = this.moduleName
-      ? this.specHashData[this.moduleName]
-      : this.specHashData;
+    const specData = this.moduleName ? this.specHashData[this.moduleName] : this.specHashData;
     if (!specData) {
       return;
     }
@@ -324,9 +322,9 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
   // eslint-disable-next-line class-methods-use-this
   writeToFile(data, filePath) {
     try {
-      fs.writeFileSync(filePath, `${JSON.stringify(data, null, 2)}`, {
-        flag: 'w+',
-      });
+      const json = `${JSON.stringify(data, null, 2)}`;
+      const options = { flag: 'w+' };
+      fs.writeFileSync(filePath, json, options);
     } catch (err) {
       Logger.error(err.message, { context: LOG_CONTEXT });
     }
