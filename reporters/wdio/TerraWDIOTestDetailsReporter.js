@@ -174,10 +174,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    * @return null
    */
   runnerEnd(runner) {
-    const specData = this.moduleName ? this.specHashData[this.moduleName] : this.specHashData;
-    if (!specData) {
-      return;
-    }
+    const specData = this.moduleName && this.specHashData[this.moduleName] ? this.specHashData[this.moduleName] : this.specHashData;
     Object.values(specData).forEach((spec) => {
       const revSpecs = Object.values(spec);
       revSpecs.forEach((test, i) => {
