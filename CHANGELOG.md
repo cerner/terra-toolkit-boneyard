@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+* Fixed
+  * Added back the TerraWDIOTestDetailsReporter
+  * Fixed TerraWDIOTestDetailsReporter as specData is undefined in some scenarios when viewport the user specifying don't match the viewport in the spec file
+  * Changed the result file names of TerraWDIOTestDetailsReporter form result-details to functional-test-details
 ## 6.14.1 - (March 3, 2021)
 
 * Fixed
