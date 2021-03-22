@@ -26,6 +26,7 @@ class TerraVerboseReporter extends VerboseReporter {
     this.resultDir = this.setResultDir(globalConfig);
     this.ensureResultsDir();
 
+    // Disable _out and _err so that we don't write out anything as part of this reporter
     this._out = () => {};
     this._err = () => {};
   }
