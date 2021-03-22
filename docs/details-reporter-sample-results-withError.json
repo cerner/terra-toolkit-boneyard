@@ -1,0 +1,75 @@
+{
+    "locale": "en",
+    "theme": "default-theme",
+    "formFactor": "tiny",
+    "capabilities": {
+      "browserName": "chrome"
+    },
+    "specs": [
+      {
+        "title": "I18n Locale",
+        "spec": "/opt/module/tests/wdio/i18n-spec.js",
+        "tests": [
+          {
+            "title": "Express correctly sets the application locale",
+            "state": "passed",
+            "screenshots": [
+              "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_tiny/i18n-spec/I18n_Locale[default].png"
+            ]
+          },
+          {
+            "title": "matches screenshot",
+            "state": "passed",
+            "screenshots": [
+              "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_tiny/i18n-spec/I18n_Locale[default].png"
+            ]
+          }
+        ]
+      },
+      {
+        "title": "[tiny]",
+        "spec": "/opt/module/tests/wdio/validateElement-spec.js",
+        "tests": [],
+        "suites": [
+          {
+            "title": "validateElement",
+            "tests": [],
+            "suites": [
+              {
+                "title": "full implementation",
+                "tests": [
+                  {
+                    "title": "checks element",
+                    "state": "passed",
+                    "screenshots": [
+                      "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_tiny/validateElement-spec/full_implementation[default].png",
+                      "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_tiny/validateElement-spec/inaccessible_contrast[default].png"
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "inaccessible contrast",
+                "tests": [
+                  {
+                    "title": "checks element",
+                    "state": "fail",
+                    "screenshots": [
+                      "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_tiny/validateElement-spec/full_implementation[default].png",
+                      "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_tiny/validateElement-spec/inaccessible_contrast[default].png"
+                    ],
+                    "error": {
+                      "name": "Error",
+                      "message": "expected to be within the mismatch tolerance, but received the following comparison results \n{\n  \"isSameDimensions\": false,\n  \"misMatchPercentage\": 3.07\n}",
+                      "stack": "AssertionError: expected to be within the mismatch tolerance, but received the following comparison results \n{\n  \"isSameDimensions\": false,\n  \"misMatchPercentage\": 3.07\n}\n    at Object.runMatchScreenshotTest (/opt/module/lib/wdio/services/TerraCommands/visual-regression.js:39:33)\n    at Object.validatesElement [as element] (/opt/module/lib/wdio/services/TerraCommands/validate-element.js:50:29)\n    at Context.it (/opt/module/tests/wdio/validateElement-spec.js:20:23)\n    at new Promise (<anonymous>)\n    at new F (/opt/module/node_modules/babel-runtime/node_modules/core-js/library/modules/_export.js:36:28)",
+                      "type": "AssertionError"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

@@ -2,6 +2,31 @@
 
 ## Unreleased
 
+* Fixed
+  * Added back the TerraWDIOTestDetailsReporter
+  * Fixed TerraWDIOTestDetailsReporter as specData is undefined in some scenarios when viewport the user specifying don't match the viewport in the spec file
+  * Changed the result file names of TerraWDIOTestDetailsReporter form result-details to functional-test-details
+## 6.14.1 - (March 3, 2021)
+
+* Fixed
+  * Temporarily disable details reporter
+
+## 6.14.0 - (March 2, 2021)
+
+* Added
+  * Terra Wdio Test Details Reporter that logs wdio visualRegression test output to a json file.
+
+## 6.13.0 - (February 2, 2021)
+
+* Updated
+  * Updated wdio.conf to dynamically update `IP`, when VPN is connected.
+
+* Changed
+  * Updated browserslist-config-terra to @cerner/browserslist-config-terra
+
+* Fixed
+  * Fulfil missing peer dependencies.
+
 ## 6.12.0 - (November 3, 2020)
 
 * Fixed

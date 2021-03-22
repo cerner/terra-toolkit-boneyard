@@ -1,0 +1,105 @@
+{
+  "locale": "en",
+  "theme": "default-theme",
+  "formFactor": "huge",
+  "capabilities": {
+    "browserName": "chrome"
+  },
+  "specs": [
+    {
+      "title": "I18n Locale",
+      "spec": "/opt/module/tests/wdio/i18n-spec.js",
+      "tests": [
+        {
+          "title": "Express correctly sets the application locale",
+          "state": "passed",
+          "screenshots": [
+            "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_huge/i18n-spec/I18n_Locale[default].png"
+          ]
+        },
+        {
+          "title": "matches screenshot",
+          "state": "passed",
+          "screenshots": [
+            "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_huge/i18n-spec/I18n_Locale[default].png"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "[huge]",
+      "spec": "/opt/module/tests/wdio/validateElement-spec.js",
+      "tests": [],
+      "suites": [
+        {
+          "title": "validateElement",
+          "tests": [],
+          "suites": [
+            {
+              "title": "full implementation",
+              "tests": [
+                {
+                  "title": "checks element",
+                  "state": "passed",
+                  "screenshots": [
+                    "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_huge/validateElement-spec/full_implementation[default].png",
+                    "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_huge/validateElement-spec/inaccessible_contrast[default].png"
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "inaccessible contrast",
+              "tests": [
+                {
+                  "title": "checks element",
+                  "state": "passed",
+                  "screenshots": [
+                    "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_huge/validateElement-spec/full_implementation[default].png",
+                    "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_huge/validateElement-spec/inaccessible_contrast[default].png"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "hideInputCaret",
+      "spec": "/opt/module/tests/wdio/hideInputCaret-spec.js",
+      "tests": [
+        {
+          "title": "validates the body's caret-color is transparent by default",
+          "state": "passed",
+          "screenshots": []
+        },
+        {
+          "title": "validates the textarea's caret-color is inherited as transparent",
+          "state": "passed",
+          "screenshots": []
+        },
+        {
+          "title": "validates the input's caret-color is inherited as transparent",
+          "state": "passed",
+          "screenshots": []
+        },
+        {
+          "title": "sets the input's caret-color to orange",
+          "state": "passed",
+          "screenshots": []
+        },
+        {
+          "title": "sets the input's caret-color back to transparent",
+          "state": "passed",
+          "screenshots": []
+        },
+        {
+          "title": "throws an error for a non-existent element",
+          "state": "passed",
+          "screenshots": []
+        }
+      ]
+    }
+  ]
+}
