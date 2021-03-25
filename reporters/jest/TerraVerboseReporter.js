@@ -27,8 +27,8 @@ class TerraVerboseReporter extends VerboseReporter {
     this.ensureResultsDir();
 
     // Disable _out and _err so that we don't write out anything as part of this reporter
-    this._out = () => {};
-    this._err = () => {};
+    this._out = () => {}; // eslint-disable-line no-underscore-dangle
+    this._err = () => {}; // eslint-disable-line no-underscore-dangle
   }
 
   // eslint-disable-next-line class-methods-use-this
