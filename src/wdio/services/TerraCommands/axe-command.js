@@ -89,11 +89,15 @@ const axeCommand = (testOptions = {}) => {
   // get the current viewport
   const currentViewportSize = browser.getViewportSize();
 
+  console.log('DEBUG: [axeCommand] Running axe for each viewport.');
+
   // Get accessibility results for each specified viewport size
   const results = viewports.map((viewport) => {
     browser.setViewportSize(viewport);
     return runAxeTest(rules);
   });
+
+  console.log('DEBUG: [axeCommand] Resetting the viewport size.');
 
   // reset viewport back to the current viewport
   browser.setViewportSize(currentViewportSize);

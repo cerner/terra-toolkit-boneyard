@@ -64,12 +64,14 @@ export default class TerraService {
       },
     };
 
-    /* IE driver takes a longer to be ready for browser interactions. */
-    if (capabilities.browserName === 'internet explorer') {
-      global.browser.pause(10000);
-    }
+    console.log(`DEBUG: Pausing the browser in the before hook of the terra service.`);
 
-    /* Set the viewport size before the spec begins.  */
+    global.browser.pause(10000);
+
+    console.log(`DEBUG: Unpause - Resumed.`);
+
+    console.log(`DEBUG: Setting the viewport in the before hook of the terra service.`);
+    
     viewportHelpers.setViewport(global.browser.options.formFactor);
   }
 

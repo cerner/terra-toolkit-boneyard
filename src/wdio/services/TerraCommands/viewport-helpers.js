@@ -23,14 +23,20 @@ const getViewports = (...sizes) => {
 * @param {string} [formFactor=huge] - the Terra test viewport.
 */
 const setViewport = (formFactor) => {
+  console.log(`DEBUG: [setViewport] Setting the viewport: ${formFactor}`);
+
   if (formFactor) {
     const terraViewport = VIEWPORTS[formFactor];
     if (terraViewport !== undefined && typeof terraViewport === 'object') {
+      console.log('DEBUG: [setViewport] Setting the viewport size.');
+
       global.browser.setViewportSize(terraViewport);
     } else {
       throw Logger.error('The formFactor supplied is not a Terra-defined viewport size.', { context: '[Terra-Toolkit:terra-service]' });
     }
   } else {
+    console.log('DEBUG: [setViewport] Setting the viewport to the default huge form factor.');
+
     const defaultViewport = VIEWPORTS.huge;
     global.browser.setViewportSize(defaultViewport);
   }
@@ -59,10 +65,15 @@ const describeViewports = (title, viewports, fn) => {
   let currentViewportSize;
   localViewports.forEach(viewport => global.describe(`[${viewport}]`, () => {
     global.before(() => {
+      console.log('DEBUG: [describeViewports] Setting the viewport size.');
+
       currentViewportSize = global.browser.getViewportSize();
       setViewport(viewport);
     });
     global.describe(title, fn);
+
+    console.log('DEBUG: [describeViewports] Resetting the viewport size.');
+
     global.after(() => global.browser.setViewportSize(currentViewportSize));
   }));
 };
