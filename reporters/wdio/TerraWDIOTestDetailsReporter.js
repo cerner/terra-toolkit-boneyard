@@ -31,7 +31,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
     this.moduleName = '';
     this.setResultsDir.bind(this);
     this.hasResultsDir.bind(this);
-    this.writToFile.bind(this);
+    this.writeToFile.bind(this);
     this.setTestModule = this.setTestModule.bind(this);
     this.title = '';
     this.state = '';
@@ -131,7 +131,11 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
   testEnd(test) {
     const { specHash, parent } = test;
     const { specHashData, moduleName } = this;
-    if (moduleName && specHashData[moduleName][specHash] && specHashData[moduleName][specHash][parent]) {
+    if (
+      moduleName
+      && specHashData[moduleName][specHash]
+      && specHashData[moduleName][specHash][parent]
+    ) {
       const { tests } = specHashData[moduleName][specHash][parent];
       if (this.state !== 'fail') {
         tests.push({
@@ -171,7 +175,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    * @return null
    */
   runnerEnd(runner) {
-    const specData = this.moduleName ? this.specHashData[this.moduleName] : this.specHashData;
+    const specData = this.moduleName && this.specHashData[this.moduleName] ? this.specHashData[this.moduleName] : this.specHashData;
     Object.values(specData).forEach((spec) => {
       const revSpecs = Object.values(spec);
       revSpecs.forEach((test, i) => {
@@ -187,7 +191,6 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
           const parentIndex = revSpecs.findIndex(
             (item) => item.title === test.parent,
           );
-
           if (parentIndex > -1) {
             if (!revSpecs[parentIndex].suites) {
               revSpecs[parentIndex].suites = [];
@@ -206,7 +209,10 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
           `${this.fileName}.json`,
         );
         this.resultJsonObject.specs[this.moduleName] = revSpecs.shift();
-        this.writToFile(this.resultJsonObject.specs[this.moduleName], filePathLocation);
+        this.writeToFile(
+          this.resultJsonObject.specs[this.moduleName],
+          filePathLocation,
+        );
       } else {
         this.nonMonoRepoResult.push(revSpecs.shift());
       }
@@ -217,7 +223,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
         this.resultsDir,
         `${this.fileName}.json`,
       );
-      this.writToFile(this.resultJsonObject, filePathLocation);
+      this.writeToFile(this.resultJsonObject, filePathLocation);
     }
     this.screenshots = [];
     this.specHashData = {};
@@ -232,7 +238,9 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
     const index = specsValue.lastIndexOf('packages/');
     if (index > -1) {
       const testFilePath = specsValue.substring(index).split(path.sep);
-      const moduleName = testFilePath && testFilePath[1] ? testFilePath[1] : process.cwd().split(path.sep).pop();
+      const moduleName = testFilePath && testFilePath[1]
+        ? testFilePath[1]
+        : process.cwd().split(path.sep).pop();
       if (moduleName && moduleName !== this.moduleName) {
         this.moduleName = moduleName;
       }
@@ -276,7 +284,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    * @return null
    */
   fileNameCheck({ formFactor, locale, theme }, { browserName }, moduleName) {
-    const fileNameConf = ['result-details'];
+    const fileNameConf = ['functional-test-details'];
     if (moduleName) {
       fileNameConf.push(moduleName);
     }
@@ -310,13 +318,11 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    * @return null
    */
   // eslint-disable-next-line class-methods-use-this
-  writToFile(data, filePath) {
+  writeToFile(data, filePath) {
     try {
-      fs.writeFileSync(
-        filePath,
-        `${JSON.stringify(data, null, 2)}`,
-        { flag: 'w+' },
-      );
+      const json = `${JSON.stringify(data, null, 2)}`;
+      const options = { flag: 'w+' };
+      fs.writeFileSync(filePath, json, options);
     } catch (err) {
       Logger.error(err.message, { context: LOG_CONTEXT });
     }
