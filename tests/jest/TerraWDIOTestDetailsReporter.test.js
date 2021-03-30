@@ -247,6 +247,7 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
   describe('test:end', () => {
     it('test:end should reset the screenshots array ', () => {
       const reporter = new TerraWDIOTestDetailsReporter({}, {});
+      reporter.screenshots = ['/opt/module/tests/wdio/__snapshots__/latest/fr/chrome_huge/i18n-spec/I18n_Locale[default].png'];
       reporter.emit('test:end', { title: 'title of the it' });
       expect(reporter.screenshots.length).toEqual(0);
     });
