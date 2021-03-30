@@ -27,9 +27,9 @@ const TerraWDIOTestDetailsReporter = require('terra-toolkit/reporters/wdio/Terra
 
 ## Report Format
 
-- The name of the log file for non-monorepo will be **result-details-\<locale>-\<theme>-\<form-factor>-\<browser>-\<repo-name>.json**(eg: result-details-en-huge-chrome-terra-toolkit-boneyard.json)
+- The name of the log file for non-monorepo will be **functional-test-details-\<locale>-\<theme>-\<form-factor>-\<browser>-\<repo-name>.json**(eg: functional-test-details-en-huge-chrome-terra-toolkit-boneyard.json)
 
-- The name of the log file for mono-repo will be **result-details-\<Package-name>\<locale>-\<theme>-\<form-factor>-\<browser>.json**(eg: result-details-terra-clinical-data-grid-clinical-lowlight-theme-chrome)
+- The name of the log file for mono-repo will be **functional-test-details-\<Package-name>\<locale>-\<theme>-\<form-factor>-\<browser>.json**(eg: functional-test-details-terra-clinical-data-grid-clinical-lowlight-theme-chrome)
 
-- Example output [a relative link](details-reporter-sample-results.json)
-- Example output when error occurs [a relative link](details-reporter-sample-results-withError.json)
+- Example output [a relative link](functional-test-detailsReporter-sample-results.json)
+- Example output when error occurs [a relative link](functional-test-detailsReporter-sample-results-withError.json)
