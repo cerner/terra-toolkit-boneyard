@@ -248,7 +248,7 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
     it('test:end should reset the screenshots array ', () => {
       const reporter = new TerraWDIOTestDetailsReporter({}, {});
       reporter.emit('test:end', { title: 'title of the it' });
-      expect(reporter.screenshots.length).toBeGreaterThanOrEqual(0);
+      expect(reporter.screenshots.length).toEqual(0);
     });
   });
   describe('runner:end', () => {
