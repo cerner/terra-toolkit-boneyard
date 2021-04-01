@@ -244,6 +244,14 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
       expect(typeof reporter.specHashData[params.specHash][params.title].tests).toEqual('object');
     });
   });
+  describe('test:end', () => {
+    it('test:end should reset the screenshots array ', () => {
+      const reporter = new TerraWDIOTestDetailsReporter({}, {});
+      reporter.screenshots = ['/opt/module/tests/wdio/__snapshots__/latest/fr/chrome_huge/i18n-spec/I18n_Locale[default].png'];
+      reporter.emit('test:end', { title: 'title of the it' });
+      expect(reporter.screenshots.length).toEqual(0);
+    });
+  });
   describe('runner:end', () => {
     it('suite:start for mono repo', () => {
       const reporter = new TerraWDIOTestDetailsReporter({}, {});

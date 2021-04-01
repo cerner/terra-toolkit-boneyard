@@ -167,6 +167,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
         });
       }
     }
+    this.screenshots = [];
   }
 
   /**

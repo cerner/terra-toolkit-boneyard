@@ -13,9 +13,7 @@
         {
           "title": "Express correctly sets the application locale",
           "state": "passed",
-          "screenshots": [
-            "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_huge/i18n-spec/I18n_Locale[default].png"
-          ]
+          "screenshots": []
         },
         {
           "title": "matches screenshot",
@@ -42,9 +40,7 @@
                   "title": "checks element",
                   "state": "passed",
                   "screenshots": [
-                    "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_huge/validateElement-spec/full_implementation[default].png",
-                    "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_huge/validateElement-spec/inaccessible_contrast[default].png"
-                  ]
+                    "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_huge/validateElement-spec/full_implementation[default].png"                  ]
                 }
               ]
             },
@@ -55,7 +51,6 @@
                   "title": "checks element",
                   "state": "passed",
                   "screenshots": [
-                    "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_huge/validateElement-spec/full_implementation[default].png",
                     "/opt/module/tests/wdio/__snapshots__/latest/en/chrome_huge/validateElement-spec/inaccessible_contrast[default].png"
                   ]
                 }
