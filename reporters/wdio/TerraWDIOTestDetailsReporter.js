@@ -75,7 +75,8 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    * @param {Object} params
    */
   suitStart(params) {
-    const { specHash, title, parent } = params;
+    // console.log("params in suitStart :::::: ", JSON.stringify(params, null,2));
+    const { specHash, title, parent, fullTitle } = params;
     const { specHashData, moduleName } = this;
     if (moduleName) {
       if (!specHashData[moduleName]) {
@@ -97,7 +98,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
       }
       if (!specHashData[specHash][title]) {
         specHashData[specHash][title] = {
-          parent,
+          parent: fullTitle === title ? title : parent,
           title,
           tests: [],
         };
@@ -107,6 +108,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
 
   testStart(test) {
     this.title = test.title;
+    // console.log("test in testStart ------------- ", test);
   }
 
   testPass() {
@@ -129,6 +131,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    * @return null
    */
   testEnd(test) {
+    // console.log("test:::: ", JSON.stringify(test, null, 2));
     const { specHash, parent } = test;
     const { specHashData, moduleName } = this;
     if (
@@ -143,6 +146,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
           state: this.state,
           screenshots: this.screenshots,
         });
+        // console.log("tests :::: " , tests)
       } else {
         tests.push({
           title: this.title,
@@ -158,6 +162,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
           state: this.state,
           screenshots: this.screenshots,
         });
+        // console.log("specHashData[specHash][parent].tests :::: " , specHashData[specHash][parent].tests)
       } else {
         specHashData[specHash][parent].tests.push({
           title: this.title,
@@ -176,8 +181,12 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    */
   runnerEnd(runner) {
     const specData = this.moduleName && this.specHashData[this.moduleName] ? this.specHashData[this.moduleName] : this.specHashData;
+    console.log("specData :::: ", JSON.stringify(specData, null, 2));
     Object.values(specData).forEach((spec) => {
       const revSpecs = Object.values(spec);
+      console.log("runner :::: ", JSON.stringify(runner, null, 2));
+
+      //console.log("revSpecs :::: ", JSON.stringify(revSpecs, null, 2));
       revSpecs.forEach((test, i) => {
         if (test.parent === test.title) {
           const { title, parent, ...rest } = revSpecs[i];
@@ -208,13 +217,13 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
           this.resultsDir,
           `${this.fileName}.json`,
         );
-        this.resultJsonObject.specs[this.moduleName] = revSpecs.shift();
+        this.resultJsonObject.specs[this.moduleName] = revSpecs.filter(item => item.spec);
         this.writeToFile(
           this.resultJsonObject.specs[this.moduleName],
           filePathLocation,
         );
       } else {
-        this.nonMonoRepoResult.push(revSpecs.shift());
+        this.nonMonoRepoResult.push(...revSpecs.filter(item => item.spec));
       }
     });
     if (!this.moduleName) {
