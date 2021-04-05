@@ -75,7 +75,9 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    * @param {Object} params
    */
   suitStart(params) {
-    const { specHash, title, parent, fullTitle } = params;
+    const {
+      specHash, title, parent, fullTitle,
+    } = params;
     const { specHashData, moduleName } = this;
     if (moduleName) {
       if (!specHashData[moduleName]) {
@@ -84,9 +86,9 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
       if (!specHashData[moduleName][specHash]) {
         specHashData[moduleName][specHash] = {};
       }
-      if (!specHashData[moduleName][specHash][title]) {
-        specHashData[moduleName][specHash][title] = {
-          parent,
+      if (!specHashData[moduleName][specHash][fullTitle]) {
+        specHashData[moduleName][specHash][fullTitle] = {
+          parent: fullTitle === title ? title : parent,
           title,
           tests: [],
         };
@@ -129,19 +131,21 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    * @return null
    */
   testEnd(test) {
-    const { specHash, parent, fullTitle, title } = test;
+    const {
+      specHash, fullTitle, title,
+    } = test;
     const { specHashData, moduleName } = this;
-    const specParent =  fullTitle.replace(` ${title}`, '')
+    const specParent = fullTitle.replace(` ${title}`, '');
 
     const testInfo = {
       title: this.title,
       state: this.state,
-      screenshots: this.screenshots
-    }
+      screenshots: this.screenshots,
+    };
     if (this.state === 'fail') {
-      testInfo.error = this.error
+      testInfo.error = this.error;
     }
-  
+
     if (
       moduleName
       && specHashData[moduleName][specHash]
