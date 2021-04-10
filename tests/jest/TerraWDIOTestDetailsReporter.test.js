@@ -220,6 +220,13 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
         specHash: 'f75728c9953420794e669cae74b03d58',
         title: 'group2',
         parent: 'hideInputCaret',
+        cid: '1-0',
+        runner: {
+          "1-0": {
+            "browserName": "chrome",
+          }
+        },
+      
       };
       reporter.moduleName = 'terra-clinical';
       reporter.emit('suite:start', params);
@@ -235,6 +242,13 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
         specHash: 'f75728c9953420794e669cae74b03d58',
         title: 'group2',
         parent: 'hideInputCaret',
+        cid: '1-0',
+        runner: {
+          "1-0": {
+            "browserName": "chrome",
+          }
+        },
+      
       };
       reporter.emit('suite:start', params);
       expect(reporter.specHashData).not.toHaveProperty(reporter.moduleName);
@@ -302,11 +316,13 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
           hideInputCaret: {
             parent: 'hideInputCaret',
             title: 'hideInputCaret',
+            browser: 'chrome',
             tests: [],
           },
           group1: {
             parent: 'hideInputCaret',
             title: 'group1',
+            browser: 'chrome',
             tests: [
               {
                 title: "validates the textarea's caret-color is inherited as transparent",
@@ -323,6 +339,18 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
         cid: '0-2',
         specs: ['/opt/module/tests/wdio/hideInputCaret-spec.js'],
         specHash: 'f75728c9953420794e669cae74b03d58',
+      };
+      const params = {
+        specHash: 'f75728c9953420794e669cae74b03d58',
+        title: 'group2',
+        parent: 'hideInputCaret',
+        cid: '1-0',
+        runner: {
+          "0-2": {
+            "browserName": "chrome",
+          }
+        },
+      
       };
       reporter.emit('runner:end', runner);
       expect(reporter.resultJsonObject).toHaveProperty('specs');
