@@ -267,7 +267,7 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
     });
   });
   describe('runner:end', () => {
-    it('suite:start for mono repo', () => {
+    it('runner:end for mono repo', () => {
       const reporter = new TerraWDIOTestDetailsReporter({}, {});
       reporter.specHashData = {
         'terra-clinical-data-grid':
@@ -309,7 +309,7 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
       expect(reporter.resultJsonObject.specs[reporter.moduleName][0].tests.length).toBeGreaterThanOrEqual(1);
       expect(fs.writeFileSync).toHaveBeenCalled();
     });
-    it('suite:start for non mono repo', () => {
+    it('runner:end for non mono repo', () => {
       const reporter = new TerraWDIOTestDetailsReporter({}, {});
       reporter.specHashData = {
         f75728c9953420794e669cae74b03d58: {
@@ -317,7 +317,17 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
             parent: 'hideInputCaret',
             title: 'hideInputCaret',
             browser: 'chrome',
-            tests: [],
+            tests: [
+              {
+                title: 'Express correctly sets the application locale',
+                state: 'passed',
+              },
+              {
+                title: '[default] to be within the mismatch tolerance',
+                state: 'passed',
+                screenshotLink: '/opt/module/tests/wdio/__snapshots__/latest/fr/chrome_huge/i18n-spec/I18n_Locale[default].png',
+              },
+            ],
           },
           group1: {
             parent: 'hideInputCaret',
@@ -336,22 +346,11 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
       const runner = {
         event: 'runner:end',
         failures: 0,
-        cid: '0-2',
+        cid: '1-0',
         specs: ['/opt/module/tests/wdio/hideInputCaret-spec.js'],
         specHash: 'f75728c9953420794e669cae74b03d58',
       };
-      const params = {
-        specHash: 'f75728c9953420794e669cae74b03d58',
-        title: 'group2',
-        parent: 'hideInputCaret',
-        cid: '1-0',
-        runner: {
-          "0-2": {
-            "browserName": "chrome",
-          }
-        },
-      
-      };
+      reporter.resultJsonObject.capabilities.browserName = "chrome"
       reporter.emit('runner:end', runner);
       expect(reporter.resultJsonObject).toHaveProperty('specs');
       expect(typeof reporter.resultJsonObject).toEqual('object');
