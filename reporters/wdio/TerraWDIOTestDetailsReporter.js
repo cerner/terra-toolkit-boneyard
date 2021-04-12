@@ -56,7 +56,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
   }
 
   latestScreenshot(screenshotPath) {
-    this.screenshots.push(screenshotPath.screenshotPath);
+    if (!this.screenshots.includes(screenshotPath.screenshotPath)) this.screenshots.push(screenshotPath.screenshotPath);
   }
 
   runnerStart(runner) {
@@ -75,8 +75,11 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    * @param {Object} params
    */
   suitStart(params) {
-    const { specHash, title, parent } = params;
+    const {
+      specHash, title, parent, fullTitle, cid,
+    } = params;
     const { specHashData, moduleName } = this;
+    const browser = params.runner[cid].browserName;
     if (moduleName) {
       if (!specHashData[moduleName]) {
         specHashData[moduleName] = {};
@@ -84,10 +87,11 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
       if (!specHashData[moduleName][specHash]) {
         specHashData[moduleName][specHash] = {};
       }
-      if (!specHashData[moduleName][specHash][title]) {
-        specHashData[moduleName][specHash][title] = {
-          parent,
+      if (!specHashData[moduleName][specHash][fullTitle]) {
+        specHashData[moduleName][specHash][fullTitle] = {
+          parent: fullTitle === title ? title : parent,
           title,
+          browser,
           tests: [],
         };
       }
@@ -95,10 +99,11 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
       if (!specHashData[specHash]) {
         specHashData[specHash] = {};
       }
-      if (!specHashData[specHash][title]) {
-        specHashData[specHash][title] = {
-          parent,
+      if (!specHashData[specHash][fullTitle]) {
+        specHashData[specHash][fullTitle] = {
+          parent: fullTitle === title ? title : parent,
           title,
+          browser,
           tests: [],
         };
       }
@@ -129,43 +134,28 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    * @return null
    */
   testEnd(test) {
-    const { specHash, parent } = test;
+    const {
+      specHash, fullTitle, title,
+    } = test;
     const { specHashData, moduleName } = this;
+    const specParent = fullTitle.replace(` ${title}`, '');
+    const testInfo = {
+      title: this.title,
+      state: this.state,
+      screenshots: this.screenshots,
+    };
+    if (this.state === 'fail') {
+      testInfo.error = this.error;
+    }
     if (
       moduleName
       && specHashData[moduleName][specHash]
-      && specHashData[moduleName][specHash][parent]
+      && specHashData[moduleName][specHash][specParent]
     ) {
-      const { tests } = specHashData[moduleName][specHash][parent];
-      if (this.state !== 'fail') {
-        tests.push({
-          title: this.title,
-          state: this.state,
-          screenshots: this.screenshots,
-        });
-      } else {
-        tests.push({
-          title: this.title,
-          state: this.state,
-          screenshots: this.screenshots,
-          error: this.error,
-        });
-      }
-    } else if (specHashData[specHash] && specHashData[specHash][parent]) {
-      if (this.state !== 'fail') {
-        specHashData[specHash][parent].tests.push({
-          title: this.title,
-          state: this.state,
-          screenshots: this.screenshots,
-        });
-      } else {
-        specHashData[specHash][parent].tests.push({
-          title: this.title,
-          state: this.state,
-          screenshots: this.screenshots,
-          error: this.error,
-        });
-      }
+      const { tests } = specHashData[moduleName][specHash][specParent];
+      tests.push(testInfo);
+    } else if (specHashData[specHash] && specHashData[specHash][specParent]) {
+      specHashData[specHash][specParent].tests.push(testInfo);
     }
     this.screenshots = [];
   }
@@ -188,9 +178,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
           };
         }
         if (test.parent !== test.title) {
-          const parentIndex = revSpecs.findIndex(
-            (item) => item.title === test.parent,
-          );
+          const parentIndex = [...revSpecs].slice(0, i + 1).map(el => el.title).lastIndexOf(test.parent);
           if (parentIndex > -1) {
             if (!revSpecs[parentIndex].suites) {
               revSpecs[parentIndex].suites = [];
@@ -202,23 +190,33 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
         }
         // eslint-disable-next-line no-param-reassign
         delete test.parent;
+        // eslint-disable-next-line no-param-reassign
+        delete test.browser;
       });
+
       if (this.moduleName) {
         const filePathLocation = path.join(
           this.resultsDir,
           `${this.fileName}.json`,
         );
-        this.resultJsonObject.specs[this.moduleName] = revSpecs.shift();
+        if (this.resultJsonObject.specs[this.moduleName] && this.resultJsonObject.specs[this.moduleName].length) {
+          this.resultJsonObject.specs[this.moduleName] = this.resultJsonObject.specs[this.moduleName].concat(revSpecs.filter(item => item.spec));
+        } else {
+          this.resultJsonObject.specs[this.moduleName] = revSpecs.filter(item => item.spec);
+        }
         this.writeToFile(
           this.resultJsonObject.specs[this.moduleName],
           filePathLocation,
         );
       } else {
-        this.nonMonoRepoResult.push(revSpecs.shift());
+        this.nonMonoRepoResult.push(...revSpecs.filter(item => item.spec));
       }
     });
     if (!this.moduleName) {
-      this.resultJsonObject.specs = this.nonMonoRepoResult;
+      this.resultJsonObject.specs = this.nonMonoRepoResult.filter(item => item.browser === this.resultJsonObject.capabilities.browserName).map((elem) => {
+        const { browser, ...rest } = elem;
+        return { ...rest };
+      });
       const filePathLocation = path.join(
         this.resultsDir,
         `${this.fileName}.json`,

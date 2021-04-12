@@ -220,14 +220,21 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
         specHash: 'f75728c9953420794e669cae74b03d58',
         title: 'group2',
         parent: 'hideInputCaret',
+        cid: '1-0',
+        runner: {
+          '1-0': {
+            browserName: 'chrome',
+          },
+        },
+
       };
       reporter.moduleName = 'terra-clinical';
       reporter.emit('suite:start', params);
       expect(reporter.specHashData).toHaveProperty(reporter.moduleName);
-      expect(reporter.specHashData[reporter.moduleName][params.specHash][params.title]).toHaveProperty('parent');
-      expect(reporter.specHashData[reporter.moduleName][params.specHash][params.title]).toHaveProperty('title');
-      expect(reporter.specHashData[reporter.moduleName][params.specHash][params.title]).toHaveProperty('tests');
-      expect(typeof reporter.specHashData[reporter.moduleName][params.specHash][params.title].tests).toEqual('object');
+      expect(reporter.specHashData[reporter.moduleName][params.specHash][params.fullTitle]).toHaveProperty('parent');
+      expect(reporter.specHashData[reporter.moduleName][params.specHash][params.fullTitle]).toHaveProperty('title');
+      expect(reporter.specHashData[reporter.moduleName][params.specHash][params.fullTitle]).toHaveProperty('tests');
+      expect(typeof reporter.specHashData[reporter.moduleName][params.specHash][params.fullTitle].tests).toEqual('object');
     });
     it('suite:start for non mono repo', () => {
       const reporter = new TerraWDIOTestDetailsReporter({}, {});
@@ -235,25 +242,32 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
         specHash: 'f75728c9953420794e669cae74b03d58',
         title: 'group2',
         parent: 'hideInputCaret',
+        cid: '1-0',
+        runner: {
+          '1-0': {
+            browserName: 'chrome',
+          },
+        },
+
       };
       reporter.emit('suite:start', params);
       expect(reporter.specHashData).not.toHaveProperty(reporter.moduleName);
-      expect(reporter.specHashData[params.specHash][params.title]).toHaveProperty('parent');
-      expect(reporter.specHashData[params.specHash][params.title]).toHaveProperty('title');
-      expect(reporter.specHashData[params.specHash][params.title]).toHaveProperty('tests');
-      expect(typeof reporter.specHashData[params.specHash][params.title].tests).toEqual('object');
+      expect(reporter.specHashData[params.specHash][params.fullTitle]).toHaveProperty('parent');
+      expect(reporter.specHashData[params.specHash][params.fullTitle]).toHaveProperty('title');
+      expect(reporter.specHashData[params.specHash][params.fullTitle]).toHaveProperty('tests');
+      expect(typeof reporter.specHashData[params.specHash][params.fullTitle].tests).toEqual('object');
     });
   });
   describe('test:end', () => {
     it('test:end should reset the screenshots array ', () => {
       const reporter = new TerraWDIOTestDetailsReporter({}, {});
       reporter.screenshots = ['/opt/module/tests/wdio/__snapshots__/latest/fr/chrome_huge/i18n-spec/I18n_Locale[default].png'];
-      reporter.emit('test:end', { title: 'title of the it' });
+      reporter.emit('test:end', { title: 'title of the it', fullTitle: 'parent title of the it' });
       expect(reporter.screenshots.length).toEqual(0);
     });
   });
   describe('runner:end', () => {
-    it('suite:start for mono repo', () => {
+    it('runner:end for mono repo', () => {
       const reporter = new TerraWDIOTestDetailsReporter({}, {});
       reporter.specHashData = {
         'terra-clinical-data-grid':
@@ -292,21 +306,33 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
       reporter.emit('runner:end', runner);
       expect(reporter.resultJsonObject).toHaveProperty('specs');
       expect(typeof reporter.resultJsonObject).toEqual('object');
-      expect(reporter.resultJsonObject.specs[reporter.moduleName].tests.length).toBeGreaterThanOrEqual(1);
+      expect(reporter.resultJsonObject.specs[reporter.moduleName][0].tests.length).toBeGreaterThanOrEqual(1);
       expect(fs.writeFileSync).toHaveBeenCalled();
     });
-    it('suite:start for non mono repo', () => {
+    it('runner:end for non mono repo', () => {
       const reporter = new TerraWDIOTestDetailsReporter({}, {});
       reporter.specHashData = {
         f75728c9953420794e669cae74b03d58: {
           hideInputCaret: {
             parent: 'hideInputCaret',
             title: 'hideInputCaret',
-            tests: [],
+            browser: 'chrome',
+            tests: [
+              {
+                title: 'Express correctly sets the application locale',
+                state: 'passed',
+              },
+              {
+                title: '[default] to be within the mismatch tolerance',
+                state: 'passed',
+                screenshotLink: '/opt/module/tests/wdio/__snapshots__/latest/fr/chrome_huge/i18n-spec/I18n_Locale[default].png',
+              },
+            ],
           },
           group1: {
             parent: 'hideInputCaret',
             title: 'group1',
+            browser: 'chrome',
             tests: [
               {
                 title: "validates the textarea's caret-color is inherited as transparent",
@@ -320,10 +346,11 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
       const runner = {
         event: 'runner:end',
         failures: 0,
-        cid: '0-2',
+        cid: '1-0',
         specs: ['/opt/module/tests/wdio/hideInputCaret-spec.js'],
         specHash: 'f75728c9953420794e669cae74b03d58',
       };
+      reporter.resultJsonObject.capabilities.browserName = 'chrome';
       reporter.emit('runner:end', runner);
       expect(reporter.resultJsonObject).toHaveProperty('specs');
       expect(typeof reporter.resultJsonObject).toEqual('object');
