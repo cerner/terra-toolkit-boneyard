@@ -75,14 +75,11 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    * @param {Object} params
    */
   suitStart(params) {
-    // console.log("params in suit_Start :::::::::::: ", JSON.stringify(params, null,2))
-
     const {
-      specHash, title, parent, fullTitle, cid
+      specHash, title, parent, fullTitle, cid,
     } = params;
     const { specHashData, moduleName } = this;
     const browser = params.runner[cid].browserName;
-    // console.log("browser from params :::: ",browser)
     if (moduleName) {
       if (!specHashData[moduleName]) {
         specHashData[moduleName] = {};
@@ -169,13 +166,6 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
    */
   runnerEnd(runner) {
     const specData = this.moduleName && this.specHashData[this.moduleName] ? this.specHashData[this.moduleName] : this.specHashData;
-    const specDataFilePathLocation = path.join(
-      this.resultsDir,
-      `runner_end_specData.json`,
-    );
-    fs.appendFile(specDataFilePathLocation, JSON.stringify(specData, null,2), (err) => {
-      //console.log("err ", err);
-    })
     Object.values(specData).forEach((spec) => {
       const revSpecs = Object.values(spec);
       revSpecs.forEach((test, i) => {
@@ -200,15 +190,10 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
         }
         // eslint-disable-next-line no-param-reassign
         delete test.parent;
-        const revSpecsFilePathLocation1 = path.join(
-          this.resultsDir,
-          `runner_end_revSpecs.json`,
-        );
-        fs.appendFile(revSpecsFilePathLocation1, JSON.stringify(revSpecs, null,2), (err) => {
-          //console.log("err ", err);
-        })
+        // eslint-disable-next-line no-param-reassign
+        delete test.browser;
       });
-    
+
       if (this.moduleName) {
         const filePathLocation = path.join(
           this.resultsDir,
@@ -219,25 +204,19 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
         } else {
           this.resultJsonObject.specs[this.moduleName] = revSpecs.filter(item => item.spec);
         }
-        const revSpecsFilePathLocation = path.join(
-          this.resultsDir,
-          `runner_end_revSpecs.json`,
-        );
-        fs.appendFile(revSpecsFilePathLocation, JSON.stringify(revSpecs, null,2), (err) => {
-          //console.log("err ", err);
-        })
         this.writeToFile(
           this.resultJsonObject.specs[this.moduleName],
           filePathLocation,
         );
-      }
-      else {
-        this.nonMonoRepoResult.push(...revSpecs.filter(item =>  {
-          return item.spec }));
+      } else {
+        this.nonMonoRepoResult.push(...revSpecs.filter(item => item.spec));
       }
     });
     if (!this.moduleName) {
-      this.resultJsonObject.specs =this.nonMonoRepoResult.filter(item => item.browser === this.resultJsonObject.capabilities.browserName);
+      this.resultJsonObject.specs = this.nonMonoRepoResult.filter(item => item.browser === this.resultJsonObject.capabilities.browserName).map((elem) => {
+        const { browser, ...rest } = elem;
+        return { ...rest };
+      });
       const filePathLocation = path.join(
         this.resultsDir,
         `${this.fileName}.json`,
@@ -328,7 +307,6 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
     }
 
     this.fileName = fileNameConf.join('-');
-    // console.log("this.fileName in the function :::: ", this.fileName);
   }
 
   /**

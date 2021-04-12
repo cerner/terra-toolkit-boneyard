@@ -222,11 +222,11 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
         parent: 'hideInputCaret',
         cid: '1-0',
         runner: {
-          "1-0": {
-            "browserName": "chrome",
-          }
+          '1-0': {
+            browserName: 'chrome',
+          },
         },
-      
+
       };
       reporter.moduleName = 'terra-clinical';
       reporter.emit('suite:start', params);
@@ -244,11 +244,11 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
         parent: 'hideInputCaret',
         cid: '1-0',
         runner: {
-          "1-0": {
-            "browserName": "chrome",
-          }
+          '1-0': {
+            browserName: 'chrome',
+          },
         },
-      
+
       };
       reporter.emit('suite:start', params);
       expect(reporter.specHashData).not.toHaveProperty(reporter.moduleName);
@@ -350,7 +350,7 @@ describe.only('TerraWDIOTestDetailsReporter', () => {
         specs: ['/opt/module/tests/wdio/hideInputCaret-spec.js'],
         specHash: 'f75728c9953420794e669cae74b03d58',
       };
-      reporter.resultJsonObject.capabilities.browserName = "chrome"
+      reporter.resultJsonObject.capabilities.browserName = 'chrome';
       reporter.emit('runner:end', runner);
       expect(reporter.resultJsonObject).toHaveProperty('specs');
       expect(typeof reporter.resultJsonObject).toEqual('object');
