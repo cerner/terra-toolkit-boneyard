@@ -142,13 +142,11 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
     const {
       specHashData, moduleName, state, title: testTitle,
     } = this;
-    let { screenshots } = this;
-
     const specParent = fullTitle.replace(` ${title}`, '');
     const testInfo = {
       title: testTitle,
       state,
-      screenshots,
+      screenshots: this.screenshots,
     };
     if (state === 'fail') {
       testInfo.error = this.error;
@@ -163,7 +161,7 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
     } else if (specHashData[specHash] && specHashData[specHash][specParent]) {
       specHashData[specHash][specParent].tests.push(testInfo);
     }
-    screenshots = [];
+    this.screenshots = [];
   }
 
   /**
