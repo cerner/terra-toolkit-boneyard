@@ -56,7 +56,9 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
   }
 
   latestScreenshot(screenshotPath) {
-    if (!this.screenshots.includes(screenshotPath.screenshotPath)) this.screenshots.push(screenshotPath.screenshotPath);
+    if (!this.screenshots.includes(screenshotPath.screenshotPath)) {
+      this.screenshots.push(screenshotPath.screenshotPath);
+    }
   }
 
   runnerStart(runner) {
