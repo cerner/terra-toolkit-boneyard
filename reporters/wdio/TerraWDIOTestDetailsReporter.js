@@ -139,7 +139,9 @@ class TerraWDIOTestDetailsReporter extends events.EventEmitter {
     const {
       specHash, fullTitle, title,
     } = test;
-    const { specHashData, moduleName, state, title: testTitle } = this;
+    const {
+      specHashData, moduleName, state, title: testTitle,
+    } = this;
     let { screenshots } = this;
 
     const specParent = fullTitle.replace(` ${title}`, '');
