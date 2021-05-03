@@ -36,7 +36,7 @@ const setViewport = (formFactor) => {
       global.browser.setViewportSize(defaultViewport);
     }
   } else {
-    throw Logger.log('Browser Timeout', { context: '[Terra-Toolkit:terra-service]' });
+    throw Logger.log('Browser Timeout after 10000ms', { context: '[Terra-Toolkit:terra-service]' });
   }
 };
 
