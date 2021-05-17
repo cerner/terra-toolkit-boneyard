@@ -1,3 +1,3 @@
-const config = require('./test.config.func.js');
+const config = require('./test.config.func');
 
 module.exports = config();
