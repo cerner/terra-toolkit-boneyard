@@ -1,8 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 const wdioConf = require('./config/wdio/wdio.conf');
-const webpackConfigObject = require('./tests/test.config.js');
-const webpackConfigFunction = require('./tests/test.config.func.js');
+const webpackConfigObject = require('./tests/test.config');
+const webpackConfigFunction = require('./tests/test.config.func');
 
 const site = path.join('./build');
 const siteExists = fs.existsSync(site) && fs.lstatSync(site).isDirectory() && fs.readdirSync(site).length > 0;
