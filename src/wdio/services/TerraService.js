@@ -21,7 +21,7 @@ export default class TerraService {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  before(capabilities) {
+  before() {
     /* Add Terra's custom Wdio command for a11y testing. */
     global.browser.addCommand('axe', axeCommand);
 
@@ -64,10 +64,7 @@ export default class TerraService {
       },
     };
 
-    /* IE driver takes a longer to be ready for browser interactions. */
-    if (capabilities.browserName === 'internet explorer') {
-      global.browser.pause(10000);
-    }
+    global.browser.pause(10000);
 
     /* Set the viewport size before the spec begins.  */
     viewportHelpers.setViewport(global.browser.options.formFactor);

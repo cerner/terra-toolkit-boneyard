@@ -23,16 +23,20 @@ const getViewports = (...sizes) => {
 * @param {string} [formFactor=huge] - the Terra test viewport.
 */
 const setViewport = (formFactor) => {
-  if (formFactor) {
-    const terraViewport = VIEWPORTS[formFactor];
-    if (terraViewport !== undefined && typeof terraViewport === 'object') {
-      global.browser.setViewportSize(terraViewport);
+  if (global.browser.setViewportSize) {
+    if (formFactor) {
+      const terraViewport = VIEWPORTS[formFactor];
+      if (terraViewport !== undefined && typeof terraViewport === 'object') {
+        global.browser.setViewportSize(terraViewport);
+      } else {
+        throw Logger.error('The formFactor supplied is not a Terra-defined viewport size.', { context: '[Terra-Toolkit:terra-service]' });
+      }
     } else {
-      throw Logger.error('The formFactor supplied is not a Terra-defined viewport size.', { context: '[Terra-Toolkit:terra-service]' });
+      const defaultViewport = VIEWPORTS.huge;
+      global.browser.setViewportSize(defaultViewport);
     }
   } else {
-    const defaultViewport = VIEWPORTS.huge;
-    global.browser.setViewportSize(defaultViewport);
+    throw Logger.log('Browser Timeout after 10000ms', { context: '[Terra-Toolkit:terra-service]' });
   }
 };
 

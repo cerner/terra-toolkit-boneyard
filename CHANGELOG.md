@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+* Changed
+  * Updated `global.browser` to pause for all browsers.
+
 ## 6.15.0 - (April 23, 2021)
 
 * Fixed
